@@ -1,0 +1,155 @@
+Crime Analytics: Visualization of Crime Incident Reports for Summar 2014 in San Francisco and Seattle 
+=====================================================================================================
+
+* In this assignment, some *expoloratory analysis* is done on the **criminal incident data** from **Seattle** and 
+   **San Francisco** to visualize patterns and contrast and compare patterns across the two 
+   cities.
+   
+* **Data** used: The real crime dataset from **Summer (June-Aug) 2014** for both of two US cities *Seattle* and 
+   *San Francisco* has been used for the analysis. These reduced datasets are available on the github repository:
+   https://github.com/uwescience/datasci_course_materials/tree/master/assignment6.
+   
+*  All of the analysis / visualization is done using R and with the library graphic grammar plot and should be easily 
+   reproducible. Almost all of the relevant code is embedded in the html, rest can be found from the *Rmd* file uploaded in    the same github repository.
+   
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+setwd('C:/courses/Coursera/Current/Communicating Data Science Results/Week1')
+df <- read.csv('sanfrancisco_incidents_summer_2014.csv')
+df$Month <- as.integer(substring(df$Date, 1, 2))
+df$Day <- as.integer(substring(df$Date, 4, 5))
+df$Year <- as.integer(substring(df$Date, 7, 10))
+df$Hr <- as.integer(substring(df$Time, 1, 2))
+df$Min <- as.integer(substring(df$Time, 4, 5))
+df <- df[c('Category', 'DayOfWeek', 'Month', 'Day', 'Hr', 'PdDistrict', 'Resolution')]
+df2 <- read.csv('seattle_incidents_summer_2014.csv')
+df2$Day <- as.integer(substring(df2$Occurred.Date.or.Date.Range.Start, 4, 5))
+df2$Hr <- as.integer(substring(df2$Occurred.Date.or.Date.Range.Start, 12, 13)) + ifelse(substring(df2$Occurred.Date.or.Date.Range.Start, 21, 22) == 'PM', 12, 0)
+df2$Hr <- ifelse(df2$Hr %% 12 == 0, df2$Hr - 12,  df2$Hr)
+df2 <- df2[c('Offense.Type', 'Summarized.Offense.Description', 'Day', 'Month', 'Hr', 'District.Sector', 'Longitude', 'Latitude')]
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+# Multiple plot function
+#
+# ggplot objects can be passed in ..., or to plotlist (as a list of ggplot objects)
+# - cols:   Number of columns in layout
+# - layout: A matrix specifying the layout. If present, 'cols' is ignored.
+#
+# If the layout is something like matrix(c(1,2,3,3), nrow=2, byrow=TRUE),
+# then plot 1 will go in the upper left, 2 will go in the upper right, and
+# 3 will go all the way across the bottom.
+#
+multiplot <- function(..., plotlist=NULL, file, cols=1, layout=NULL) {
+  library(grid)
+
+  # Make a list from the ... arguments and plotlist
+  plots <- c(list(...), plotlist)
+
+  numPlots = length(plots)
+
+  # If layout is NULL, then use 'cols' to determine layout
+  if (is.null(layout)) {
+    # Make the panel
+    # ncol: Number of columns of plots
+    # nrow: Number of rows needed, calculated from # of cols
+    layout <- matrix(seq(1, cols * ceiling(numPlots/cols)),
+                    ncol = cols, nrow = ceiling(numPlots/cols))
+  }
+
+ if (numPlots==1) {
+    print(plots[[1]])
+
+  } else {
+    # Set up the page
+    grid.newpage()
+    pushViewport(viewport(layout = grid.layout(nrow(layout), ncol(layout))))
+
+    # Make each plot, in the correct location
+    for (i in 1:numPlots) {
+      # Get the i,j matrix positions of the regions that contain this subplot
+      matchidx <- as.data.frame(which(layout == i, arr.ind = TRUE))
+
+      print(plots[[i]], vp = viewport(layout.pos.row = matchidx$row,
+                                      layout.pos.col = matchidx$col))
+    }
+  }
+}
+#palette(rainbow(12))
+```
+
+* First we observe from the following visualization that the crime of category LARCENY/THEFT is the most common in San Francisco, whereas CAR PROWL is most common crime in the University District of Seattle, during the Summer Months.
+```{r fig.width=20, fig.height=10, message=FALSE, warning=FALSE}
+library(ggplot2)
+library(dplyr)
+p1 <- ggplot(df, aes(x=reorder(Category, Category, function(x)-length(x)))) + geom_bar() +
+    xlab('Crimes during Summer Months in San Francisco') +
+    ylab('Number of incidents') +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1), legend.position="none", text = element_text(size = 20)) 
+p2 <- ggplot(df2, aes(x=reorder(Summarized.Offense.Description, Summarized.Offense.Description, function(x)-length(x)))) +     geom_bar() +
+    xlab('Crimes during Summer Months in the University District of Seattle') +
+    ylab('Number of incidents') +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1), legend.position="none", text = element_text(size = 20)) 
+multiplot(p1, p2, cols=2)
+```
+
+### Analysis to find how the number of the crime incidents change over time in a day (below are the **key findings** in **bold** text)
+
+* We see from the following visualization that **the violent crimes such as LARCENY/THEFT, ROBBERY, WEAPON LAWS increase at night (and in the early morning), whereas Crimes such as FRAUD, KIDNAPPING are quite common in the day time too, during Summer Months in San Francisco** (as can be seen from the following figure). Notice that the Hour (in the X-axis) is represented in 24-hr format, so that 0-5 represents the hours from 12 AM - 5 AM in the morning, whereas 15-20 represents the hours from 3 PM - 8 PM at night. The Y-axis represents the total number of incidents happened, so that we have a *time series* of numbers of incidents for a few crime incidents we focus on.
+```{r fig.width=15, fig.height=10, message=FALSE, warning=FALSE}
+df1 <- df %>% filter(Category %in% c('LARCENY/THEFT', 'ROBBERY', 'WEAPON LAWS', 'FRAUD', 'KIDNAPPING'))
+ggplot(df1, aes(Hr)) + geom_bar() +
+    #scale_x_continuous(breaks=seq(0, 24, 2)) +
+    facet_wrap(~Category, scale='free') +
+    xlab('Hour [0-24)') +
+    ylab('Number of incidents') +
+    ggtitle('Crimes during Summer Months in San Francisco') +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1), legend.position="none", 
+          text = element_text(size = 20)) 
+```
+
+* Similarly, we can observe from the following visualization that **the crimes such as CAR PROWL, BIKE THEFT increase at night, whereas the crimes such as FRAUD, SHOPLIFTING, STOLEN PROPERTY are quite common in the day time too, during Summer Months in the University District of Seattle**.
+```{r fig.width=15, fig.height=10, message=FALSE, warning=FALSE}
+df1 <- df2 %>% filter(Summarized.Offense.Description %in% c('CAR PROWL', 'BIKE THEFT', 'SHOPLIFTING', 'FRAUD', 'STOLEN PROPERTY'))
+ggplot(df1, aes(Hr)) + geom_bar() +
+    #scale_x_continuous(breaks=seq(0, 24, 5)) +
+    facet_wrap(~Summarized.Offense.Description, scale='free') +
+    xlab('Hour [0-24)') +
+    ylab('Number of incidents') +
+    ggtitle('Crimes during Summer Months in the University District of Seattle') +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1), legend.position="none", 
+          text = element_text(size = 20)) 
+```
+
+* As can be seen from the below figures, **the median hour when LARCENY/THEFT incidents happened was 4 PM in San Francisco** whereas the **median hour when BIKE THEFT incidents happened was 5 PM in the University District of Seattle**,  during the Summer Months. **The median hour when BURGLARY incidents happened was around 6 AM in San Francisco and was 2 PM in the University District of Seattle**, during the Summer Months.
+```{r fig.width=25, fig.height=15, message=FALSE, warning=FALSE}
+p1 <- ggplot(df, aes(Category, Hr)) + geom_boxplot() +
+    xlab('Crimes during Summer Months in San Francisco') +
+    ylab('Hour [0-24)') +
+    scale_y_continuous(breaks=seq(0, 24, 2)) +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1), legend.position="none", text = element_text(size = 20)) 
+p2 <- ggplot(df2, aes(Summarized.Offense.Description, Hr)) + geom_boxplot() +
+    xlab('Crimes during Summer Months in the University District of Seattle') +
+    ylab('Hour [0-24)') +
+    scale_y_continuous(breaks=seq(0, 24, 2)) +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1), legend.position="none", text = element_text(size = 20)) 
+multiplot(p1, p2, cols=2)
+```
+
+* Also, as can be seen from the below figures, **the overall hourly crime incidents pattern for both the cities looks kind of similar. Both of the cities have the least number of crimes incidents happended in between 4 AM - 6 AM in the morning during summer months. The maximum number of crime incidents happened in San Francisco in between 4 PM - 6 PM in the evening whereas the most crime-prone hours for the University District of Seattle was 6 PM - 8 PM at night**.
+```{r fig.width=20, fig.height=10, message=FALSE, warning=FALSE}
+df1 <- df %>% group_by(Hr) %>% summarise(numIncidents=n())
+p1 <- ggplot(df1, aes(x=Hr, y=numIncidents)) + geom_point() + stat_smooth() +
+   scale_x_continuous(breaks=seq(0, 24, 2)) +
+  xlab('Hour [0-24)') +
+   ylab('Number of hourly incidents') +
+   ggtitle('Crimes during Summer Months in San Francisco') +
+   theme(axis.text.x = element_text(angle = 90, hjust = 1), legend.position="none", text = element_text(size = 20)) 
+df1 <- df2 %>% group_by(Hr) %>% summarise(numIncidents=n())
+p2 <- ggplot(df1, aes(x=Hr, y=numIncidents)) + geom_point() + stat_smooth() +
+   scale_x_continuous(breaks=seq(0, 24, 2)) +
+   xlab('Hour [0-24)') +
+   ylab('Number of hourly incidents') +
+   ggtitle('Crimes during Summer in the University District of Seattle') +
+   theme(axis.text.x = element_text(angle = 90, hjust = 1), legend.position="none", text = element_text(size = 20))
+multiplot(p1, p2, cols=2)
+```
