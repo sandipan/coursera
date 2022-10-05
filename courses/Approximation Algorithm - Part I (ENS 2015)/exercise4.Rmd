@@ -1,0 +1,122 @@
+Exercise 5
+----------
+
+* Consider the following version of **Wald's equation**: 
+
+  Given a random sequence \(n_0,n_1,\ldots,n_T\), where \(T\) is a **stopping time** and \(n_i \geq \frac{1}{2}\) for \(i\leq T\). If \(E[n_t-n_{t+1}|n_t]\geq f(n_t),\; \forall{t}\), where \(f(.)\) is an *increasing* and *differentiable* function, then \(E[T] \leq \frac{1}{2f(\frac{1}{2})}+E[\int_{n_{T-1}}^{n_0} \frac{1}{f(z)} dz]\).
+
+* Let's say you go to a casino with \(n_0=\$x\) and you start with play the following game. In every round \(t\) you bet all your money \(n_t\) you have at that round.
+
+* With probability \(\frac{1}{2}\) you have \(n_{t+1}=\frac{9}{8}.n_t\). 
+* With probability \(\frac{1}{4}\) nothing happens \(n_{t+1}=n_t\) and 
+* with probability \(\frac{1}{4}\) your lose \(\frac{1}{2}\) of your money: \(n_{t+1}=\frac{n_t}{2}\). 
+
+* You leave when you have less than \(\$1\).
+
+* Assume that money is *arbitrarily divisible*, so you can have for example \(\$0.00002\\).
+
+* We are interested in how long it takes until you leave the casino. Execute the following steps:
+
+1. Give a definition for \(n_t\) for \(t\in \aleph\).
+
+  \(n_t\) is the money left (I have with me) at round \(t\).
+  
+  We have, \(n_0=\$x\), \(n_T<1\) by condition, also, \(n_{T-1}>=1\). 
+  
+  Obviously, \(n_i \geq 1>\frac{1}{2}, \; \forall{i} \leq T-1\).
+  
+  Also, by condition, \(n_T \geq \frac{n_{T-1}}{2} \geq 1 \Rightarrow n_T \geq \frac{1}{2}\).
+  
+  Combining, we have \(n_i\geq\frac{1}{2}, \; \forall{i} \leq T\), satisfying the condition of **Wald's equation**. 
+
+2. Calculate \(E[n_t-n_{t+1}|n_t]\).
+
+  As given, I shall have \((n_t-n_{t+1})\)
+  
+  \(= -\frac{1}{8}n_t\) with probability \(\frac{1}{2}\).
+  
+  \(= 0\) with probability \(\frac{1}{4}\).
+  
+  \(= \frac{1}{2}n_t\) with probability \(\frac{1}{4}\).
+  
+  Hence, \(E[n_t-n_{t+1}|n_t] = \frac{1}{2}.(-\frac{1}{8}n_t) + \frac{1}{4}.0 + \frac{1}{4}.(\frac{1}{2}n_t)=\frac{1}{16}n_t\).
+
+3. Calculate \(f(n_t)\).
+
+  \(f(n_t)=\frac{n_t}{16}\), where \(f(.)\) is an *increasing* and *differentiable* function, with \(f^{\prime}(n_t)=\frac{1}{16}\), a constant, 
+  again satisfying the condition of **Wald's equation**..
+
+4. Bound \(E[T]\) using *Wald's equation*.
+
+  \(E[T] \leq \frac{1}{2f(\frac{1}{2})}+E[\int_{n_{T-1}}^{n_0}\frac{1}{f(z)}dz]=16+E[\int_{n_{T-1}}^{n_0}\frac{16}{z}dz]
+  =16+16E[ln(n_0)-ln(n_{T-1})]=16+16ln(\frac{n_0}{n_{T-1}}) \leq 16 + 16ln(x/1)\) (Since \(n_{T-1}>=1\) otherwise I shall leave at \(T-1\)).
+  
+  Hence, \(E[T] \leq 16(1+lnx)\).
+
+* You ask ten of your friends to give you one dollar (coin) each so that you can buy your favourite pizza. When you reach the pizza place you 
+  realize that it's closed. So you return the coins to your friends by giving each of them a random coin.
+
+* Define the random variables you use.
+
++ Let's number the coins (w.l.o.g.) s.t. the coin that the \(i^{th}\) friend has **initially** as \(i\), \(\forall{i} \in \{1,2,\ldots, 10\}\).
++ Let \(X_i\) denote the **random variable** representing the coin that the \(i^{th}\) friend gets back. 
++ Obviously, for the \(i^{th}\) friend, \(X_i \in \{1, 2, \ldots, 10\}\) (since he can get back any of the \(10\) coins), with 
+ \(P(X_i=j)=\frac{1}{10},\;j \in \{1, 2, \ldots, 10\}\) (all the events are equally likely).
++ The \(i^{th}\) friend gets back his **own** coin \(\Leftrightarrow X_{i}=i\).
++ Let's define the **indicator** random variable \(1(X_i)\) to be the variable denoting whether the \(i^{th}\) friend gets back his coin or not.
+  
+  \(
+  \begin{align*}
+  1(X_i) &= 1, \; \mbox{  if}\;\; X_i = i \\
+         &=0,  \; \mbox{  otherwise}
+  \end{align*}
+  \)
+
+* How likely is that each of them gets the coin they put back?
+
++ The **probability** that each of them gets the coin they put back = 
+
+  \(
+    \begin{align*}
+    &P(\cap_{i=1}^{10} 1(X_i)=1)\\
+    &=P(1(X_1)=1).P(1(X_2)=1|1(X_1)=1).P(1(X_3)=1|1(X_1)=1\wedge 1(X_2)=1)\ldots P(1(X_{10})=1|1(X_1)=1\wedge 1(X_2)=1 \wedge \ldots 1(X_9)=1)\\
+    &=\frac{1}{10}.\frac{1}{9}.\frac{1}{8} \ldots \frac{1}{1} \\
+    &=\frac{1}{10!}
+    \end{align*}
+  \) 
+  
+* How many of them will get in expectation the coin they put back? (Try to prove this elegantly using techniques discussed in the course)
+
++ The **expected number of friends** getting their coins back = 
+
+  \(
+    \begin{align*}
+    &E[\sum_{i=1}^{10} 1(X_i)] \\
+    &=\sum_{i=1}^{10} E[1(X_i)] \mbox{    (by linearity of expectation)} \\
+    &=\sum_{i=1}^{10} P(X_i=i) \\
+    &=\sum_{i=1}^{10} \frac{1}{10} \mbox{     (all the 10 values are equally likely)} \\ 
+    &=1
+    \end{align*}
+  \)
+  
+* Now suppose that you take one coin to buy a coffee somewhere else. You redistribute the others dollar coins giving each of your friends one 
+  coin chosen uniformly at random. How many of your friends will get in expectation the coin they put back?
+  
++ Let's w.l.o.g. assume that I have taken the \(10^{th}\) coin to buy a coffee. 
++ Obviously, for the \(i^{th}\) friend (where \(1 \leq i \geq 9\)), \(X_i \in \{1, 2, \ldots, 9\}\) (since he can get back any of the remaining 
+  \(9\) coins), with \(P(X_i=j)=\frac{1}{9},\;j \in \{1, 2, \ldots, 9\}\) (all the events are equally likely).
++ For the \(10^{th}\) friend, he can never get back his **own** coin, hence, \(P(X_{10}=10)=0\).
++ Hence, now the **expected number of friends** getting their coins back = 
+
+  \(
+    \begin{align*}
+    &E[\sum_{i=1}^{10} 1(X_i)] \\
+    &=\sum_{i=1}^{10} E[1(X_i)] \mbox{    (by linearity of expectation)} \\
+    &=\sum_{i=1}^{10} P(X_i=i) \\
+    &=\sum_{i=1}^{9} P(X_i=i) + P(X_{10}=10) \\
+    &=\sum_{i=1}^{9} \frac{1}{9} + 0 \\ 
+    &=1
+    \end{align*}
+  \)
+  which remains same as earlier.
+  

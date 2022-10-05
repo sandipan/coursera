@@ -1,0 +1,46 @@
+Answers:
+
+1.  $$f(\mathit{S_1})=\sum_{S \in \mathit{S_1}:e \in E(S)} w_e^{+} + \sum_{S \in \mathit{S_1}:e \in E-\cup E(S)} w_e^{-}$$
+                  = $$0+ \sum_{S \in \mathit{S_1}:e \in E-\cup E(S)} w_e^{-}$$ (since $$\sum_{S \in \mathit{S_1}:e \in E(S)} w_e^{+}=0$$, no edge has both endpoints in any partition $$S$$ in $$\mathit{S_1}$$)
+                  = $$\sum_{e \in E} w_e^{-}$$ (since $$\forall{S} \in \mathit{S_1},\; E(S)=\phi \Rightarrow E-\cup{E(S)} = E$$)
+
+     $$f(\mathit{S_2})=\sum_{S \in \mathit{S_2}:e \in E(S)} w_e^{+} + \sum_{S \in \mathit{S_2}:e \in E-\cup E(S)} w_e^{-}$$
+                  = $$\sum_{S \in \mathit{S_2}:e \in E(S)} w_e^{+} + 0$$ (since all the edges have their both endpoints in the only partition $$S$$ of $$\mathit{S_2}$$)
+                  = $$\sum_{e \in E} w_e^{+}$$
+
+2.  $$max(f(\mathit{S_1}), f(\mathit{S_2})) \geq \frac{f(\mathit{S_1})+f(\mathit{S_2})}{2}$$ (since maximum of 2 values is at least their average)
+                  = $$\frac{1}{2}(\sum_{e \in E} w_e^{-}+\sum_{e \in E} w_e^{+})$$
+                  = $$\frac{1}{2}\sum_{e \in E} (w_e^{-} + w_e^{+})$$ 
+                  $$\geq \frac{1}{2} OPT$$  (since OPT can't be greater than sum of all weights).
+     
+   Since the algorithm 1 outputs $$max(f(\mathit{S_1}), f(\mathit{S_2}))$$, it's a 2-approximation algorithm. (QED)
+
+
+3. The objective function for the program given is $$max \sum_{\{i,j\} \in E} (w_{\{i,j\}}^{+}x_i.x_j+w_{\{i,j\}}^{-}(1-x_i.x_j) )$$.
+
+First let's note that $$x_i, x_j \in \{e_1, e_2, \ldots, e_n\}\; ($$ where $$e_k \in R^n,\; \forall{k},\; e_1=(1,0,0,\ldots, 0)$$, $$e_2=(0,1,0,\ldots, 0)$$ and so on, since given they belong to canonical basis of $$R^n) \Rightarrow x_i.x_j$$ can be either of 0 (when they are assigned to different clusters $$k, l$$, s.t., $$k^{th}$$ dimension of $$e_k=1$$ and $$l^{th}$$ dimension of $$e_l=1$$, with $$k \neq l \Rightarrow <x_i,x_j>=0$$) or 1 (when they are assigned to same cluster $$k$$). 
+
+Now, Two vertices $$i,j$$ are similar $$\Leftrightarrow w_{\{i,j\}}^{+}$$ will have high value and $$w_{\{i,j\}}^{-}$$ will have low value. The objective being a maximization function, the solver will try to increase the product term $$x_i.x_j$$ corresponding to $$w_{\{i,j\}}^{+}$$ as much as possible. This will assign the highest possible value 1 to $$<x_i,x_j> \Leftrightarrow (x_i, x_j)$$ will be the same basis vector $$e_k$$ and will be assigned to the same cluster.
+
+Also, Two vertices $$i,j$$ are dissimilar $$\Leftrightarrow w_{\{i,j\}}^{+}$$ will have low value and $$w_{\{i,j\}}^{-}$$ will have high value. The objective being a maximization function, the solver will try to increase the product term $$(1-x_i.x_j)$$ corresponding to $$w_{\{i,j\}}^{-}$$, i.e, it will decrease  $$x_i.x_j$$ as much as possible. This will assign the lowest possible value 0 to $$<x_i,x_j> \Leftrightarrow (x_i, x_j)$$ will be different basis vectors and will be assigned to different clusters.
+
+The above argument shows that the program is a formulation of correlation clustering problem (since it will try to create partitions by maximizing the similarity in between intra-cluster points and dissimilarity in between the inter-cluster points).
+
+
+4.  By similar argument from the lecture, the probability that the random hyperplane $$R_1$$ separates $$v_i$$ from $$v_j$$ is $$P(R_1)=\frac{\theta_{\{i,j\}}}{\pi}$$. 
+$$\Rightarrow$$ The probability that the random hyperplane $$R_1$$ can't separate $$v_i$$ from $$v_j$$ is $$P(R_1^c)=1-\frac{\theta_{\{i,j\}}}{\pi}$$. 
+Similarly, the probability that the random hyperplane $$R_2$$ can't separate $$v_i$$ from $$v_j$$ is $$P(R_2^c)=1-\frac{\theta_{\{i,j\}}}{\pi}$$. 
+Hence, $$Prob(X_{\{i,j\}}=1)$$ = Probability that $$v_i, v_j$$ are on the same side of $$R_1$$ or $$R_2$$ = .the probability that none of the the random hyperplanes $$R_1$$ and $$R_2$$ can separate $$v_i$$ from $$v_j$$ is $$P(R_1^c \cap R_2^c) = P(R_1^c).P(R_2^c)=\left(1-\frac{\theta_{\{i,j\}}}{\pi}\right)^2$$ (by indepdence).
+
+5. $$E[f(R)] = E[\sum_{\{i,j\} \in E} (w_{\{i,j\}}^{+}X_{\{i,j\}}+w_{\{i,j\}}^{-}(1-X_{\{i,j\}}))]$$
+               $$= \sum_{\{i,j\} \in E} w_{\{i,j\}}^{+}E[X_{\{i,j\}}] +w_{\{i,j\}}^{-}(1-E[X_{\{i,j\}}])$$            (by linearity of expectation)
+               $$= \sum_{\{i,j\} \in E} (w_{\{i,j\}}^{+}P(X_{\{i,j\}}=1) + w_{\{i,j\}}^{-}(1-P(X_{\{i,j\}}=1)))$$   (since $$X_{\{i,j\}}$$ is a binary variable)
+               $$= \sum_{\{i,j\} \in E} (w_{\{i,j\}}^{+}(1-\frac{\theta_{i,j}}{\pi})^2 + w_{\{i,j\}}^{-}(1-(1-\frac{\theta_{\{i,j\}}}{\pi})^2))$$
+               $$= \sum_{\{i,j\} \in E} (w_{\{i,j\}}^{+}g(\theta_{\{i,j\}}) + w_{\{i,j\}}^{-}(1-g(\theta_{\{i,j\}}))$$ (where $$g(\theta)=(1-\frac{\theta}{\pi})^2$$)
+               $$\geq \sum_{\{i,j\} \in E} (w_{\{i,j\}}^{+}\frac{3}{4}cos(\theta_{\{i,j\}}) + w_{\{i,j\}}^{-}\frac{3}{4}(1-cos(\theta_{\{i,j\}}) )$$ (by the lemma)
+               $$=\frac{3}{4}\sum_{\{i,j\} \in E} (w_{\{i,j\}}^{+}cos(\theta_{\{i,j\}})+w_{\{i,j\}}^{-}(1-cos(\theta_{\{i,j\}}) )$$ 
+               $$=\frac{3}{4}\sum_{\{i,j\} \in E} (w_{\{i,j\}}^{+}v_i.v_j+w_{\{i,j\}}^{-}(1-v_i.v_j) )$$   (since $$v_i.v_j=|v_i|.|v_j|cos(\theta_{\{i,j\}})$$ and $$|v_i|=|v_j|=1$$)
+               $$=\frac{3}{4}Z \geq \frac{3}{4} OPT$$ (by property of quadratic relaxation and SDP)
+
+Hence, $$E[f(R)] \geq \frac{3}{4} OPT$$. (QED)
+               

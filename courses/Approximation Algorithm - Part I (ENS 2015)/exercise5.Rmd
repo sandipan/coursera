@@ -1,0 +1,170 @@
+Exercise 5 Solutions
+========================================================
+
+![Device File Format](C:/courses/Coursera/Current/Approx Algo/Week5/algo.png)
+    
+### Approximation ratio.
+
+* We define \(P_0,\ldots,P_{k-1}\) to be the partitions of the vertices defined by the set \(P\) at the different stage of the algorithm. 
+  \(P_0=V\) and for any \(i>0\), \(P_i\) is the partition of the vertices defined by \(P\) at the \(i^{th}\) iteration of the while loop.
+
+* We denote by \(w(P_i)\) the sum of the weights of the edges that connects vertices lying in different parts of the partition induced by 
+  \(P_i\).
+
+* Moreover, for any partition \(\Gamma\) of the vertices of \(G\), we say that the partition is *valid* if each part of the partition contains 
+  at least one terminal.
+
+* For any part \(\Gamma_j \in \Gamma\), we define \(w(\Gamma_j)\) as the sum of the weights of the edges having exactly one endpoint in 
+ \(\Gamma_j\).
+
+* We aim at showing the following Lemma:
+
+* Lemma 1. For any \( i \leq k \), for any partition \(\Gamma=\{\Gamma_1,\ldots,\Gamma_i\}\) with \(i\) parts, \(w(P_{i-1})\leq \sum_{j=1}^{i-1}w(\Gamma_j)\).
+
+* Question 1. Argue that the case \(i=1\) holds.
+
+  + For \(i=1\), \(w(P_{i-1})=w(P_0)=w(V) = 0 = \sum_{j=1}^{0}w(\Gamma_j)\), since \(P_0\) (having **only one part** and hence **no cut**) does 
+  not have any edge crossing the cut. Hence the **induction basis** holds.
+
+* We now want to show that the statement is true for any \(i\). We assume that it holds up to \(i-1\). We consider an arbitrary valid partition 
+ \(\Gamma=\{\Gamma_1,\ldots,\Gamma_i\}\) with \(i\) parts.
+
+* Question 2. Consider the partition \(P_{i-2}\). How many parts does it contain?
+
+  + \(P_{i-2}\) (where \(i \geq 2 \)) is obtained by executing the first \(i-2\) iterations of the loop, each loop creates one additional part 
+  and initially the graph \(G\) had 1 part (which was itself). 
+  + Hence, \(P_{i-2}\) contains \(1 + i-2=i-1\) parts.
+
+* Question 3. Argue that there exist two terminals which belong to the same part \(B\) of \(P_{i-2}\) but to two different parts \(\Gamma_h\), 
+\(\Gamma_l\) of \(\Gamma\).
+
+  + The partition \(\Gamma\) is **valid** \(\Rightarrow\) each part of \(\Gamma\) shall contain **at least one terminal** (by definition).
+  + \(\Gamma\) contains \(i\) parts \(\Rightarrow \Gamma\) contains at least \(i\) terminals, each part containing at least \(1\) terminal. 
+  + Let the \(i\)  **terminals** be \(a_1,a_2,\ldots, a_i\) so that \(a_j \in \Gamma_j, \; \forall{j} \in \{1,2,\ldots,i\}\), w.l.o.g.
+  + Also, \(P_{i-2}\) contains \(i - 1\;\) parts (by question 2).
+  + Now, consider the \(i\;\) terminals \(a_1,a_2,\ldots, a_i\) from \(\Gamma\) to be placed in \(i - 1\;\) parts of \(P_{i-2}\).
+  + By **pegion hole principle**,  \(\exists\) a part \(B \in P_{i-2}\),  that contains at least \(2\) of these \(i\;\) terminals, say 
+  \(a_h\) and \(a_l\) for some \(h, l \in \{1, \ldots, i\}\;\;\)  s.t., \(a_h, a_l \in B \wedge h \neq l \;\;\) (w.l.o.g.) 
+  + But, \(a_h \in \Gamma_h\) and \(a_l \in \Gamma_l\) (they belong to two different parts of \(\Gamma\) by assumption), which completes the 
+  proof.  
+
+* Question 4. Compare the cost of splitting \(B\;\) into \(B \cap \Gamma_h\;\) and \(B -\Gamma_h\;\) to the difference \(w(P_{i-1})-w(P_{i-2})\).
+
+  ![Device File Format](C:/courses/Coursera/Current/Approx Algo/Week5/BT.png)
+  
+  + \(a_h \in \Gamma_h \wedge a_h \in B \Rightarrow a_h \in B \cap \Gamma_h\;\;\), from previous results.
+  + Also, \(a_l \in \Gamma_l \wedge a_l \in B \Rightarrow a_l \in B \cap \Gamma_l \Rightarrow a_l \in B - \Gamma_h \;\;\;\), since 
+  \(\Gamma_h \cap \Gamma_l = \phi\), both being (disjoint) parts of the partition \(\Gamma\).
+  + Again, \((B\cap\Gamma_h)\cup(B-\Gamma_h)=B \wedge (B\cap\Gamma_h)\cap(B-\Gamma_h)=\phi \Rightarrow B\cap\Gamma_h\;\;\;\;\;\) and 
+  \(B-\Gamma_h\;\;\) form 2 **parts** that \(B\;\) can be partitioned into (the edges crossing the cut will **not necessarily** the **mincut**).
+  + Since \(B \in P_{i-2}\;\) and it contains **2 terminal elements** \(a_h\) and \(a_l\), on the \((i-1)^{th}\;\) iteration, the algorithm will 
+  select \(G_i=B\;\) and compute a **minimum cut** \(C_i\) that separates \(B\;\) into 2 parts \(B\;^{1}\) and \(B\;^{2}\), when the line 
+  **3.(a)** gets executed. 
+  + By line **3.(b)** of the algorithm, the size of the **minimum cut** chosen will be the **the smallest of all such minimum cuts** for all 
+  available elements \(G_i\) of \(P\;\) containing **more than 1 terminal element**.
+  + By lines \(3.(c)-(e)\) of the algorithm, the value of \(w(P_{i-1})-w(P_{i-2})\;\) will be size of **the smallest of all such minimum cuts** 
+  \(\Rightarrow w(P_{i-1})-w(P_{i-2}) \leq \) the cost of splitting \(B\;\) into \(B \cap \Gamma_h\;\) and \(B -\Gamma_h\;\).
+
+* Question 5. Conclude the proof of the Lemma using Question 4 and the induction hypothesis.
+
+  + By **the induction hypothesis**, we have, \(w(P_{i-2})\leq \sum_{j=1}^{i-2}w(\Gamma_j)\)
+  + By **the Lemma** (question 4), we have, \(w(P_{i-1}) \leq w(P_{i-2}) \) + the cost of splitting \(B\;\) into \(B \cap \Gamma_h\;\) and 
+  \(B -\Gamma_h\;\).
+  + **Combining the above two**, we have, \(w(P_{i-1}) \leq \sum_{j=1}^{i-2}w(\Gamma_j) \) + the cost of splitting \(B\;\) into 
+  \(B \cap \Gamma_h\;\) and \(B -\Gamma_h\;\).
+  + Now from question 4, we can see that \(B \cap \Gamma_h\;\) and \(B -\Gamma_h\;\) is an **arbitrary partition** of \(B\).
+  + Moreover, the partition of \(B\;\) into the parts \(B\cap\Gamma_h\) and \(B-\Gamma_h\;\) is a **valid partition**, since each of them 
+  contains at least one terminal element, \(a_h\) and \(a_l\) respectively (by definition of valid partition).
+  + Hence, w.l.og. we can choose \(T_{i-1}=B\;\) and by definition \(w(T_{i-1})=w((B \cap \Gamma_h) \cup (B -\Gamma_h))=\;\;\)the cost of 
+  splitting \(B\;\) into \(B \cap \Gamma_h\;\) and \(B -\Gamma_h\;\), since the edges that have exactly one endpoint in \(T_{i-1}\) are exactly 
+  those edges that appear in the cut.
+  + Hence, we have,  \(w(P_{i-1}) \leq \sum_{j=1}^{i-2}w(\Gamma_j) + w(T_{i-1})\)
+  + OR, \(w(P_{i-1}) \leq \sum_{j=1}^{i-1}w(\Gamma_j)\). (proved)
+ 
+
+* Consider an optimal solution for the problem, namely a partition \(F=\{F_1,F_2,\ldots,F_k\}\) of \(V\) into \(k\) parts that all contain 
+  exactly one terminal, where the ordering is such that the weight of edges leaving \(F_k\) is at least the weight of edges leaving any other 
+  set in the partition.
+
+* Question 6. What is the approximation ratio? Conclude using the lectures and Lemma 1.
+  
+  + First we notice that the cost of the algorithm is \(=cost(Output)=w(P_{k-1})\;\), since \(P_{k-1}\;\) contains \(k\) parts.
+  + Using **the Lemma 1**, for **OPT**, we have, \(w(P_{i-1}) \leq \sum_{j=1}^{i-1}w(F_j) \), for any \(i \leq k\;\), since \(F\;\) is 
+  a valid partition, each part containing one terminal (by defitnition).
+  + Hence, \(w(P_{k-1}) \leq \sum_{j=1}^{k-1}w(F_j) \).
+  + Also, given, for **OPT**, \(w(F_1) \leq w(F_2) \ldots \leq w(F_{k-1}) \leq w(F_k)\).
+  + \(\Rightarrow \sum_{j=1}^{k-1}w(F_j) \leq (k-1).w(F_k) = \left(\frac{1-\frac{1}{k}}{\frac{1}{k}} \right). w(F_k),\;\;\;(\mbox{we have } k \geq 2)\).
+  + \(\Rightarrow (\frac{1}{k}).\sum_{j=1}^{k-1}w(F_j) \leq (1-\frac{1}{k}).w(F_k)\).
+  + \(\Rightarrow (1-(1-\frac{1}{k}))\sum_{j=1}^{k-1}w(F_j) \leq (1-\frac{1}{k}).w(F_k)\).
+  + \(\Rightarrow \sum_{j=1}^{k-1}w(F_j) - (1-\frac{1}{k}).\sum_{j=1}^{k-1}w(F_j) \leq (1-\frac{1}{k}).w(F_k)\).
+  + \(\Rightarrow \sum_{j=1}^{k-1}w(F_j) \leq (1-\frac{1}{k}).\sum_{j=1}^{k-1}w(F_j) + (1-\frac{1}{k}).w(F_k) = (1-\frac{1}{k}).(\sum_{j=1}^{k-1}w(F_j)+
+  w(F_k))\).
+  + \(\Rightarrow \sum_{j=1}^{k-1}w(F_j) \leq (1-\frac{1}{k}).\sum_{j=1}^{k}w(F_j)\).
+  + Also, from lecture, we have \(2 \times OPT=\sum_{j=1}^{k}w(F_j)\), since every edge separating some terminal from the others is counted twice.
+  + Combining, we have, \(cost(Output)=w(P_{k-1}) \leq \sum_{j=1}^{k-1}w(F_j) \leq (1-\frac{1}{k}).\sum_{j=1}^{k}w(F_j) = (1-\frac{1}{k}).(2 \times OPT\).
+  + \(\Rightarrow cost(Output) \leq 2(1-\frac{1}{k}).OPT\).
+  + \(\Rightarrow\) Approximation ratio = \(\frac{cost(Output)}{OPT}=2(1-\frac{1}{k})\).
+
+### Correctness.
+
+* Question 7. Argue that the output is a solution to the multiway cut problem.
+  
+  + **Claim: At the end of the iteration \(i=k-1\), the algorithm Output is a partition of \(G\) with \(k\) parts, each part containing exactly 1 terminal**.
+  
+
+  + Let's first prove the following lemma by **induction** on the **number of iterations** \(i\).
+  + **Lemma 2: At the end of the iteration \(i\) of the while loop steps \(3.(a-e)\), the algorithm Output is a collection of \(i+1\) vertex-disjoint 
+  elements, with each element containing at least one terminal**.
+  
+  + **Basis** \((i=1)\):  Initially the **Output** is empty and \(P\;\) contains exactly 1 element, namely the entire graph \(G\). 
+  + Steps \(3. (a) - (e)\) choose the mincut with the smallest value that separates \(G\) into \(2\) **vertex-disjoint elements** \(G_a^1\) and \(G_a^2\), 
+  with \(G_a^1 \cap G_a^2 = \phi\) **ensured** by the **mincut** algorithm, each containing **at least one terminal**. 
+  + Hence, the base case trivially holds, **Output** is a collection of \(2=1+1\) elements at the end of the iteration \(i=1\). 
+  
+  + **Induction hypothesis**: let the lemma hold for all iterations \(\leq i-1 \Rightarrow \) at the end of the iteration \(i-1\), the algorithm Output is a 
+  collection of \(i\) vertex-disjoint elements of \(G\), with each element containing at least one terminal.
+  + **Induction Step**: Let's prove the lemma holds for \(i\) as well, then we are done.
+  + On the \(i^{th}\) iteration, the step \(3.(a).(i)\) chooses an element in \(G\) that contains more that 1 terminal and uses a minimum cut to separate 
+  the element into 2 vertex-disjoint elements, each element containing at least one terminal. Next step 3.(b) chooses the smallest of all such mincuts. 
+  + Hence,  in this iteration, one particular element with at least 2 terminals in \(G\) is chosen   and split into 2 vertex-disjoint elements, thereby 
+  increasing the number of elements in \(G\) by one, number of elements (the algorithm output) becomes \(i+1\), by **induction hypthesis**. 
+  + Also, the **induction hypotehsis** and the **splitting by mincut at iteration i** ensures that each of the \(i+1\) elements contain **at least one 
+  terminal**, at the end of iteration \(i\).
+  
+  + Hence, the **lemma 2**  holds \(\forall{i} \in \{1 \ldots k-1\} \Rightarrow \) at the end of the iteration \(i=k-1\), the algorithm Output is a 
+  collections of \(k-1+1=k\) vertex-disjoint elements, with each element containing **at least one terminal**. 
+  + But, the graph \(G\) contains **exactly k terminals** \(\Rightarrow\) each element in the output must contain **exactly one terminal** (no element can 
+  contain more than 1 terminal, otherwise the total number of terminals will exceed \(k\)) at the end of the iteration \(i=k-1\).
+  + The elements are also **vertex-disjoint** (ensured by mincuts), which implies that at the end of the iteration \(i=k-1\), the algorithm **Output** is a 
+  **partition** of \(G\) with \(k\) **parts**, each part containing **exactly 1 terminal**, proving the **claim**.
+
+### Complexity.
+
+* Question 8. Assuming that a minimum cut between two vertices of a graph can be computed in time \(T\), give an upper bound on the complexity for 
+performing line \(3.a.i\)?
+
+  ![Device File Format](C:/courses/Coursera/Current/Approx Algo/Week5/MC.png)
+
+  + As can be seen from the above figure (borrowed from the lecture), if the mincut for an element \(G_i\) (that contains more than 1 terminal) can be 
+  computed in time \(T\), the complexity of the line \(3.a.i\) will also be \(O(T)\), once 2 of the terminals \(a_h\) and \(a_l\) have been identified.
+  + In order to find 2 terminals \(a_h\) and \(a_l\) in \(G_i\), we need \(O(|G_i|)\) time, where \(|G_i|\) = number of vertices in \(G_i\).
+  + Combined time complexity for \(3.a.i\) is \(O(T + |G_i|)=O(T+|V|)\), for a given \(i\).
+
+* Question 9. What is the maximum cardinality of \(P\)?
+
+  + The maximum cardinality of \(P\) is \(k\), it's achieved when the algorithm partitions the graph into \(k\) parts and the while loop terminates.
+
+* Question 10. What is the overall complexity of the algorithm?
+
+  + Lines \(1, 2, 4\) has complexity \(O(1)\).
+  + While loop at line \(3\) will be executed \(k-1\) times.
+  + Now let's consider the worst case time complexity of \(3.(a)-(e)\) for just **one single iteration** of the **while loop 3** first.
+  + At any of the iteration, number of elements \(G_i\) of \(P\) with more than 1 terminal will always be \(\leq \frac{k}{2}\), since there are exactly 
+  \(k\) terminals in \(G\). Hence \(3.(a)\) will at most execute for \(\frac{k}{2}\) times for all while loop iterations.
+  + The total time taken to execute \(3.(a)\) will be \(O(\sum_{i}(T+|G_i|))=O(\frac{k}{2}.T) + O(\sum\limits_{i}|G_i|)=O(kT+|V|)\).
+  + \(3.(b)\) is \(O(k)\).
+  + \(3.(c)\) is \(O(1)\).
+  + \(3.(d)\) and \(3.(e)\) are \(O(|E|)\).
+  + Hence, the total time complexity for all the \(O(k)\) iterations of the while loop is \(O(k.(kT+|V|+k+|E|))=O(k^2T+k(|V|+|E|))\). 
+  + Hence, the overall complexity is \(O(k^2T+k(|V|+|E|))\), which is **polynomial** in \(V,E\), since \(T\) is also polynomial in \(V,E\). 
+  + Treating \(k\) as a constant, the overall complexity is \(O(T+|V|+|E|)\).

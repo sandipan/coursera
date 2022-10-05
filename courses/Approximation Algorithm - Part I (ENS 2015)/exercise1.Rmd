@@ -1,0 +1,75 @@
+Test Exercise 1: Answers to the Questions
+========================================================
+
+In this exercise, we propose to derive a \(3/2\)-approximation algorithm for a more restricted class of graphs. We recall that a graph is said to be *4-colourable* if given a set of 4 colours, it is possible to assign a colour of the set to each vertex in such a way that for each edge (u,v) of the graph, u and v receive different colours.
+
+A *4-colouring* of *G* is an assignment of colours to the vertices of G such that for each edge \((u,v)\) of the graph, *u* and *v* receive different colours.
+
+Consider the Linear Program for Vertex Cover that was described during the lectures and assume that we obtained a solution for this program such that the value of each variable is either 0, \(\frac{1}{2}\) or 1. Namely, we have an *optimal* fractional assignment of the variables \(X\) such that for each \(x_v \in X\), \(x_v \in \{0,\frac{1}{2},1\} \). We denote by \(val(X)\) the objective value of the assignment *X* for the *LP*.
+
+We consider a *4-colouring C* of the vertices of *G*.
+
+Let \(V^{1/2}=\{v|x_v=\frac{1}{2}\}\), i.e., the set of vertices *v* such that \(x_v=\frac{1}{2}\) and
+
+\(V^1=\{v|x_v=1\}\), i.e., the set of vertices *v* such that \(x_v=1\). Similarly,
+
+\(V^0=\{v|x_v=0\}\).
+
+Moreover let \(V_0^{1/2},V_1^{1/2},V_2^{1/2},V_3^{1/2}\) the set of vertices of *V* that have colour 0, 1, 2, and 3 respectively in *C*, i.e., \(V_0^{1/2}=\{v|x_v=\frac{1}{2},C(v)=0\}\).
+
+Finally, we assume that \(|V_0^{1/2}|\leq |V_1^{1/2}| \leq |V_2^{1/2}| \leq |V_3^{1/2}|\).
+
+**A Rounding Procedure**. We propose to define a rounding procedure for this assignment. We build a solution *S*.
+
+For each variable \(x_v=1\), *v* is added to the solution *S*.
+
+For each variable \(x_v=\frac{1}{2}\) and such that \(C(v) \neq 3\), *v* is added to *S*. Otherwise, *v* is discarded.
+
+**Approximation Ratio**.
+
+* Question 1. Give a relation between the value \(val(X)\) and the cardinality of the sets \(V^{1/2}\) and \(V^1\).
+
+  + \(val(X)=1.|V^1|+0.|V^0|+\frac{1}{2}.|V^{1/2}|=|V^1|+\frac{1}{2}.|V^{1/2}|\).
+
+* Question 2. Give a tight lower bound on the cardinality of \(V_3^{1/2}\) based on the cardinality of \(V^{1/2}\).
+  
+  + \(|V^{1/2}|= |V_0^{1/2}|+|V_1^{1/2}|+|V_2^{1/2}|+|V_3^{1/2}| \leq |V_3^{1/2}| + |V_3^{1/2}| + |V_3^{1/2}| + |V_3^{1/2}| = 4.|V_3^{1/2}|\).
+  + \(\Rightarrow |V_3^{1/2}| \geq \frac{1}{4}.|V^{1/2}|\).
+
+* Question 3. Deduce from Question 2 an upper bound on the cardinality of \(|V_0^{1/2}|+|V_1^{1/2}|+|V_2^{1/2}|\) based on the cardinality of \(V^{1/2}\).
+
+  + \(|V^{1/2}|= |V_0^{1/2}|+|V_1^{1/2}|+|V_2^{1/2}|+|V_3^{1/2}| \geq |V_0^{1/2}|+|V_1^{1/2}|+|V_2^{1/2}| + \frac{1}{4}.|V^{1/2}| \).
+  + \(\Rightarrow |V_0^{1/2}|+|V_1^{1/2}|+|V_2^{1/2}| \leq \frac{3}{4}.|V^{1/2}|\).
+
+* Question 4. Combine Questions 1 and 3 to give an upper bound on the number of vertices in *S* based on \(val(X)\).
+
+  + Number of vertices in *S* = \(|V^1|+|V_0^{1/2}|+|V_1^{1/2}|+|V_2^{1/2}| \leq |V^1| + \frac{3}{4}.|V^{1/2}| = |V^1| + \frac{3}{2}.(val(X) - |V^1|) = \frac{3}{2}.val(X) - \frac{1}{2}|V^1|\).
+  + \(\Rightarrow \) Number of vertices in *S* \(\leq \frac{3}{2}.val(X)\).
+  
+* Question 5. Combine Question 4 and the property of \(val(X)\) to conclude on the approximation ratio of the rounding procedure. Recall that \(val(X)\) is the value of the optimal fractional solution to the LP.
+
+  + Number of Vertices in the Output *S* \(\leq \frac{3}{2}.OPT\), since \(OPT=val(X)\), hence the approximation ratio is \(\frac{3}{2}\).
+
+**Correctness**.
+
+We now show that *S* is a correct vertex cover. Namely, we want to show that for each edge \((u,v)\), *u* or *v* (or both of them) are in *S*. We will proceed by contradiction and assume that **neither** *u* **nor** *v* are in *S*.
+
+* Question 6. Suppose that \(u \in V^0 \), to which set does *v* belong? Recall that \(X\) is a solution to the *LP*.
+  
+  + \(u \in V^0 \Leftrightarrow x_u=0\) but \((u,v)\) being an edge and \(x_u,x_v \in X \Rightarrow x_u+x_v \geq 1 \wedge x_u, x_v \in \{0,\frac{1}{2},1\}  \Rightarrow x_v=1 \Leftrightarrow v \in V^1\).
+
+* Question 7. Deduce from the previous question to which set do *u* and *v* belong.
+
+  + Since \(x_v=1 \Rightarrow v \in S\), a **contradiction**. Hence, if one of the vertices of and edge belongs to *V^0*, the other one must belong to *S*. (Also, the trivial case: if one of the vertices of and edge belongs to *V^1*, it's already in \(S\)). Hence if one of the vertices of and edge belongs to *V^0* or *V^1*, it will be in *S*, the edge being already covered.
+  
+* Question 8. If *u* and *v* belong to \(V^{1/2}\), to which subset of *V* do they belong if they do not belong to *S*?
+
+  + Again if any of *u* or *v* belongs to any of \(V_0^{1/2},V_1^{1/2},V_2^{1/2}\), it will be in *S* and covered. Only case remains to be considered is when \(u, v \in V_3^{1/2}\). Hence, this is the only case when both *u* and *v* do not belong to *S*.
+
+* Question 9. Recall that *C* is a *4-colouring*. Explain the **contradiction**.
+
+  +  \(u, v \in V_3^{1/2} \Rightarrow C(u)=C(v)=3\).  Since *C* is a *4-colouring* and *u*, *v* are adjacent vertices, they can't be colored with the same color \(3\),  a **contradiction**. Hence both the vertices of an edge can't belong to \(V_3^{1/2}\), which means that the one that does not belong to must already has been covered. Hence the proof.
+
+* Question 10. Give an example of a well-known class of graphs that is *4-colourable*.
+  
+  + *Planar graphs* (graphs that can be embedded in the plane, can be drawn in such a way that no edges cross each other) are *4-colourable*.

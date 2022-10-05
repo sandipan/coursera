@@ -1,0 +1,91 @@
+# The start symbol is START.
+
+# These two rules are required; choose their weights carefully!
+80	START	S1
+20	START	S2
+
+# This is a very, very, very simple grammar to get you started.
+
+8	S1	NP_VP PEND
+7	S1	VP_VP PEND
+
+15	NP_VP	NP VP
+2	NP_VP	WH_DO NP_VP
+5	NP_VP	NP_NP VP_VP
+1	NP_VP	NP_NP CC VP_VP
+1	NP_VP	NP_VP VP_VP
+1	NP_VP	NP_VP CC VP_VP
+3	NP_VP	NP_NP CC NP_VP
+2	NP_VP	NP_VP CC NP_NP
+
+1	NP_NP	NP_NP CC NP
+2	NP_NP	CC NP_NP
+7	NP_NP	NP
+1	NP_NP	PP
+
+6	VP_VP	VP_VP VP
+3	VP_VP	VP VP_VP
+8	VP_VP	VP_VP CC VP
+3	VP_VP	CC VP_VP
+6	VP_VP	WH_DO VP
+13	VP_VP	VP
+
+19	VP	Verb NP
+9	VP	Verb PP
+11	VP	Verb AP
+18	VP	NP Verb
+1	VP	PP Verb
+1	VP	TO Verb
+3	VP	DO Verb
+2	VP	Verb
+
+4	WH_DO	WH
+2	WH_DO	DO
+4	WH_DO	WH DO
+
+21	NP	Nbar
+3	NP	PRPS NP
+1	NP	POS NP
+16	NP	Det NP
+4	NP	CD NP
+3	NP	Abar NP
+1	NP	NP Abar
+1	NP	NP PP
+32	NP	Proper
+10	NP	PRP
+3	NP	PART
+1	NP	EX
+
+43	Verb	Verbbar
+2	Verb	NOT Verbbar
+1	Verb	Verbbar NOT
+
+5	Verbbar	VerbT
+10	Verbbar	VB
+3	Verbbar	VBG
+1	Verbbar	VBN
+2	Verbbar	DO
+4	Verbbar	MD Verbbar
+2	Verbbar	BE VBN
+2	Verbbar	BE VBG
+4	Verbbar	HAVE VBN
+1	Verbbar HAVE BEEN VBG
+1	Verbbar HAVE BEEN VBN
+
+4	AP	Abar
+1	AP	Abar NP
+2	AP	Det Abar NP
+
+1	PART	VBG
+2	PART	VBG PP
+
+21	Nbar	Noun
+2	Nbar	Nbar PP
+1	Nbar	PRP
+
+5	Abar	JJ
+1	Abar	RB	JJ
+3	Abar	RB
+
+10	PP	Prep NP
+5	PP	TO NP

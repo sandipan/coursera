@@ -1,0 +1,156 @@
+# Exercise 2 Solution
+----------------------
+
+* Consider the following *fractional* variant of *knapsack* packing which we call *Fractional Knapsack*. For every item you can pack an arbitrary fraction 
+of that item, i.e., if you pack a fraction \(p_i\in [0,1]\) of item \(i \in \{1,\ldots,n\}\). then it takes \(p_i.s_i\) space and has a value \(p_i.v_i\).
+
+* For simplicity, assume that \(\frac{v_i}{s_i}\) are different for all \(i\).
+
+#### Let \(B=1\). Given three items with \(s_1=1\), \(v_1=2.1\), \(s_2=0.5\), \(v_2=2\), \(s_3=2\) and \(v_3=4.4\), How should \(p_1\), \(p_2\), and \(p_3\) be chosen to reach a total value of \(3.1\)?
+
+  + By condition, we have the following equations:
+  
+  \(
+      \begin{align}
+      p_1.v_1+p_2.v_2+p_3.v_3=3.1 & \Leftrightarrow 2.1p_1 + 2p_2 + 4.4p_3 = 3.1 \\
+      p_1.s_1+p_2.s_2+p_3.s_3\leq 1 & \Leftrightarrow p_1 + 0.5p_2 + 2p_3 \leq 1
+      \end{align}  
+    \)
+  
+    ```{r echo=FALSE, warning=FALSE, message=FALSE}
+    library(Rglpk)
+    ## Simple linear program.
+    ## maximize:  p_1 + p_2 + p_3
+    ## p_1 v_1 + p_2 v_2 + p_3 v_3 = 1
+    ## subject to: p_1 s_1 + p_2 s_2 + p_3 s_3 <= B
+    ## p_1, p_2, p_3 are non-negative real numbers
+    v_1 <- 2.1
+    v_2 <- 2
+    v_3 <- 4.4
+    s_1 <- 1
+    s_2 <- 0.5
+    s_3 <- 2
+    B = 1
+    obj <- c(0, 0, 0)
+    mat <- matrix(c(v_1, v_2, v_3, s_1, s_2, s_3), nrow = 2, byrow=TRUE)
+    dir <- c("==", "<=")
+    rhs <- c(3.1, 1)
+    max <- TRUE
+    bounds <- list(lower = list(ind = c(1L, 2L, 3L), val = rep(0, 3)),
+                   upper = list(ind = c(1L, 2L, 3L), val = rep(1, 3)))
+    Rglpk_solve_LP(obj, mat, dir, rhs, bounds, max = max)
+    ```
+
+  + Also, we have, \(\frac{v_1}{s_1}=2.1\), \(\frac{v_2}{s_2}=4\) and \(\frac{v_3}{s_3}=2.2\). 
+  
+  + Let's first choose *item 2* with the highest \(\frac{value}{space}\) *ratio* and take the entire item (fraction \(p_2=1\)\), since the *space* required 
+  = \(0.5 < 1\), the *value* in the *knapsack* = \(2\). 
+    
+  + We still have \(1-0.5=0.5\) space left in the knapsack and we need to choose fractions of the other 2 items to reach the remaining value \(3.1-2=1.1\).
+  
+  + Next let's choose the *item 3* with the next highest \(\frac{value}{space}\) *ratio* and take \(p_3=\frac{1.1}{4.4}=0.25\) fraction of this item, with 
+  the additional *space* required = \(0.25*2=0.5\), thereby filling the remaining space in the knapsack and with an additional value of \(0.25*4.4=1.1\), 
+  reaching the total *value* of \(3.1\) exactly.
+  
+  + Hence, we need to choose \(p_1=0,\;p_2=1,\;p_3=0.25\).
+  
+
+    ```{r echo=FALSE, warning=FALSE, message=FALSE}
+    #library(Rglpk)
+    ## Simple linear program.
+    ## maximize: p_1 v_1 + p_2 v_2 + p_3 v_3
+    ## subject to: p_1 s_1 + p_2 s_2 + p_3 s_3 <= B
+    ## p_1, p_2, p_3 are non-negative real numbers
+    v_1 <- 2.1
+    v_2 <- 2
+    v_3 <- 4.4
+    s_1 <- 1
+    s_2 <- 0.5
+    s_3 <- 2
+    B = 1
+    obj <- c(v_1, v_2, v_3)
+    mat <- matrix(c(s_1, s_2, s_3), nrow = 1)
+    dir <- c("<=")
+    rhs <- c(1)
+    max <- TRUE
+    bounds <- list(lower = list(ind = c(1L, 2L, 3L), val = rep(0, 3)),
+                   upper = list(ind = c(1L, 2L, 3L), val = rep(1, 3)))
+    Rglpk_solve_LP(obj, mat, dir, rhs, max = max)
+    ```
+
+
+#### Design a *combinatorial* algorithm (no *LP* allowed) which achieves the *optimal* value.
+  
+ + The following is a **greedy** algorithm for the **fractional knapsack** problem that achieves the **optimal solution**.
+ 
+ ### Algorithm Steps:
+  
+  1. First Compute *value* per *space* density for each item.
+  2. **sort** \(n\) items with **descending** order of the density.
+  3. Until the *knapsack* is **full**, iteratively choose the items one by one in the above *sorted order* and keep the *maximum possible fraction* for 
+     the selected item that fits into the knapsack.
+  
+  + More formally, the algorithm looks like the following:
+    
+  #### procedure greedy_fractional_knapsack(B, n) // knapsack with space \(B\) and number of items \(n\) 
+    
+  1. for \((i = 1 \ldots n) \;d_i = \frac{v_i}{s_i}\).
+  2. **Sort** \(n\) items with **descending** order of density, s.t., \(d_i \geq d_{i+1}, \; \forall(i) \in \{1 \ldots n \} \).
+     Let \(p_i \; i=1\ldots n\) be the solution vector and \(OPT\) represents the optimal value.
+       
+  3. for \((i = 1 \ldots n) \; p_i \leftarrow 0.0\);                {**initialize p**}
+  
+   \(space \leftarrow B\);
+  
+   \(OPT \leftarrow 0\);
+     
+   for \((i = 1 \ldots n)\)
+     
+   begin
+     
+   if \(s_i > B\) break;
+        
+   \(p_i \leftarrow 1.0\;\);                               {**put the whole object in**}
+        
+   \(space \leftarrow space - s_i\;\);
+        
+   \(OPT \leftarrow OPT + v_i\;\);
+     
+   end
+     
+   if \(i \leq n\)
+     
+   begin
+     
+   \(p_i \leftarrow \left(\frac{space}{s_i}\right)\;\;\);       {**the last object to be put in**}
+        
+   \(OPT \leftarrow OPT + p_i.v_i\;\);
+     
+   end
+       
+#### Argue the *correctness*.
+
+  1. It's easy to see the **optimal substructure property** of the **greedy** algorithm proposed, i.e., any optimal solution of the fractional knapsack 
+  problem also contains optimal solutions to the subproblems. 
+  
+  If we remove \(s\) of item \(j\) from an *optimal* solution with knapsack size \(B\), then the remaining items must be optimal for the subproblem where 
+  the knapsack size is \(B - s\) and the available items include only \(s_j - s\) of item \(j\) and all the other items as before. Otherwise, if the 
+  subproblem solution is not optimal, we can increase the value of the solution to the subproblem and hence we would be able to construct an even better 
+  solution than the optimal one, a **contradiction**.
+  
+  2. Let's prove the **greedy choice property** of the algorithm proposed. The algorithm proposed is **greedy** since every time we choose the best 
+  possible (**locally optimal**) step. We need to prove that the **greedy choice** indeed leads to a **globally optimal solution**. 
+  
+  In particular, let's prove that for any instance of the fractional knapsack problem, an optimal solution must include as much of the densest item as 
+  will fit (again prove this by contradiction). Suppose the optimal solution included some amount \(s\) of a less dense item \(i\) and did not include all 
+  that was available of the densest item \(j\), of which there is some amount \(t\) that is not included in the knapsack. Then we could switch 
+  \(min(s, t)\) of the less dense item with the densest item and get an even more optimal solution, which is a **contradiction**. By a similar argument, 
+  the optimal solution also cannot have empty space in the knapsack when there are items still available to put in the knapsack, because then we can 
+  increase the value of the optimal solution by keeping additional fractions of the items available, again a **contradiction**.
+
+
+#### Give the *time complexity* of your algorithm. 
+  + Step 1 takes \(O(n)\) time.
+  + Step 2 takes \(O(nlgn)\) time.
+  + Step 3 takes \(O(n)\) time.
+  + Hence, the total time taken = \(O(n) + O(nlgn)) + O(n)\) = \(O(nlgn)\).

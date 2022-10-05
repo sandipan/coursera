@@ -1,0 +1,707 @@
+[PCFGParser]	log prob = -28.30	sentence : Arthur is the king .
+[PCFGParser]	best parse tree: 
+(START
+   (S1
+      (NP_VP
+         (NP
+            (Proper Arthur))
+         (VP
+            (Verb
+               (Verbbar
+                  (VerbT is)))
+            (NP
+               (Det the)
+               (NP
+                  (Nbar
+                     (Noun king))))))
+      (PEND .)))
+[PCFGParser]	log prob = -49.78	sentence : Arthur rides the horse near the castle .
+[PCFGParser]	best parse tree: 
+(START
+   (S1
+      (NP_VP
+         (NP
+            (Proper Arthur))
+         (VP
+            (Verb
+               (Verbbar
+                  (VerbT rides)))
+            (NP
+               (Det the)
+               (NP
+                  (Nbar
+                     (Nbar
+                        (Noun horse))
+                     (PP
+                        (Prep near)
+                        (NP
+                           (Det the)
+                           (NP
+                              (Nbar
+                                 (Noun castle))))))))))
+      (PEND .)))
+[PCFGParser]	log prob = -33.00	sentence : riding to Camelot is hard .
+[PCFGParser]	best parse tree: 
+(START
+   (S1
+      (NP_VP
+         (NP
+            (PART
+               (VBG riding)
+               (PP
+                  (TO to)
+                  (NP
+                     (Proper Camelot)))))
+         (VP
+            (Verb
+               (Verbbar
+                  (VerbT is)))
+            (AP
+               (Abar
+                  (JJ hard)))))
+      (PEND .)))
+[PCFGParser]	log prob = -25.12	sentence : do coconuts speak ?
+[PCFGParser]	best parse tree: 
+(START
+   (S1
+      (VP_VP
+         (WH_DO
+            (DO do))
+         (VP
+            (NP
+               (Nbar
+                  (Noun coconuts)))
+            (Verb
+               (Verbbar
+                  (VB speak)))))
+      (PEND ?)))
+[PCFGParser]	log prob = -25.01	sentence : what does Arthur ride ?
+[PCFGParser]	best parse tree: 
+(START
+   (S1
+      (VP_VP
+         (WH_DO
+            (WH what)
+            (DO does))
+         (VP
+            (NP
+               (Proper Arthur))
+            (Verb
+               (Verbbar
+                  (VB ride)))))
+      (PEND ?)))
+[PCFGParser]	log prob = -42.45	sentence : who does Arthur suggest she carry ?
+[PCFGParser]	best parse tree: 
+(START
+   (S1
+      (VP_VP
+         (VP_VP
+            (WH_DO
+               (WH who)
+               (DO does))
+            (VP
+               (NP
+                  (Proper Arthur))
+               (Verb
+                  (Verbbar
+                     (VB suggest)))))
+         (VP
+            (NP
+               (PRP she))
+            (Verb
+               (Verbbar
+                  (VB carry)))))
+      (PEND ?)))
+[PCFGParser]	log prob = -39.87	sentence : why does England have a king ?
+[PCFGParser]	best parse tree: 
+(START
+   (S1
+      (NP_VP
+         (WH_DO
+            (WH why)
+            (DO does))
+         (NP_VP
+            (NP
+               (Proper England))
+            (VP
+               (Verb
+                  (Verbbar
+                     (VB have)))
+               (NP
+                  (Det a)
+                  (NP
+                     (Nbar
+                        (Noun king)))))))
+      (PEND ?)))
+[PCFGParser]	log prob = -55.03	sentence : are they suggesting Arthur ride to Camelot ?
+[PCFGParser]	best parse tree: 
+(START
+   (S1
+      (VP_VP
+         (VP_VP
+            (VP_VP
+               (VP
+                  (Verb
+                     (Verbbar
+                        (VB are)))
+                  (NP
+                     (PRP they))))
+            (VP
+               (Verb
+                  (Verbbar
+                     (VBG suggesting)))
+               (NP
+                  (Proper Arthur))))
+         (VP
+            (Verb
+               (Verbbar
+                  (VB ride)))
+            (PP
+               (TO to)
+               (NP
+                  (Proper Camelot)))))
+      (PEND ?)))
+[PCFGParser]	log prob = -42.77	sentence : five strangers are at the Round Table .
+[PCFGParser]	best parse tree: 
+(START
+   (S1
+      (NP_VP
+         (NP
+            (CD five)
+            (NP
+               (Nbar
+                  (Noun strangers))))
+         (VP
+            (Verb
+               (Verbbar
+                  (VB are)))
+            (PP
+               (Prep at)
+               (NP
+                  (Det the)
+                  (NP
+                     (Proper Round) Table))))))
+      (PEND .)))
+[PCFGParser]	log prob = -25.83	sentence : Guinevere might have known .
+[PCFGParser]	best parse tree: 
+(START
+   (S1
+      (VP_VP
+         (VP
+            (NP
+               (Proper Guinevere))
+            (Verb
+               (Verbbar
+                  (MD might)
+                  (Verbbar
+                     (HAVE have)
+                     (VBN known))))))
+      (PEND .)))
+[PCFGParser]	log prob = -37.09	sentence : Guinevere should be riding with Patsy .
+[PCFGParser]	best parse tree: 
+(START
+   (S1
+      (NP_VP
+         (NP
+            (Proper Guinevere))
+         (VP
+            (Verb
+               (Verbbar
+                  (MD should)
+                  (Verbbar
+                     (BE be)
+                     (VBG riding))))
+            (PP
+               (Prep with)
+               (NP
+                  (Proper Patsy)))))
+      (PEND .)))
+[PCFGParser]	log prob = -48.77	sentence : it is Sir Lancelot who knows Zoot !
+[PCFGParser]	best parse tree: 
+(START
+   (S1
+      (NP_VP
+         (NP_NP
+            (NP
+               (PRP it)))
+         (VP_VP
+            (VP
+               (Verb
+                  (Verbbar
+                     (VerbT is)))
+               (NP
+                  (Proper Sir) Lancelot)))
+            (VP_VP
+               (WH_DO
+                  (WH who))
+               (VP
+                  (Verb
+                     (Verbbar
+                        (VB knows)))
+                  (NP
+                     (Proper Zoot))))))
+      (PEND !)))
+[PCFGParser]	log prob = -45.24	sentence : either Arthur knows or Patsy does .
+[PCFGParser]	best parse tree: 
+(START
+   (S1
+      (VP_VP
+         (CC either)
+         (VP_VP
+            (@VP_VP-CC
+               (VP_VP
+                  (VP
+                     (NP
+                        (Proper Arthur))
+                     (Verb
+                        (Verbbar
+                           (VB knows)))))
+               (CC or))
+            (VP
+               (NP
+                  (Proper Patsy))
+               (Verb
+                  (Verbbar
+                     (DO does))))))
+      (PEND .)))
+[PCFGParser]	log prob = -56.67	sentence : neither Sir Lancelot nor Guinevere will speak of it .
+[PCFGParser]	best parse tree: 
+(START
+   (S1
+      (NP_VP
+         (@NP_NP-CC
+            (NP_NP
+               (CC neither)
+               (NP_NP
+                  (NP
+                     (Proper Sir) Lancelot))))
+            (CC nor))
+         (NP_VP
+            (NP
+               (Proper Guinevere))
+            (VP
+               (Verb
+                  (Verbbar
+                     (MD will)
+                     (Verbbar
+                        (VB speak))))
+               (PP
+                  (Prep of)
+                  (NP
+                     (PRP it))))))
+      (PEND .)))
+[PCFGParser]	log prob = -64.27	sentence : the Holy Grail was covered by a yellow fruit .
+[PCFGParser]	best parse tree: 
+(START
+   (S1
+      (VP_VP
+         (VP_VP
+            (VP
+               (NP
+                  (Det the)
+                  (NP
+                     (Proper Holy) Grail)))
+               (Verb
+                  (Verbbar
+                     (VB was)))))
+         (VP
+            (Verb
+               (Verbbar
+                  (VB covered)))
+            (PP
+               (Prep by)
+               (NP
+                  (Det a)
+                  (NP
+                     (Abar
+                        (JJ yellow))
+                     (NP
+                        (Nbar
+                           (Noun fruit))))))))
+      (PEND .)))
+[PCFGParser]	log prob = -55.22	sentence : Zoot might have been carried by a swallow .
+[PCFGParser]	best parse tree: 
+(START
+   (S1
+      (VP_VP
+         (VP_VP
+            (VP
+               (NP
+                  (Proper Zoot))
+               (Verb
+                  (Verbbar
+                     (MD might)
+                     (Verbbar
+                        (HAVE have)
+                        (VBN been))))))
+         (VP
+            (Verb
+               (Verbbar
+                  (VB carried)))
+            (PP
+               (Prep by)
+               (NP
+                  (Det a)
+                  (NP
+                     (Nbar
+                        (Noun swallow)))))))
+      (PEND .)))
+[PCFGParser]	log prob = -63.45	sentence : Arthur rode to Camelot and drank from his chalice .
+[PCFGParser]	best parse tree: 
+(START
+   (S1
+      (NP_VP
+         (NP_NP
+            (NP
+               (Proper Arthur)))
+         (VP_VP
+            (@VP_VP-CC
+               (VP_VP
+                  (VP
+                     (Verb
+                        (Verbbar
+                           (VB rode)))
+                     (PP
+                        (TO to)
+                        (NP
+                           (Proper Camelot)))))
+               (CC and))
+            (VP
+               (Verb
+                  (Verbbar
+                     (VB drank)))
+               (PP
+                  (Prep from)
+                  (NP
+                     (PRPS his)
+                     (NP
+                        (Nbar
+                           (Noun chalice))))))))
+      (PEND .)))
+[PCFGParser]	log prob = -72.23	sentence : they migrate precisely because they know they will grow .
+[PCFGParser]	best parse tree: 
+(START
+   (S1
+      (NP_VP
+         (NP_NP
+            (NP
+               (PRP they)))
+         (VP_VP
+            (VP_VP
+               (@VP_VP-CC
+                  (VP_VP
+                     (VP
+                        (Verb
+                           (Verbbar
+                              (VB migrate)))
+                        (AP
+                           (Abar
+                              (RB precisely)))))
+                  (CC because))
+               (VP
+                  (NP
+                     (PRP they))
+                  (Verb
+                     (Verbbar
+                        (VB know)))))
+            (VP
+               (NP
+                  (PRP they))
+               (Verb
+                  (Verbbar
+                     (MD will)
+                     (Verbbar
+                        (VB grow)))))))
+      (PEND .)))
+[PCFGParser]	log prob = -22.44	sentence : do not speak !
+[PCFGParser]	best parse tree: 
+(START
+   (S1
+      (VP_VP
+         (VP
+            (DO do)
+            (Verb
+               (NOT not)
+               (Verbbar
+                  (VB speak)))))
+      (PEND !)))
+[PCFGParser]	log prob = -52.43	sentence : Arthur will have been riding for eight nights .
+[PCFGParser]	best parse tree: 
+(START
+   (S1
+      (NP_VP
+         (NP
+            (Proper Arthur))
+         (VP
+            (Verb
+               (Verbbar
+                  (MD will)
+                  (Verbbar
+                     (HAVE have)
+                     (VBN been))))
+            (NP
+               (PART
+                  (VBG riding)
+                  (PP
+                     (Prep for)
+                     (NP
+                        (CD eight)
+                        (NP
+                           (Nbar
+                              (Noun nights)))))))))
+      (PEND .)))
+[PCFGParser]	log prob = -69.76	sentence : Arthur , sixty inches , is a tiny king .
+[PCFGParser]	best parse tree: 
+(START
+   (S1
+      (NP_VP
+         (@NP_NP-CC
+            (NP_NP
+               (NP
+                  (Proper Arthur)))
+            (CC ,))
+         (NP_VP
+            (NP_NP
+               (NP
+                  (CD sixty)
+                  (NP
+                     (Nbar
+                        (Noun inches)))))
+            (VP_VP
+               (CC ,)
+               (VP_VP
+                  (VP
+                     (Verb
+                        (Verbbar
+                           (VerbT is)))
+                     (AP
+                        (@Det-Abar
+                           (Det a)
+                           (Abar
+                              (JJ tiny)))
+                        (NP
+                           (Nbar
+                              (Noun king)))))))))
+      (PEND .)))
+[PCFGParser]	log prob = -55.91	sentence : Arthur knows Patsy , the trusty servant .
+[PCFGParser]	best parse tree: 
+(START
+   (S1
+      (NP_VP
+         (@NP_VP-CC
+            (NP_VP
+               (NP
+                  (Proper Arthur))
+               (VP
+                  (Verb
+                     (Verbbar
+                        (VB knows)))
+                  (NP
+                     (Proper Patsy))))
+            (CC ,))
+         (NP_NP
+            (NP
+               (Det the)
+               (NP
+                  (Abar
+                     (JJ trusty))
+                  (NP
+                     (Nbar
+                        (Noun servant)))))))
+      (PEND .)))
+[PCFGParser]	log prob = -37.57	sentence : Arthur and Guinevere migrate frequently .
+[PCFGParser]	best parse tree: 
+(START
+   (S1
+      (NP_VP
+         (@NP_NP-CC
+            (NP_NP
+               (NP
+                  (Proper Arthur)))
+            (CC and))
+         (NP_VP
+            (NP
+               (Proper Guinevere))
+            (VP
+               (Verb
+                  (Verbbar
+                     (VB migrate)))
+               (AP
+                  (Abar
+                     (RB frequently))))))
+      (PEND .)))
+[PCFGParser]	log prob = -73.44	sentence : he knows what they are covering with that story .
+[PCFGParser]	best parse tree: 
+(START
+   (S1
+      (VP_VP
+         (VP_VP
+            (VP
+               (NP
+                  (PRP he))
+               (Verb
+                  (Verbbar
+                     (VB knows))))
+            (VP_VP
+               (WH_DO
+                  (WH what))
+               (VP
+                  (NP
+                     (PRP they))
+                  (Verb
+                     (Verbbar
+                        (VB are))))))
+         (VP
+            (Verb
+               (Verbbar
+                  (VBG covering)))
+            (PP
+               (Prep with)
+               (NP
+                  (Det that)
+                  (NP
+                     (Nbar
+                        (Noun story)))))))
+      (PEND .)))
+[PCFGParser]	log prob = -48.66	sentence : Arthur suggested that the castle be carried .
+[PCFGParser]	best parse tree: 
+(START
+   (S1
+      (VP_VP
+         (@VP_VP-CC
+            (VP_VP
+               (VP
+                  (NP
+                     (Proper Arthur))
+                  (Verb
+                     (Verbbar
+                        (VB suggested)))))
+            (CC that))
+         (VP
+            (NP
+               (Det the)
+               (NP
+                  (Nbar
+                     (Noun castle))))
+            (Verb
+               (Verbbar
+                  (BE be)
+                  (VBN carried)))))
+      (PEND .)))
+[PCFGParser]	log prob = -72.95	sentence : the king drank to the castle that was his home .
+[PCFGParser]	best parse tree: 
+(START
+   (S1
+      (NP_VP
+         (NP_NP
+            (NP
+               (Det the)
+               (NP
+                  (Nbar
+                     (Noun king)))))
+         (VP_VP
+            (@VP_VP-CC
+               (VP_VP
+                  (VP
+                     (Verb
+                        (Verbbar
+                           (VB drank)))
+                     (PP
+                        (TO to)
+                        (NP
+                           (Det the)
+                           (NP
+                              (Nbar
+                                 (Noun castle)))))))
+               (CC that))
+            (VP
+               (Verb
+                  (Verbbar
+                     (VB was)))
+               (NP
+                  (PRPS his)
+                  (NP
+                     (Nbar
+                        (Noun home)))))))
+      (PEND .)))
+[PCFGParser]	log prob = -48.44	sentence : when the king drinks , Patsy drinks .
+[PCFGParser]	best parse tree: 
+(START
+   (S1
+      (VP_VP
+         (@VP_VP-CC
+            (VP_VP
+               (WH_DO
+                  (WH when))
+               (VP
+                  (NP
+                     (Det the)
+                     (NP
+                        (Nbar
+                           (Noun king))))
+                  (Verb
+                     (Verbbar
+                        (VerbT drinks)))))
+            (CC ,))
+         (VP
+            (NP
+               (Proper Patsy))
+            (Verb
+               (Verbbar
+                  (VerbT drinks)))))
+      (PEND .)))
+[PCFGParser]	log prob = -56.09	sentence : Arthur is the king and do not speak !
+[PCFGParser]	best parse tree: 
+(START
+   (S1
+      (NP_VP
+         (NP_NP
+            (NP
+               (Proper Arthur)))
+         (VP_VP
+            (@VP_VP-CC
+               (VP_VP
+                  (VP
+                     (Verb
+                        (Verbbar
+                           (VerbT is)))
+                     (NP
+                        (Det the)
+                        (NP
+                           (Nbar
+                              (Noun king))))))
+               (CC and))
+            (VP
+               (DO do)
+               (Verb
+                  (NOT not)
+                  (Verbbar
+                     (VB speak))))))
+      (PEND !)))
+[PCFGParser]	log prob = -69.79	sentence : Arthur is the king that he does not .
+[PCFGParser]	best parse tree: 
+(START
+   (S2
+      (_Proper
+         (Proper Arthur)
+         (_VerbT
+            (VerbT is)
+            (_Det
+               (Det the)
+               (_Noun
+                  (Noun king)
+                  (_Det
+                     (Det that)
+                     (_Misc
+                        (Misc
+                           (PRP he))
+                        (_Misc
+                           (Misc
+                              (DO does))
+                           (_Misc
+                              (Misc
+                                 (NOT not))
+                              (_Misc
+                                 (Misc
+                                    (PEND .)))))))))))))
+[PCFGParser]	cross-entropy=6.272 perplexity=7.730e+01

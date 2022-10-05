@@ -1,0 +1,131 @@
+Exercise 3 Solutions
+========================================================
+
+Consider the instance of Bin-Packing given by fourteen items of size 6 and eight items of size 10. The bins have size 30. Recall that a feasible packing for a bin is called a configuration if the sum of the items considered is not greater than 30.
+
+* 1. How many different configurations is possible to construct for the instance above?
+  + The number of configurations will be exactly equal to number of non-negative solutions of the inequality \(6x+10y\leq 30\), 
+  where \(x,y \geq 0\), *x* is the number of items of size 6 and *y* is the number of items of size 10. As can be seen from the below graph, the 
+  number of total configurations = 13, out of which 1 is an empty configuration, so total number of non-zero configuration = 12.
+
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+  plot(0, 0, pch=19, col='black', xlim=c(0, 6), ylim=c(0,4), xlab='x', ylab='y')
+  abline(3, -3/5, col='blue') # 6x + 10y <= 30
+  #panel.ablineq(3, -3/5, col='blue') # 6x + 10y <= 30
+  x <- 0:5
+  y <- 0:3
+  for (i in x) {
+    for (j in y) {
+      if (6 * i + 10 * j <= 30) {
+        points(i, j, pch=19, col='red')
+      }
+    }
+  }
+```
+
+ ![Configurations](C:/courses/Coursera/Current/Approx Algo/Week3/configs.png)
+   
+* In the sequel assume the following *sparseness property*: it is possible to find a solution for the configuration linear program that has at 
+  most *t nonzero entries*, where \(t\) is the number of different sizes. The algorithm below provides a solution for the *bin-packing* problem 
+  using the *configuration linear program*:
+  
+* **Algorithm: Rounding(x)**
+  
+  + Step 1. Find a sparse solution \(x\) of the configuration linear program in instance \(I\).  
+  + Step 2. Open \(\lfloor x_C \rfloor\) bins with configuration \(C\).  
+  + Step 3. If some item has not been packed, consider the instance \(\bar{I}\) of all those remaining items.  
+  + Step 4. For \(\bar{I}\), let \(P_1\) be the packing given by opening a new bin for each \(C\) such that \(x_C\) is fractional, and let 
+  \(P_2\) be the packing given by *Next-Fit*. The output is the best among these two.  
+  + In the instance described above the number of different sizes is equal to \(t=2\). In fact, let \(C_1\) be the configuration given by five 
+  items of size \(6\) and \(C_2\) the configuration given by three items of size \(10\).
+
+
+
+* 2. Consider \(x_{C_1}=\frac{14}{5}\), \(x_{C_2}=\frac{8}{3}\) and \(x_C=0\) for every other configuration \(C\). Prove that it is *feasible* 
+  for the *configuration* linear program of the instance described above.
+
+  + The **constraints** of the **configuration linear program** is given by \(\sum\limits_{C}{a_{s,C}x_C} \geq n_s\) for each *size s* and 
+  configuration *C*. Hence, for the configuration linear program in instance \(I\), we have only two different sizes and only the following 
+  **two constraints**:
+  
+  \(
+  \begin{align*}
+  a_{6,C_1}x_{C_1} + a_{6,C_2}x_{C_2} + \sum\limits_{C}{a_{s,C}x_C} & \geq 5 \\
+  a_{10,C_1}x_{C_1} + a_{10,C_2}x_{C_2} + \sum\limits_{C}{a_{s,C}x_C} & \geq 3
+  \end{align*}
+  \)  
+  where \(C\) is any configuration other than \(C_1\) and \(C_2\). 
+  
+  + Now, we have, 
+  
+  \(\begin{align*}
+  a_{6,C_1}&=5\\
+  a_{10,C_2}&=3\\
+  a_{6,C_2}=a_{10,C_1}&=0
+  \end{align*}\) 
+  
+    and the **solution** (with **sparseness property**) as 
+    
+  \(\begin{align*}
+  x_{C_1}=\frac{14}{5}\\
+  x_{C_2}=\frac{8}{3}\\
+  x_C=0
+  \end{align*}\).
+  
+  + Hence, \(a_{6,C_1}x_{C_1} + a_{6,C_2}x_{C_2} + \sum\limits_{C}{a_{s,C}x_C} = 5\times\frac{14}{5} + 0\times\frac{8}{3} + 0 = 14 \geq 5 
+    \Rightarrow\) the \(1^{st}\) constraint is satisfied.
+    
+  + Also, \(a_{6,C_2}x_{C_2} + a_{6,C_2}x_{C_2} + \sum\limits_{C}{a_{s,C}x_C} = 0\times\frac{14}{5} + 3\times\frac{8}{3} + 0 = 8 \geq 3 
+  \Rightarrow\) the \(2^{nd}\) constraint is also satisfied.
+  
+  + Hence, the **solution is feasible**. (Proved)
+
+
+
+
+* 3. Is this solution *sparse*?
+
+  + Yes, the solution is **sparse** since we have \(2\) **different sizes** (namely \(6\) and \(10\)) and \(2\) **non-zero entries** in the 
+  solution (by **definition** of **sparseness**).
+
+
+* 4. Consider the solution shown above and go to Step 2 of the algorithm. How many bins are opened in configurations \(C_1\) and \(C_2\) 
+  respectively?
+
+  + \(\lfloor \frac{14}{5} \rfloor = 2\) bins are opened for the configuration \(C_1\).
+  + \(\lfloor \frac{8}{3} \rfloor = 2\) bins are opened for the configuration \(C_2\).
+  + Hence the total bins opened in this step = \(2+2=4\).
+  
+  
+
+* 5. In the instance \(\bar{I}\) of the remaining items at Step 3, how many items in \(\bar{I}\) have size 6 and 10, respectively?
+
+  + \(\bar{I}\) contains
+  + \(14 - 2\times 5=4\) items of size 6.
+  + \(8 - 2\times 3=2\) items of size 10.
+  
+  
+
+* 6. In the packing \(P_1\) at Step 4, how many bins are opened in configuration \(C_1\) and \(C_2\) respectively?
+  
+  + For configuration \(C_1\), there will be \(1\) bin opened (since \(x_{C_1}\) fractional).
+  + For configuration \(C_2\), there will be \(1\) bin opened (since \(x_{C_2}\) fractional).
+  + Hence, there will be total \(1+1=2\) bins opened in the packing \(P_1\) at Step 4.
+
+
+
+* 7. Run Next-Fit for \(\bar{I}\). How many bins are opened?
+
+  +  \(\bar{I}\) contains 4 items of size 6 and 2 items of size 10.
+  + Placing **one bin at a time** with **Next-Fit** the first 4 items (with size 6) will be packed in 1 bin.
+  + This bin needs to be closed, since the next item (of size 10) does not fit here.
+  + Another 1 bin needs to opened and the next 2 items can be packed in this bin.
+  + Hence, 2 bins are opened with **Next-Fit**.
+
+* 8. Conclude that the algorithm above returns the *optimal number of bins* for the instance.
+
+  + By step \(2-4\),the algorithm returns \(4 + min(2,2) = 6\) bins as solution.
+  + Now, *total item size* = \(14*6+8*10=164\). Also, *bin size* = \(30\). Hence, any **optimal** algorithm will need **at least 6 bins** to 
+  pack all these \(14+8=22\) items, since with \(5\) bins we can pack **at most items of total size** = \(5 \times 30 = 150 < 164 \Rightarrow 
+  OPT  \geq 6\). 
+  + Hence, the algorithm above returns the *optimal number of bins* (6) for the instance.
