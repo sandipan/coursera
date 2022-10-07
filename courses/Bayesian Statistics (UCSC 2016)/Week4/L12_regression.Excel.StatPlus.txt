@@ -1,0 +1,50 @@
+http://www.math.uah.edu/stat/data/Challenger2.txt
+# 23 previous space shuttle launches before the Challenger disaster
+# T is the temperature in Fahrenheit, I is the O-ring damage index
+
+<cut and paste into spreadsheet>
+
+<regression-multiple linear regression>
+ <dependent=I, Independent=T>
+
+# 95% posterior interval for the slope
+# given in table, or can compute by hand
+= -0.24337 - 0.06349*T.INV(.975,21)
+= -0.24337 + 0.06349*T.INV(.975,21)
+# note that these are the same as the frequentist confidence intervals
+
+# the Challenger launch was at 31 degrees Fahrenheit
+# how much o-ring damage would we predict?
+# y-hat
+= 18.36508-0.24337*31
+
+# posterior prediction interval (same as frequentist)
+=10.82-2.102*T.INV(.975,21)*SQRT(1+1/23+((31-AVERAGE(A2:A24))^2/22/VARA(A2:A24)))
+=10.82+2.102*T.INV(.975,21)*SQRT(1+1/23+((31-AVERAGE(A2:A24))^2/22/VARA(A2:A24)))
+
+# posterior probability that damage index is greater than zero
+=1-T.DIST((0-10.82052)/(2.102*SQRT(1+1/23+((31-AVERAGE(A2:A24))^2/22/VARA(A2:A24)))),21,TRUE)
+=T.DIST(10.82052/(2.102*SQRT(1+1/23+((31-AVERAGE(A2:A24))^2/22/VARA(A2:A24)))),21,TRUE)
+
+
+
+http://www.math.uah.edu/stat/data/Galton.txt
+# Galton's seminal data on predicting the height of children from the 
+# heights of the parents, all in inches
+
+<cut and paste into spreadsheet>
+<make GenderM column of 1's and 0's>
+=IF(D2="M",1,0)
+<copy and paste to fill column>
+
+<regression-multiple linear regression>
+ <dependent=Height, Independent=Father+Mother+Kids+GenderM>
+ <dependent=Height, Independent=Father+Mother+GenderM>
+
+# each extra inch taller a father is is correlated with 0.4 inch extra
+  height in the child
+# each extra inch taller a mother is is correlated with 0.3 inch extra
+  height in the child
+# a male child is on average 5.2 inches taller than a female child
+# 95% posterior interval for the the difference in height by gender
+#  is given in the table:  (4.94, 5.51)

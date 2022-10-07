@@ -1,0 +1,279 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+  \usepackage{amssymb}
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifluatex
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\author{}
+\date{\vspace{-2.5em}}
+
+\begin{document}
+
+\hypertarget{important-if-the-analysis-is-completed-using-software-other-than-r-or-not-written-up-using-r-markdown-the-project-should-receive-a-0-regardless-of-its-content.}{%
+\paragraph{IMPORTANT: If the analysis is completed using software other
+than R, or not written up using R Markdown, the project should receive a
+0 regardless of its
+content.}\label{important-if-the-analysis-is-completed-using-software-other-than-r-or-not-written-up-using-r-markdown-the-project-should-receive-a-0-regardless-of-its-content.}}
+
+\hypertarget{part-1-data-2-points}{%
+\subsection{Part 1: Data (2 points)}\label{part-1-data-2-points}}
+
+\begin{itemize}
+\item
+  1 pt for correct reasoning for generabizability -- Answer should
+  discuss whether random sampling was used. Learners might discuss any
+  reservations, those should be well justified.
+\item
+  1 pt for correct reasoning for causality -- Answer should discuss
+  whether random assignment was used.
+\end{itemize}
+
+\hypertarget{part-2-data-manipulation-10-points}{%
+\subsection{Part 2: Data manipulation (10
+points)}\label{part-2-data-manipulation-10-points}}
+
+\begin{itemize}
+\tightlist
+\item
+  Create new variable based on \texttt{title\_type}: New variable should
+  be called \texttt{feature\_film} with levels yes (movies that are
+  feature films) and no (2 pt)
+\item
+  Create new variable based on \texttt{genre}: New variable should be
+  called \texttt{drama} with levels yes (movies that are dramas) and no
+  (2 pt)
+\item
+  Create new variable based on \texttt{mpaa\_rating}: New variable
+  should be called \texttt{mpaa\_rating\_R} with levels yes (movies that
+  are R rated) and no (2 pt)
+\item
+  Create two new variables based on \texttt{thtr\_rel\_month}:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    New variable called \texttt{oscar\_season} with levels yes (if movie
+    is released in November, October, or December) and no (2 pt)
+  \item
+    New variable called \texttt{summer\_season} with levels yes (if
+    movie is released in May, June, July, or August) and no (2 pt)
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{part-3-eda-9-points}{%
+\subsection{Part 3: EDA (9 points)}\label{part-3-eda-9-points}}
+
+Conduct exploratory data analysis of the relationship between
+\texttt{audience\_score} and the new variables constructed in the
+previous part
+
+\begin{itemize}
+\tightlist
+\item
+  3 pts for plots
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Plots should address the research questions (1 pt)
+  \item
+    Plots should be constructed correctly (1 pt)
+  \item
+    Plots should be formatted well -- size not too large, not too small,
+    etc. (1 pt)
+  \end{itemize}
+\item
+  3 pts for summary statistics
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Summary statistics should address the research questions (1 pt)
+  \item
+    Summary statistics should be calculated correctly (1 pt)
+  \item
+    Summary statistics should be formatted well -- not taking up pages
+    and pages, etc. (1 pt)
+  \end{itemize}
+\item
+  3 pts for narrative
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Each plot and/or R output should be accompanied by a narrative (1
+    pt)
+  \item
+    Narrative should interpret the visuals / R output correctly (1 pts)
+  \item
+    Narrative should address the research question (1 pts)
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{part-4-modeling-15-points}{%
+\subsection{Part 4: Modeling (15
+points)}\label{part-4-modeling-15-points}}
+
+Develop a Bayesian regression model to predict \texttt{audience\_score}
+from the following explanatory variables. Note that some of these
+variables are in the original dataset provided, and others are new
+variables you constructed earlier:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{feature\_film}
+\item
+  \texttt{drama}
+\item
+  \texttt{runtime}
+\item
+  \texttt{mpaa\_rating\_R}
+\item
+  \texttt{thtr\_rel\_year}
+\item
+  \texttt{oscar\_season}
+\item
+  \texttt{summer\_season}
+\item
+  \texttt{imdb\_rating}
+\item
+  \texttt{imdb\_num\_votes}
+\item
+  \texttt{critics\_score}
+\item
+  \texttt{best\_pic\_nom}
+\item
+  \texttt{best\_pic\_win}
+\item
+  \texttt{best\_actor\_win}
+\item
+  \texttt{best\_actress\_win}
+\item
+  \texttt{best\_dir\_win}
+\item
+  \texttt{top200\_box}
+\end{itemize}
+
+Complete Bayesian model selection and report the final model.
+
+\begin{itemize}
+\tightlist
+\item
+  Carrying out the model selection correctly (5 pts)
+\item
+  Model diagnostics (5 pts)
+\item
+  Interpretation of model coefficients (5 pts)
+\end{itemize}
+
+\hypertarget{prediction-5-points}{%
+\subsection{Prediction (5 points)}\label{prediction-5-points}}
+
+Pick a movie from 2016 (a new movie that is not in the sample) and do a
+prediction for this movie using your the model you developed and the
+\texttt{predict} function in R.
+
+\begin{itemize}
+\tightlist
+\item
+  Correct prediction (4 pts)
+\item
+  Reference(s) for where the data for this movie come from (1 pt)
+\end{itemize}
+
+\hypertarget{conclusion-3-points}{%
+\subsection{Conclusion (3 points)}\label{conclusion-3-points}}
+
+A brief summary of your findings from the previous sections
+\textbf{without} repeating your statements from earlier as well as a
+discussion of what you have learned about the data and your research
+question. You should also discuss any shortcomings of your current study
+(either due to data collection or methodology) and include ideas for
+possible future research.
+
+\begin{itemize}
+\tightlist
+\item
+  Conclusion not repetitive of earlier statements (1 pt)
+\item
+  Cohesive synthesis of findings that appropriate address the research
+  question stated earlier (1 pt)
+\item
+  Discussion of shortcomings (1 pt)
+\end{itemize}
+
+\hypertarget{overall-6-points}{%
+\subsection{Overall (6 points)}\label{overall-6-points}}
+
+\begin{itemize}
+\tightlist
+\item
+  Uploaded HTML document resulting from the Rmd template: 1 pt
+\item
+  Organization: 1 pts
+\item
+  Readability of the text: 2 pts
+\item
+  Readability of the code: 2 pts
+\end{itemize}
+
+\end{document}
