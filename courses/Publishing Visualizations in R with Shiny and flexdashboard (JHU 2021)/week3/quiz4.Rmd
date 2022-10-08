@@ -1,0 +1,34 @@
+---
+title: "Shiny in a Dashboard"
+output: 
+  flexdashboard::flex_dashboard:
+  orientation: columns
+  vertical_layout: fill
+  runtime: shiny
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(shiny)
+library(tidyverse)
+
+data(mtcars)
+```
+
+Input {.sidebar}
+----------------------------------------------
+### User Input
+
+```{r}
+radioButtons(inputId="my_cyl",label="Cylinders",choices=c(4,6,8))
+```
+
+Column
+---
+###
+
+```{r}
+renderPlot(
+ggplot(filter(mtcars,cyl==input$my_cyl),aes(x=mpg,y=wt))+geom_point()
+)
+```

@@ -1,0 +1,17 @@
+---
+title: "Changing Chart Titles"
+output: flexdashboard::flex_dashboard
+orientation: rows
+---
+
+### Figure 1
+```{r}
+```
+    
+### Figure 2
+```{r}
+```
+   
+### Figure 3
+```{r}
+```

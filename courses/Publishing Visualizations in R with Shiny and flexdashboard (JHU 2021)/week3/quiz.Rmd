@@ -1,0 +1,98 @@
+---
+title: "Help!"
+output: flexdashboard::flex_dashboard
+---
+    
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(tidyverse)
+data(mtcars)
+```    
+    
+Column {.tabset}
+-------------------------------------
+   
+### Chart 1
+
+```{r}
+ggplot(mtcars,aes(x=cyl))+geom_bar()
+```   
+ 
+### Chart 2
+    
+```{r}
+ggplot(mtcars,aes(x=wt,y=mpg))+geom_point()
+```
+
+
+library(flexdashboard)
+library(tidyverse)
+library(plotly)
+library(shiny)
+
+dat<-read_csv(url("https://www.dropbox.com/s/4ebgnkdhhxo5rac/cel_volden_wiseman%20_coursera.csv?raw=1"))
+
+dat$Party<-recode(dat$dem,`1`="Democrat",`0`="Republican")
+
+dat %>% select(year, all_pass, Party) %>% filter(year >= 1980) %>% group_by(year, Party) %>% summarise(all_pass=sum(all_pass)) %>% 
+    ggplot(aes(x=year, y=all_pass, fill=Party)) + geom_area() + 
+    xlab('Year') +
+    ylab('All Bills Passed') +
+    scale_fill_manual(labels=c('Democrat', 'Republican'), values=c('blue', 'red'))
+
+p <- dat %>%
+  drop_na()%>%
+  filter(congress==110) %>%
+  ggplot(aes(votepct, all_pass)) + aes(fill=Party, color=Party) +
+    geom_point() +
+    #, color='transparent'
+    geom_smooth(alpha=0.2) + aes(text=sprintf('thomas_name: %s\nParty: %s\nvotepct: %s\nall_pass: %s', thomas_name, Party, votepct, all_pass), 
+                fill=Party, color=Party) + 
+    #geom_smooth(aes(fill=Party), se = FALSE) + #method = "lm", 
+    #geom_ribbon(stat = "smooth", alpha = .15) + #method = "lm", 
+    scale_color_manual(labels=c('Democrat', 'Republican'), values=c('blue', 'red')) +
+    scale_fill_manual(labels=c('Democrat', 'Republican'), values=c('blue', 'red'))
+ggplotly(p, tooltip = "text")
+
+ggplot(dat, aes(x=st_name, y=all_pass)) +
+  geom_bar(stat='identity') +
+  coord_flip()
+    
+# Packages
+library(ggplot2)
+library(dplyr)
+ 
+# create data
+time <- as.numeric(rep(seq(1,7),each=7))  # x Axis
+value <- runif(49, 10, 100)               # y Axis
+group <- rep(LETTERS[1:7],times=7)        # group, one shape per group
+data <- data.frame(time, value, group)
+
+# stacked area chart
+ggplot(data, aes(x=time, y=value, fill=group)) + 
+    geom_area()
+
+n <- 10 #20
+pow2 <- 2^(1:n)
+vals <- list(Sn=c(), Vn=c(), Un=c())
+for (n in pow2) {
+  s <- list(Sn=c(), Vn=c(), Un=c())
+  for (i in 1:n) {
+    x <- i * n / (n^3 + i)
+    xl <- i / n^2
+    xu <- i / (n^2 + 1)
+    s$Sn <- c(s$Sn, x)
+    s$Vn <- c(s$Vn, xl)
+    s$Un <- c(s$Un, xu)
+  }
+  vals$Sn <- c(vals$Sn, sum(s$Sn))
+  vals$Un <- c(vals$Un, sum(s$Un))
+  vals$Vn <- c(vals$Vn, sum(s$Vn))
+}
+
+plot(1:length(vals$Sn), vals$Sn, pch=19, xlab='log2(n)', ylab='Sn', main='Convergence')
+lines(1:length(vals$Sn), vals$Sn)
+lines(1:length(vals$Un), vals$Un, col='red', lty=2)
+lines(1:length(vals$Vn), vals$Vn, col='blue', lty=2)
+grid()
+legend('topright', legend=c("Sn", "Vn", "Un"), col=c("black", "red", "blue"), lty=c(1,2,2), cex=0.8, box.lwd=2, box.col="red")

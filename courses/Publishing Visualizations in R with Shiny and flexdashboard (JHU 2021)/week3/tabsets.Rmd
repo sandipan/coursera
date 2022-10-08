@@ -1,0 +1,34 @@
+---
+title: "Tabset Column"
+output: flexdashboard::flex_dashboard
+---
+    
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(tidyverse)
+data(mtcars)
+```    
+    
+Column 
+-------------------------------------
+    
+### Chart 1
+    
+```{r}
+ggplot(mtcars,aes(x=disp))+geom_density()
+```
+   
+Column {.tabset}
+-------------------------------------
+   
+### Chart 2
+
+```{r}
+ggplot(mtcars,aes(x=cyl))+geom_bar()
+```   
+ 
+### Chart 3
+    
+```{r}
+ggplot(mtcars,aes(x=wt,y=mpg))+geom_point()
+```

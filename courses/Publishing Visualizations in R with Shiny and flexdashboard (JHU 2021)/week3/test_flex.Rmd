@@ -1,0 +1,35 @@
+---
+title: "My First Dashboard"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: column
+    vertical_layout: scroll
+    
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(tidyverse)
+my_dat<-mtcars #read_csv("the_data.csv")
+```
+
+
+
+Column {data-width=200}
+----
+
+### Chart A
+
+```{r}
+ggplot(my_dat,aes(x=mpg,y=cyl))+geom_point()
+```
+
+Column {data-width=200}
+----
+
+### Chart B
+
+```{r}
+ggplot(my_dat,aes(x=mpg))+geom_bar()
+
+```

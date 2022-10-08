@@ -1,0 +1,42 @@
+---
+title: "Practice"
+author: "Collin Paschall"
+date: "10/11/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+
+#setwd("~/Dropbox/data_viz_coursera_4/shiny_lecture_code")
+dat<-read_csv("publish_practice.csv")
+
+```
+
+This is my report.
+
+```{r practice, echo=FALSE}
+inputPanel(
+  checkboxGroupInput(
+        inputId="checked_groups",
+        label="Which groups do you want to display?",
+        choices=c("a","b","c"),
+        selected=c("a","b","c")
+      )
+)
+
+renderPlot({
+    
+    plot_dat<-filter(dat, Group %in% input$checked_groups)
+    
+     ggplot(
+       dat=plot_dat,
+       aes(x=varX,y=varY,color=Group))+geom_point()
+  }
+  )
+```
+
+
+
