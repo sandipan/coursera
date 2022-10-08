@@ -1,0 +1,36 @@
+setwd("E:/work/Academics/Coursera")
+load(url("http://bit.ly/dasi_nc"))
+names(nc)
+head(nc)
+summary(nc)
+table(nc$gained)
+nc[is.na(nc$gained),]
+nrow(nc[is.na(nc$gained),])
+gained_clean = na.omit(nc$gained)
+n = length(gained_clean)
+boot_means = rep(NA, 100)
+for(i in 1:100) {
+	boot_sample = sample(gained_clean, n, replace = TRUE)
+	boot_means[i] = mean(boot_sample)
+}
+#source("http://bit.ly/dasi_inference")
+source("inference.R")
+inference(nc$gained, type = "ci", method = "simulation", conflevel = 0.9, est = "mean", boot_method = "perc")
+inference(nc$gained, type = "ci", method = "simulation", conflevel = 0.95, est = "mean", boot_method = "perc")
+inference(nc$gained, type = "ci", method = "simulation", conflevel = 0.95, est = "mean", boot_method = "se")
+inference(nc$gained, type = "ci", method = "simulation", conflevel = 0.95, est = "median", boot_method = "se")
+plot(nc$habit, nc$weight)
+ws <- nc[nc$habit == 'smoker',]$weight
+wns <- nc[nc$habit == 'nonsmoker',]$weight
+summary(ws)
+summary(wns)
+by(nc$weight, nc$habit, mean)
+inference(y = nc$weight, x = nc$habit, est = "mean", type = "ht", null = 0, alternative = "twosided", method = "theoretical")
+inference(y = nc$weight, x = nc$habit, est = "mean", type = "ci", null = 0, alternative = "twosided", method = "theoretical")
+hist(nc$mage)
+table(nc$mage, nc$mature)
+
+d <- load(url("http://bit.ly/dasi_gss_ws_cl"))
+names(gss)
+levels(gss$class)
+inference(y = gss$wordsum, x = gss$class, est = "mean", type = "ht", alternative = "greater", method = "theoretical")

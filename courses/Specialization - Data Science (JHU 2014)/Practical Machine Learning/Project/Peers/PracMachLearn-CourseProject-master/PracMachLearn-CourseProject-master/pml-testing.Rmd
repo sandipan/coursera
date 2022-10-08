@@ -1,0 +1,176 @@
+Analysis on Weight Lifting Exercises Dataset
+============================================
+
+### Practical Machine Learning: Course Project
+Prepared by Amperio; last version created `r date()`
+
+```{r options_setting, echo=TRUE, results='asis'}
+```
+```{r library_loading, echo=FALSE}
+library(caret, quietly = TRUE)
+```
+
+# Synopsis
+
+In this report we present the way in which the Weight Lifting Exercises Dataset provided by E. Velloso et al (see http://groupware.les.inf.puc-rio.br/work.jsf?p1=11201) has been analysed in order to determine a valid prediction model for the exercises performed. The Dataset has been found to include two separate types of data (termed 'original' and 'derived'), which have been separated and evaluated for further analysis. On the set of data that were found usable to predict the testing dataset, some alternative analysis techniques have been performed to determine the most accurate in this case. Finally the resulting prediction model has been briefly analysed.
+
+# Data Processing
+
+### Obtaining initial data
+
+Training raw and test data have been obtained from the Course Project description, specifically from the URL https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv and https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv, respectively. These files have been downloaded and stored in a directory with the names "pml-training.csv" and "pml-testing.csv". The files are in CSV format, with field names in the first row, and with missing data noted either as blanks, "NA" or "#DIV/0!" values, as determined in a preliminary analysis. The variables included in these files are somehow explained in the 'Weight Lifting Exercises Dataset' section of the webpage at http://groupware.les.inf.puc-rio.br/har and the paper at http://groupware.les.inf.puc-rio.br/public/papers/2013.Velloso.QAR-WLE.pdf, although no proper code book has been provided.
+
+To read the data into R:
+
+```{r read_raw, cache=TRUE}
+training_raw <- read.csv(file = "pml-training.csv", na.strings = c("", "NA", "#DIV/0!"))
+testing_raw <- read.csv("pml-testing.csv", na.strings = c("", "NA", "#DIV/0!"))
+```
+
+These raw dataset have a **big** number of observations (only in the case of the training data) and variables:
+
+```{r analyze_raw}
+dim(training_raw)
+dim(testing_raw)
+```
+
+### Analysing training dataset variables
+
+As explained by the providers of the dataset, it contains the information obtained from four different types of sensors worn by different test subjects when performing different weight lifting exercises. The data provided from the *arm*, *forearm*, *belt* and *dumbell* sensors consist of roll, pitch and yaw angles data, together with readings from accelerometer, gyroscope and magnetometer in the X, Y and Z axes. All in all there are 12 'original' data variables for each sensor, totalling 48 for the four sensors.
+
+These 'original' variables have been summarised by the dataset providers, creating 96 additional 'derived' variables by time windowing the sensor readings and obtaining the average, variance, range, etc. values for the 'original' variables in each window. These calculations are also included in the dataset, in separate columns from the 'original'.
+
+In addition there are variables for the measurement ID, time stamps, name of the test subject and the 'quality' of the weight lifting exercise performed (the **'classe'** variable, the one we are asked to analyse and predict). One of these additional variables is named 'new_window', that allows to separate the 'original' and 'derived' subdatasets:
+
+```{r analyze_variables_1}
+summary(training_raw[, c(6,8:10,12:14)])  # Example of variables summary
+```
+
+With a bit more detailed analysis along this line, it may be determined that 'derived' variables are only meaningfully present (if at all) when the 'new_window' variable is set to 'yes' (in a little more than 400 records) while when it is set to 'no' only the 48 'original' sensor variables have data. Therefore we can separate the provided training data into two subsets:
+
+```{r analyze_variables_2}
+training_original <- training_raw[which(training_raw$new_window == "no"),]
+training_derived <- training_raw[which(training_raw$new_window == "yes"),]
+
+# In the 'original' data, we may keep only 'original' data columns and the 'classe' variable:
+original_data_columns <- c("roll_belt", "pitch_belt", "yaw_belt", "gyros_belt_x", "gyros_belt_y", "gyros_belt_z", "accel_belt_x", "accel_belt_y", "accel_belt_z", "magnet_belt_x", "magnet_belt_y", "magnet_belt_z", "roll_arm", "pitch_arm", "yaw_arm", "gyros_arm_x", "gyros_arm_y", "gyros_arm_z", "accel_arm_x", "accel_arm_y", "accel_arm_z", "magnet_arm_x", "magnet_arm_y", "magnet_arm_z", "roll_dumbbell", "pitch_dumbbell", "yaw_dumbbell", "gyros_dumbbell_x", "gyros_dumbbell_y", "gyros_dumbbell_z", "accel_dumbbell_x", "accel_dumbbell_y", "accel_dumbbell_z", "magnet_dumbbell_x", "magnet_dumbbell_y", "magnet_dumbbell_z", "roll_forearm", "pitch_forearm", "yaw_forearm", "gyros_forearm_x", "gyros_forearm_y", "gyros_forearm_z", "accel_forearm_x", "accel_forearm_y", "accel_forearm_z", "magnet_forearm_x", "magnet_forearm_y", "magnet_forearm_z")
+training_original_reduced <- training_original[, c(original_data_columns, "classe")]
+
+# In the 'derived' data, we can keep the 'derived' variables, including 'classe' as well:
+other_columns_not_interesting_for_derived <- c("X", "user_name", "raw_timestamp_part_1", "raw_timestamp_part_2", "cvtd_timestamp", "new_window", "num_window")
+training_derived_reduced <- training_derived[,-which(names(training_derived) %in% c(original_data_columns, other_columns_not_interesting_for_derived))]
+```
+
+The range of variables has thus been greatly reduced for each subdataset:
+
+```{r analyze_variables_3}
+dim(training_original_reduced)
+dim(training_derived_reduced)
+```
+
+### Dismissing 'derived' variables subdataset
+
+The 'derived' subdataset, given its construction by the dataset authors and the analysis explained in their paper, should be the most interesting for us. However, when we analyse the testing data structure in a similar way to the explained above for the training data we find that the test data set only include values for the 'original' variables. Therefore it is completely futile to perform further analysis on the 'derived' subdataset.
+
+(N.B.: For the record, quick further analysis performed in the 'derived' subdataset allows the creation of a prediction model, for instance based on a decission tree, for the 'classe' variable. The accuracy of such a model is not high -around 70%-, but we still believe that this road of analysis would be promising should the test data allow for its usage. In fact, it is the type of analysis executed by the dataset providers in their paper)
+
+### Partitioning the 'original' variables subdataset
+
+The remaining subdataset, consisting of the 48 sensor variables and the results 'classe' variable will be split into a proper training dataset (60%), a cross-validation dataset (20%) and an out-of-bounds dataset (20%) to estimate the expected out of sample error (this last dataset is not necessary for some analysis techniques, such as Random Forests, that internally calculate this estimation, but it is still necessary for others):
+
+```{r partition_training}
+set.seed(12345)
+inTrain <- createDataPartition(y = training_original_reduced$classe, p = 0.6, list = FALSE)
+training_final <- training_original_reduced[inTrain , ]
+training_cv_oob <- training_original_reduced[-inTrain , ]
+inCV <- createDataPartition(y = training_cv_oob$classe, p = 0.5, list = FALSE)
+training_cv <- training_cv_oob[inCV , ]
+training_oob <- training_cv_oob[-inCV , ]
+```
+
+### Creating and analysing the prediction models: Decision Tree
+
+A first quick model to predict the 'classe' variable given the 48 sensor variables is via a decision tree model:
+
+```{r model_1_tree, cache=TRUE}
+set.seed(23451)
+elapsed_dt <- system.time(modelFit_dt <- train(classe ~ ., method = "rpart", data = training_final))
+print(paste("Decision tree model created in", format(elapsed_dt[3]/60, digits = 4), "minutes"))
+print(modelFit_dt$finalModel)
+```
+
+However, this model is lacking good prediction capabilities and thus has to be discarded:
+
+```{r model_1_tree_conclusion}
+confusionMatrix(training_final$classe, predict(modelFit_dt, training_final))
+```
+
+### Creating and analysing the prediction models: Random Forest
+
+Similarly we can create a prediction model based on a Random Forest, as hinted by the dataset providers in their paper:
+
+```{r model_2_randomforest, cache=TRUE}
+set.seed(34512)
+elapsed_rf <- system.time(modelFit_rf <- train(classe ~ ., method = "rf", data = training_final))
+print(paste("Random Forest model created in", format(elapsed_rf[3]/60, digits = 4), "minutes"))
+print(modelFit_rf$finalModel)
+```
+
+In this case, the obtained prediction model has perfect prediction capabilities, considering the training set:
+
+```{r model_2_randomforest_conclusion}
+confusionMatrix(training_final$classe, predict(modelFit_rf, training_final))
+```
+
+Given such good predictive capabilities, we decided to stop looking for other prediction models (like boosting, our next model in the list) and continue with this model.
+
+### Verifying the adequacy of the model: cross-validation and out of sample error estimation
+
+To determine whether the obtained prediction model is overfitted to the training data, we apply it to the cross-validation dataset:
+
+```{r cross_validation}
+confusionMatrix(training_cv$classe, predict(modelFit_rf, training_cv))
+```
+
+As can be seen, the accuracy and the remaining prediction parameters have also excellent values for the cross-validation dataset and thus we can affirm that the model is not overfitting (in fact, this is not necessary with a Random Forest model, as the model performs its own internal cross-validation)
+
+Regarding the estimation of the out of sample error, this is readily provided by the Random Forest technique:
+
+```{r oob_estimation_1}
+grep("OOB",capture.output(modelFit_rf$finalModel), value = TRUE)
+```
+
+We can nevertheless apply the obtained model also to the error estimation dataset:
+
+```{r oob_estimation_2}
+confusionMatrix(training_oob$classe, predict(modelFit_rf, training_oob))
+```
+
+As expected, the results are also very good.
+
+### Exploring the obtained model
+
+The list of prediction variables (the 48 'original' sensor variables), ordered by importance to the prediction, is the following:
+
+```{r varImp}
+varImp(modelFit_rf)
+```
+
+We can plot the two first variables against each other and color the output on the 'classe' to see how good is the partitioning provided by only these two variables:
+
+```{r 2_top_variables_plot}
+qplot(training_final$roll_belt, training_final$yaw_belt, col = training_final$classe)
+```
+
+As can be seen, some 'orange areas' (corresponding to the 'correct' exercise, with 'classe' A) can be identified, but the confusion of exercises is still high with just these two variables. That is why the model needs to take into consideration further variables.
+
+# Results
+
+### Applying the obtained model to the test data
+
+The application of the model to the test data is straightforward:
+
+```{r results_calculation}
+test_answers <- predict(modelFit_rf, testing_raw)
+test_answers
+```

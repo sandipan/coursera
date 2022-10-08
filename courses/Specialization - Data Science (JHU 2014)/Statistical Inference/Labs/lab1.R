@@ -1,0 +1,22 @@
+#load('e:/work/cdc.Rdata')
+load(url('http://s3.amazonaws.com/assets.datacamp.com/course/dasi/cdc.Rdata'))
+#cdc
+names(cdc)
+dim(cdc)
+head(cdc)
+tail(cdc)
+class(cdc$genhlth)
+unique(cdc$genhlth)
+class(cdc$weight)
+class(cdc$smoke100)
+summary(cdc$gender)
+table(cdc$genhlth) / nrow(cdc)
+gender_smokers = table(cdc$gender, cdc$smoke100)
+mosaicplot(gender_smokers)
+smoker100_and_less23 = subset(cdc, cdc$smoke100 == 1 & cdc$age < 23)
+nrow(smoker100_and_less23)
+#smoker100_and_less23[c('smoke100', 'age')]
+bmi = (cdc$weight/cdc$height^2) * 703
+boxplot(bmi ~ cdc$genhlth)
+plot(cdc$weight, cdc$wtdesire)
+cor(cdc$weight, cdc$wtdesire)

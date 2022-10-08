@@ -1,0 +1,384 @@
+[1] "Japan"
+Response variable: categorical, Explanatory variable: categorical
+Two categorical variables
+Difference between two proportions -- success: atheist
+Summary statistics:
+             x
+y             2005 2012  Sum
+  atheist      276  372  648
+  non-atheist  924  840 1764
+  Sum         1200 1212 2412
+Observed difference between proportions (2005-2012) = -0.0769
+
+H0: p_2005 - p_2012 = 0 
+HA: p_2005 - p_2012 != 0 
+Pooled proportion = 0.2687 
+Check conditions:
+   2005 : number of expected successes = 322 ; number of expected failures = 878 
+   2012 : number of expected successes = 326 ; number of expected failures = 886 
+Standard error = 0.018 
+Test statistic: Z =  -4.262 
+p-value =  0 
+[1] "Czech Republic"
+Response variable: categorical, Explanatory variable: categorical
+Two categorical variables
+Difference between two proportions -- success: atheist
+Summary statistics:
+             x
+y             2005 2012  Sum
+  atheist      200  300  500
+  non-atheist  800  700 1500
+  Sum         1000 1000 2000
+Observed difference between proportions (2005-2012) = -0.1
+
+H0: p_2005 - p_2012 = 0 
+HA: p_2005 - p_2012 != 0 
+Pooled proportion = 0.25 
+Check conditions:
+   2005 : number of expected successes = 250 ; number of expected failures = 750 
+   2012 : number of expected successes = 250 ; number of expected failures = 750 
+Standard error = 0.019 
+Test statistic: Z =  -5.164 
+p-value =  0 
+[1] "France"
+Response variable: categorical, Explanatory variable: categorical
+Two categorical variables
+Difference between two proportions -- success: atheist
+Summary statistics:
+             x
+y             2005 2012  Sum
+  atheist      234  485  719
+  non-atheist 1437 1203 2640
+  Sum         1671 1688 3359
+Observed difference between proportions (2005-2012) = -0.1473
+
+H0: p_2005 - p_2012 = 0 
+HA: p_2005 - p_2012 != 0 
+Pooled proportion = 0.2141 
+Check conditions:
+   2005 : number of expected successes = 358 ; number of expected failures = 1313 
+   2012 : number of expected successes = 361 ; number of expected failures = 1327 
+Standard error = 0.014 
+Test statistic: Z =  -10.406 
+p-value =  0 
+[1] "Korea"
+Response variable: categorical, Explanatory variable: categorical
+Two categorical variables
+[1] "Rep (South)"
+Response variable: categorical, Explanatory variable: categorical
+Two categorical variables
+[1] "Germany"
+Response variable: categorical, Explanatory variable: categorical
+Two categorical variables
+Difference between two proportions -- success: atheist
+Summary statistics:
+             x
+y             2005 2012  Sum
+  atheist       50   75  125
+  non-atheist  452  427  879
+  Sum          502  502 1004
+Observed difference between proportions (2005-2012) = -0.0498
+
+H0: p_2005 - p_2012 = 0 
+HA: p_2005 - p_2012 != 0 
+Pooled proportion = 0.1245 
+Check conditions:
+   2005 : number of expected successes = 62 ; number of expected failures = 440 
+   2012 : number of expected successes = 62 ; number of expected failures = 440 
+Standard error = 0.021 
+Test statistic: Z =  -2.39 
+p-value =  0.0168 
+[1] "Netherlands"
+Response variable: categorical, Explanatory variable: categorical
+Two categorical variables
+Difference between two proportions -- success: atheist
+Summary statistics:
+             x
+y             2005 2012  Sum
+  atheist       35   71  106
+  non-atheist  470  438  908
+  Sum          505  509 1014
+Observed difference between proportions (2005-2012) = -0.0702
+
+H0: p_2005 - p_2012 = 0 
+HA: p_2005 - p_2012 != 0 
+Pooled proportion = 0.1045 
+Check conditions:
+   2005 : number of expected successes = 53 ; number of expected failures = 452 
+   2012 : number of expected successes = 53 ; number of expected failures = 456 
+Standard error = 0.019 
+Test statistic: Z =  -3.652 
+p-value =  2e-04 
+[1] "Austria"
+Response variable: categorical, Explanatory variable: categorical
+Two categorical variables
+Difference between two proportions -- success: atheist
+Summary statistics:
+             x
+y             2005 2012  Sum
+  atheist      100  100  200
+  non-atheist  903  902 1805
+  Sum         1003 1002 2005
+Observed difference between proportions (2005-2012) = -1e-04
+
+H0: p_2005 - p_2012 = 0 
+HA: p_2005 - p_2012 != 0 
+Pooled proportion = 0.0998 
+Check conditions:
+   2005 : number of expected successes = 100 ; number of expected failures = 903 
+   2012 : number of expected successes = 100 ; number of expected failures = 902 
+Standard error = 0.013 
+Test statistic: Z =  -0.007 
+p-value =  0.994 
+[1] "Iceland"
+Response variable: categorical, Explanatory variable: categorical
+Two categorical variables
+Difference between two proportions -- success: atheist
+Summary statistics:
+             x
+y             2005 2012  Sum
+  atheist       51   85  136
+  non-atheist  801  767 1568
+  Sum          852  852 1704
+Observed difference between proportions (2005-2012) = -0.0399
+
+H0: p_2005 - p_2012 = 0 
+HA: p_2005 - p_2012 != 0 
+Pooled proportion = 0.0798 
+Check conditions:
+   2005 : number of expected successes = 68 ; number of expected failures = 784 
+   2012 : number of expected successes = 68 ; number of expected failures = 784 
+Standard error = 0.013 
+Test statistic: Z =  -3.039 
+p-value =  0.0024 
+[1] "Canada"
+Response variable: categorical, Explanatory variable: categorical
+Two categorical variables
+Difference between two proportions -- success: atheist
+Summary statistics:
+             x
+y             2005 2012  Sum
+  atheist       60   90  150
+  non-atheist  943  912 1855
+  Sum         1003 1002 2005
+Observed difference between proportions (2005-2012) = -0.03
+
+H0: p_2005 - p_2012 = 0 
+HA: p_2005 - p_2012 != 0 
+Pooled proportion = 0.0748 
+Check conditions:
+   2005 : number of expected successes = 75 ; number of expected failures = 928 
+   2012 : number of expected successes = 75 ; number of expected failures = 927 
+Standard error = 0.012 
+Test statistic: Z =  -2.553 
+p-value =  0.0106 
+[1] "Spain"
+Response variable: categorical, Explanatory variable: categorical
+Two categorical variables
+Difference between two proportions -- success: atheist
+Summary statistics:
+             x
+y             2005 2012  Sum
+  atheist      115  103  218
+  non-atheist 1031 1042 2073
+  Sum         1146 1145 2291
+Observed difference between proportions (2005-2012) = 0.0104
+
+H0: p_2005 - p_2012 = 0 
+HA: p_2005 - p_2012 != 0 
+Pooled proportion = 0.0952 
+Check conditions:
+   2005 : number of expected successes = 109 ; number of expected failures = 1037 
+   2012 : number of expected successes = 109 ; number of expected failures = 1036 
+Standard error = 0.012 
+Test statistic: Z =  0.848 
+p-value =  0.3966 
+[1] "Switzerland"
+Response variable: categorical, Explanatory variable: categorical
+Two categorical variables
+Difference between two proportions -- success: atheist
+Summary statistics:
+             x
+y             2005 2012  Sum
+  atheist       35   46   81
+  non-atheist  472  467  939
+  Sum          507  513 1020
+Observed difference between proportions (2005-2012) = -0.0206
+
+H0: p_2005 - p_2012 = 0 
+HA: p_2005 - p_2012 != 0 
+Pooled proportion = 0.0794 
+Check conditions:
+   2005 : number of expected successes = 40 ; number of expected failures = 467 
+   2012 : number of expected successes = 41 ; number of expected failures = 472 
+Standard error = 0.017 
+Test statistic: Z =  -1.219 
+p-value =  0.223 
+[1] "Hong Kong"
+Response variable: categorical, Explanatory variable: categorical
+Two categorical variables
+[1] "Italy"
+Response variable: categorical, Explanatory variable: categorical
+Two categorical variables
+Difference between two proportions -- success: atheist
+Summary statistics:
+             x
+y             2005 2012  Sum
+  atheist       59   79  138
+  non-atheist  928  908 1836
+  Sum          987  987 1974
+Observed difference between proportions (2005-2012) = -0.0203
+
+H0: p_2005 - p_2012 = 0 
+HA: p_2005 - p_2012 != 0 
+Pooled proportion = 0.0699 
+Check conditions:
+   2005 : number of expected successes = 69 ; number of expected failures = 918 
+   2012 : number of expected successes = 69 ; number of expected failures = 918 
+Standard error = 0.011 
+Test statistic: Z =  -1.765 
+p-value =  0.0776 
+[1] "Argentina"
+Response variable: categorical, Explanatory variable: categorical
+Two categorical variables
+Difference between two proportions -- success: atheist
+Summary statistics:
+             x
+y             2005 2012  Sum
+  atheist       20   70   90
+  non-atheist  982  921 1903
+  Sum         1002  991 1993
+Observed difference between proportions (2005-2012) = -0.0507
+
+H0: p_2005 - p_2012 = 0 
+HA: p_2005 - p_2012 != 0 
+Pooled proportion = 0.0452 
+Check conditions:
+   2005 : number of expected successes = 45 ; number of expected failures = 957 
+   2012 : number of expected successes = 45 ; number of expected failures = 946 
+Standard error = 0.009 
+Test statistic: Z =  -5.447 
+p-value =  0 
+[1] "Russian Federation"
+Response variable: categorical, Explanatory variable: categorical
+Two categorical variables
+Difference between two proportions -- success: atheist
+Summary statistics:
+             x
+y             2005 2012  Sum
+  atheist       40   60  100
+  non-atheist  960  940 1900
+  Sum         1000 1000 2000
+Observed difference between proportions (2005-2012) = -0.02
+
+H0: p_2005 - p_2012 = 0 
+HA: p_2005 - p_2012 != 0 
+Pooled proportion = 0.05 
+Check conditions:
+   2005 : number of expected successes = 50 ; number of expected failures = 950 
+   2012 : number of expected successes = 50 ; number of expected failures = 950 
+Standard error = 0.01 
+Test statistic: Z =  -2.052 
+p-value =  0.0402 
+[1] "Finland"
+Response variable: categorical, Explanatory variable: categorical
+Two categorical variables
+Difference between two proportions -- success: atheist
+Summary statistics:
+             x
+y             2005 2012  Sum
+  atheist       69   59  128
+  non-atheist  915  926 1841
+  Sum          984  985 1969
+Observed difference between proportions (2005-2012) = 0.0102
+
+H0: p_2005 - p_2012 = 0 
+HA: p_2005 - p_2012 != 0 
+Pooled proportion = 0.065 
+Check conditions:
+   2005 : number of expected successes = 64 ; number of expected failures = 920 
+   2012 : number of expected successes = 64 ; number of expected failures = 921 
+Standard error = 0.011 
+Test statistic: Z =  0.92 
+p-value =  0.3576 
+[1] "Moldova"
+Response variable: categorical, Explanatory variable: categorical
+Two categorical variables
+Difference between two proportions -- success: atheist
+Summary statistics:
+             x
+y             2005 2012  Sum
+  atheist       22   54   76
+  non-atheist 1063 1031 2094
+  Sum         1085 1085 2170
+Observed difference between proportions (2005-2012) = -0.0295
+
+H0: p_2005 - p_2012 = 0 
+HA: p_2005 - p_2012 != 0 
+Pooled proportion = 0.035 
+Check conditions:
+   2005 : number of expected successes = 38 ; number of expected failures = 1047 
+   2012 : number of expected successes = 38 ; number of expected failures = 1047 
+Standard error = 0.008 
+Test statistic: Z =  -3.737 
+p-value =  2e-04 
+[1] "United States"
+Response variable: categorical, Explanatory variable: categorical
+Two categorical variables
+Difference between two proportions -- success: atheist
+Summary statistics:
+             x
+y             2005 2012  Sum
+  atheist       10   50   60
+  non-atheist  992  952 1944
+  Sum         1002 1002 2004
+Observed difference between proportions (2005-2012) = -0.0399
+
+H0: p_2005 - p_2012 = 0 
+HA: p_2005 - p_2012 != 0 
+Pooled proportion = 0.0299 
+Check conditions:
+   2005 : number of expected successes = 30 ; number of expected failures = 972 
+   2012 : number of expected successes = 30 ; number of expected failures = 972 
+Standard error = 0.008 
+Test statistic: Z =  -5.243 
+p-value =  0 
+[1] "Poland"
+Response variable: categorical, Explanatory variable: categorical
+Two categorical variables
+Difference between two proportions -- success: atheist
+Summary statistics:
+             x
+y             2005 2012  Sum
+  atheist       10   26   36
+  non-atheist  510  499 1009
+  Sum          520  525 1045
+Observed difference between proportions (2005-2012) = -0.0303
+
+H0: p_2005 - p_2012 = 0 
+HA: p_2005 - p_2012 != 0 
+Pooled proportion = 0.0344 
+Check conditions:
+   2005 : number of expected successes = 18 ; number of expected failures = 502 
+   2012 : number of expected successes = 18 ; number of expected failures = 507 
+Standard error = 0.011 
+Test statistic: Z =  -2.685 
+p-value =  0.0072 
+[1] "South Africa"
+Response variable: categorical, Explanatory variable: categorical
+Two categorical variables
+Difference between two proportions -- success: atheist
+Summary statistics:
+             x
+y             2005 2012 Sum
+  atheist        2    8  10
+  non-atheist  198  194 392
+  Sum          200  202 402
+Observed difference between proportions (2005-2012) = -0.0296
+
+H0: p_2005 - p_2012 = 0 
+HA: p_2005 - p_2012 != 0 
+Pooled proportion = 0.0249 
+Check conditions:
+   2005 : number of expected successes = 5 ; number of expected failures = 195 
+   2012 : number of expected successes = 5 ; number of expected failures = 197 

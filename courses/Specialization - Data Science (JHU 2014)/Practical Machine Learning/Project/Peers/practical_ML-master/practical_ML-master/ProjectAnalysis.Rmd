@@ -1,0 +1,95 @@
+# Coursera Practical Machine Learning Project Analysis
+```{r setup, include=FALSE}
+
+options(width = 100)
+opts_chunk$set(message = F, error = F, warning = F, comment = NA, fig.align = 'center', cache=TRUE, dpi = 100, tidy = F, cache.path = '.cache/', fig.path = 'fig/')
+
+options(xtable.type = 'html')
+
+
+```
+
+## TRAINING
+load the library, read the training file
+```{r}
+library(caret)
+
+df=read.csv("./pml-training.csv",na.strings=c("NA",""))
+length(df)
+```
+#### discard columns with NAs or spaces and the columns with labels including timestamp,X,user_name,new_window
+```{r}
+
+na <- apply(df,2,function(x) {sum(is.na(x))}) 
+d <- df[,which(na == 0)]
+index <- grep("timestamp|X|user_name|new_window",names(d))
+d<-d[,-index]
+length(d)
+```
+the number of columns in the training set has decreased to 54 from 160
+
+**shuffle the rows of _data_ and choose as the training set 3000 rows only**
+
+```{r}
+trainingIndices <- sample(nrow(d), 3000)
+trainingSet <- d[trainingIndices,]
+length(trainingSet)
+testingSet <-d[-trainingIndices,]
+
+```
+use **random forest** as a method for creating a model, but in order to decrease the
+training time, use parameter **trControl** as it follows
+```{r}
+
+modFit<- train(trainingSet$classe~.,data = trainingSet,
+                 method="rf",
+                 trControl = trainControl(method = "cv", number = 4))
+
+modFit$results
+modFit$finalModel
+modFit$times$everything
+
+```
+**Cross Validation with the samples from the testingData the remaining 16622 rows from original training file**
+```{r}
+nrow(testingSet)
+```
+
+
+```{r}
+predictions <- predict(modFit,newdata=testingSet)
+x<-confusionMatrix(predictions,testingSet$classe)
+x
+
+```
+As it can be seen from cross validation the expected out of sample accuracy is very high, around 98%
+
+## Prediction
+
+**Prepare the testing data in the same format as it was done for training data**
+```{r}
+testdf<-read.csv("./pml-testing.csv",na.strings=c("NA",""))
+
+na <- apply(testdf,2,function(x) {sum(is.na(x))}) 
+data_test <- testdf[,which(na == 0)]
+index <- grep("timestamp|X|user_name|new_window",names(data_test))
+data_test<-data_test[,-index]
+length(data_test)
+```
+
+**predict on data_test**
+```{r}
+pred <- predict(modFit,data_test)
+
+answers=as.character(pred)
+answers
+```
+**Conclusion**
+After trying different training methods I found that, for this problem, using 
+random forest was giving very good results. This program was able to predict correctly on all 20 test cases. This is why I chose this particular model for this particular problem: accurate predictions and very short trainig times.
+```{r}
+modFit$times$everything
+```
+
+
+

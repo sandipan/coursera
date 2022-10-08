@@ -1,0 +1,21 @@
+class(xyplot(Sepal.Length + Sepal.Width ~ Petal.Length + Petal.Width | Species,
+       data = iris, scales = "free", layout = c(2, 2),
+       auto.key = list(x = .6, y = .7, corner = c(0, 0))))
+library(nlme)
+library(lattice)
+xyplot(weight ~ Time | Diet, BodyWeight)
+library(lattice)
+library(datasets)
+data(airquality)
+p <- xyplot(Ozone ~ Wind | factor(Month), data = airquality)
+library(datasets)
+data(airquality)
+airquality = transform(airquality, Month = factor(Month))
+qplot(Wind, Ozone, data = airquality, facets = . ~ Month)
+qplot(Wind, Ozone, data = airquality, facets = . ~ factor(Month))
+library(ggplot2)
+g <- ggplot(movies, aes(votes, rating))
+print(g)
+qplot(votes, rating, data = movies)
+qplot(votes, rating, data = movies) + geom_smooth()
+

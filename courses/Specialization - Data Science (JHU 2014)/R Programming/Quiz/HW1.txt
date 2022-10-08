@@ -1,0 +1,2235 @@
+> install.packages("swirl")  # Installs swirl
+Installing package into ‘C:/Users/sandipan/Documents/R/win-library/3.0’
+(as ‘lib’ is unspecified)
+--- Please select a CRAN mirror for use in this session ---
+also installing the dependencies ‘testthat’, ‘httr’, ‘yaml’, ‘RCurl’
+
+trying URL 'http://ftp.iitm.ac.in/cran/bin/windows/contrib/3.0/testthat_0.8.1.zip'
+Content type 'application/zip' length 222770 bytes (217 Kb)
+opened URL
+downloaded 217 Kb
+
+trying URL 'http://ftp.iitm.ac.in/cran/bin/windows/contrib/3.0/httr_0.3.zip'
+Content type 'application/zip' length 328655 bytes (320 Kb)
+opened URL
+downloaded 320 Kb
+
+trying URL 'http://ftp.iitm.ac.in/cran/bin/windows/contrib/3.0/yaml_2.1.11.zip'
+Content type 'application/zip' length 179896 bytes (175 Kb)
+opened URL
+downloaded 175 Kb
+
+trying URL 'http://ftp.iitm.ac.in/cran/bin/windows/contrib/3.0/RCurl_1.95-4.1.zip'
+Content type 'application/zip' length 2836490 bytes (2.7 Mb)
+opened URL
+downloaded 2.7 Mb
+
+trying URL 'http://ftp.iitm.ac.in/cran/bin/windows/contrib/3.0/swirl_2.2.0.zip'
+Content type 'application/zip' length 85900 bytes (83 Kb)
+opened URL
+downloaded 83 Kb
+
+package ‘testthat’ successfully unpacked and MD5 sums checked
+package ‘httr’ successfully unpacked and MD5 sums checked
+package ‘yaml’ successfully unpacked and MD5 sums checked
+package ‘RCurl’ successfully unpacked and MD5 sums checked
+package ‘swirl’ successfully unpacked and MD5 sums checked
+
+The downloaded binary packages are in
+        C:\Users\sandipan\AppData\Local\Temp\Rtmpaozb5p\downloaded_packages
+> library(swirl)
+> swirl()
+
+| Welcome to swirl! Please sign in. If you've been here before, use the same
+| name as you did then. If you are new, call yourself something unique.
+
+What shall I call you? Sandipan
+
+| Thanks, Sandipan. Let's cover a couple of quick housekeeping items before we
+| begin our first lesson. First off, you should know that when you see '...',
+| that means you should press Enter when you are done reading and ready to
+| continue.
+
+...  <-- That's your cue to press Enter to continue
+
+| Also, when you see 'ANSWER:', the R prompt (>), or when you are asked to
+| select from a list, that means it's your turn to enter a response, then press
+| Enter to continue.
+
+Select 1, 2, or 3 and press Enter 
+
+1: Continue.
+2: Proceed.
+3: Let's get going!
+
+Selection: 1
+
+| You can exit swirl and return to the R prompt (>) at any time by pressing the
+| Esc key. If you are already at the prompt, type bye() to exit and save your
+| progress. When you exit properly, you'll see a short message letting know
+| you've done so.
+
+| When you are at the R prompt (>):
+| -- Typing skip() allows you to skip the current question.
+| -- Typing play() lets you experiment with R on your own; swirl will ignore
+| what you do...
+| -- UNTIL you type nxt() which will regain swirl's attention.
+| -- Typing bye() causes swirl to exit. Your progress will be saved.
+| -- Typing info() displays these options again.
+
+| Let's get started!
+
+...
+
+| To begin, you must install a course. I can install a course for you from the
+| internet, or I can send you to a web page
+| (https://github.com/swirldev/swirl_courses) which will provide course options
+| and directions for installing courses yourself. (If you are not connected to
+| the internet, type 0 to exit.)
+Course installed successfully!
+
+| Please choose a course, or type 0 to exit swirl.
+
+1: R Programming
+2: Take me to the swirl course repository!
+
+Selection: 1
+
+| Please choose a lesson, or type 0 to return to course menu.
+
+1: Basic Building Blocks
+2: Sequences of Numbers
+3: Vectors
+4: Missing Values
+5: Subsetting Vectors
+6: Matrices and Data Frames
+
+Selection: 1
+
+
+  |                                                                            
+  |                                                                      |   0%
+
+| In this lesson, we will explore some basic building blocks of the R
+| programming language.
+
+...
+
+
+  |                                                                            
+  |==                                                                    |   3%
+| If at any point you'd like more information on a particular topic related to
+| R, you can type help.start() at the prompt, which will open a menu of
+| resources (either within RStudio or your default web browser, depending on
+| your setup). Alternatively, a simple web search often yields the answer
+| you're looking for.
+
+...
+
+
+  |                                                                            
+  |====                                                                  |   6%
+| In it's simplest form, R can be used as an interactive calculator. Type 5 + 7
+| and press Enter.
+
+> 5+7
+[1] 12
+
+| Keep up the great work!
+
+
+  |                                                                            
+  |=======                                                               |   9%
+| R simply prints the result of 12 by default. However, R is a programming
+| language and often the reason we use a programming language as opposed to a
+| calculator is to automate some process or avoid unnecessary repetition.
+
+...
+
+
+  |                                                                            
+  |=========                                                             |  12%
+| In this case, we may want to use our result from above in a second
+| calculation. Instead of retyping 5 + 7 every time we need it, we can just
+| create a new variable that stores the result.
+
+...
+
+
+  |                                                                            
+  |===========                                                           |  16%
+| The way you assign a value to a variable in R is by using the assignment
+| operator, which is just a 'less than' symbol followed by a 'minus' sign. It
+| looks like this: <-
+
+...
+
+
+  |                                                                            
+  |=============                                                         |  19%
+| Think of the assignment operator as an arrow. You are assigning the value on
+| the right side of the arrow to the variable name on the left side of the
+| arrow.
+
+...
+
+
+  |                                                                            
+  |===============                                                       |  22%
+| To assign the result of 5 + 7 to a new variable called x, you type x <- 5 +
+| 7. This can be read as 'x gets 5 plus 7'. Give it a try now.
+
+> 
+> x<-5+7
+
+| You are amazing!
+
+
+  |                                                                            
+  |==================                                                    |  25%
+| You'll notice that R did not print the result of 12 this time. When you use
+| the assignment operator, R assumes that you don't want to see the result
+| immediately, but rather that you intend to use the result for something else
+| later on.
+
+...
+
+
+  |                                                                            
+  |====================                                                  |  28%
+| To view the contents of the variable x, just type x and press Enter. Try it
+| now.
+
+> x
+[1] 12
+
+| You're the best!
+
+
+  |                                                                            
+  |======================                                                |  31%
+| Now, store the result of x - 3 in a new variable called y.
+
+> x-3
+[1] 9
+
+| You almost had it, but not quite. Try again. Or, type info() for more
+| options.
+
+| Type y <- x - 3 and press Enter. Whether you use x - 3 or x-3 is personal
+| preference, but it's good habit to include a space on either side of the
+| assignment operator.
+
+> y<-x-3
+
+| Nice work!
+
+
+  |                                                                            
+  |========================                                              |  34%
+| What is the value of y? Type y to find out.
+
+> y
+[1] 9
+
+| That's correct!
+
+
+  |                                                                            
+  |==========================                                            |  38%
+| Now, let's create a small collection of numbers called a vector. Any object
+| that contains data is called a data structure and numeric vectors are the
+| simplest type of data structure in R. In fact, even a single number is
+| considered a vector of length one.
+
+...
+
+
+  |                                                                            
+  |============================                                          |  41%
+| The easiest way to create a vector is with the c() function, which stands for
+| 'concatenate' or 'combine'. To create a vector containing the numbers 1.1, 9,
+| and 3.14, type c(1.1, 9, 3.14). Try it now and store the result in a variable
+| called z.
+
+> 
+> z <- c(1.1,9,3.14)
+
+| Excellent job!
+
+
+  |                                                                            
+  |===============================                                       |  44%
+| Anytime you have questions about a particular function, you can access R's
+| built-in help files via the `?` command. For example, if you want more
+| information on the c() function, type ?c without the parentheses that
+| normally follow a function name. Give it a try.
+
+> ?c
+
+| Great job!
+
+
+  |                                                                            
+  |=================================                                     |  47%
+| Type z to view it's contents. Notice that there are no commas separating the
+| values in the output.
+
+> z
+[1] 1.10 9.00 3.14
+
+| You are quite good my friend!
+
+
+  |                                                                            
+  |===================================                                   |  50%
+| You can combine vectors to make a new vector. Create a new vector that
+| contains z, 555, then z again in that order. Don't assign this vector to a
+| new variable, so that we can just see the result immediately.
+
+> z <- c(z, 555, z)
+
+| Give it another try. Or, type info() for more options.
+
+| Type c(z, 555, z). Don't create a new variable. We just want to view the
+| result.
+
+> c(z, 555, z)
+[1]   1.10   9.00   3.14 555.00   1.10   9.00   3.14
+
+| You are amazing!
+
+
+  |                                                                            
+  |=====================================                                 |  53%
+| Numeric vectors can be used in arithmetic expressions. Type the following to
+| see what happens: z * 2 + 100.
+
+> z*2+100
+[1] 102.20 118.00 106.28
+
+| Excellent job!
+
+
+  |                                                                            
+  |=======================================                               |  56%
+| First, R multiplied each of the three elements in z by 2. Then it added 100
+| to each element to get the result you see above.
+
+...
+
+
+  |                                                                            
+  |==========================================                            |  59%
+| Other common arithmetic operators are `+`, `-`, `/`, and `^` (where x^2 means
+| 'x squared'). To take the square root, use the sqrt() function and to take
+| the absolute value, use the abs() function.
+
+...
+
+
+  |                                                                            
+  |============================================                          |  62%
+| Take the square root of z - 1 and assign it to a new variable called mySqrt.
+
+> 
+> mySqrt <- sqrt(z-1)
+
+| You got it!
+
+
+  |                                                                            
+  |==============================================                        |  66%
+| Before we view the contents of the mySqrt variable, what do you think it
+| contains?
+
+1: a single number (i.e a vector of length 1)
+2: a vector of length 3
+3: a vector of length 0 (i.e. an empty vector)
+
+Selection: 2
+
+| Excellent job!
+
+
+  |                                                                            
+  |================================================                      |  69%
+| Print the contents of mySqrt.
+
+> mySqrt
+[1] 0.3162278 2.8284271 1.4628739
+
+| That's a job well done!
+
+
+  |                                                                            
+  |==================================================                    |  72%
+| As you may have guessed, R first subtracted 1 from each element of z, then
+| took the square root of each element. This leaves you with a vector of the
+| same length as the original vector z.
+
+...
+
+
+  |                                                                            
+  |====================================================                  |  75%
+| Now, create a new variable called myDiv that gets the value of z divided by
+| mySqrt.
+
+> myDiv <- z / mySqrt
+
+| You got it right!
+
+
+  |                                                                            
+  |=======================================================               |  78%
+| Which statement do you think is true?
+
+1: myDiv is undefined
+2: myDiv is a single number (i.e a vector of length 1)
+3: The first element of myDiv is equal to the first element of z divided by the first element of mySqrt, and so on...
+
+Selection: 3
+
+| You are doing so well!
+
+
+  |                                                                            
+  |=========================================================             |  81%
+| Go ahead and print the contents of myDiv.
+
+> myDiv
+[1] 3.478505 3.181981 2.146460
+
+| You nailed it! Good job!
+
+
+  |                                                                            
+  |===========================================================           |  84%
+| When given two vectors of the same length, R simply performs the specified
+| arithmetic operation (`+`, `-`, `*`, etc.) element-by-element. If the vectors
+| are of different lengths, R 'recycles' the shorter vector until it is the
+| same length as the longer vector.
+
+...
+
+
+  |                                                                            
+  |=============================================================         |  88%
+| When we did z * 2 + 100 in our earlier example, z was a vector of length 3,
+| but technically 2 and 100 are each vectors of length 1.
+
+...
+
+
+  |                                                                            
+  |===============================================================       |  91%
+| Behind the scenes, R is 'recycling' the 2 to make a vector of 2s and the 100
+| to make a vector of 100s. In other words, when you ask R to compute z * 2 +
+| 100, what it really computes is this: z * c(2, 2, 2) + c(100, 100, 100).
+
+...
+
+
+  |                                                                            
+  |==================================================================    |  94%
+| To see another example of how this vector 'recycling' works, try adding c(1,
+| 2, 3, 4) and c(0, 10). Don't worry about saving the result in a new variable.
+
+> c(1,2,3,4)+c(0,10)
+[1]  1 12  3 14
+
+| You got it right!
+
+
+  |                                                                            
+  |====================================================================  |  97%
+| If the length of the shorter vector does not divide evenly into the length of
+| the longer vector, R will still apply the 'recycling' method, but will throw
+| a warning to let you know something fishy might be going on.
+
+...
+
+
+  |                                                                            
+  |======================================================================| 100%
+| Try c(1, 2, 3, 4) + c(0, 10, 100) for an example.
+
+> c(1,2,3,4)+c(0,10,100)
+[1]   1  12 103   4
+Warning message:
+In c(1, 2, 3, 4) + c(0, 10, 100) :
+  longer object length is not a multiple of shorter object length
+
+| That's correct!
+
+| Are you currently enrolled in the Coursera course associated with this
+| lesson?
+
+1: Yes
+2: No
+
+Selection: 1
+
+| Would you like me to notify Coursera that you've completed this lesson? If
+| so, I'll need to get some more info from you.
+
+1: Yes
+2: No
+3: Maybe later
+
+Selection: 1
+
+| The first item I need is your course ID. If the homepage for your Coursera
+| course is 'https://class.coursera.org/rprog-001', then your course ID is
+| 'rprog-001' (without the quotes).
+
+Course ID: rprog-002
+Submission login (email): sandipan.dey@gmail.com
+Submission password: AkhW2vZGyf
+
+| I'll try to tell Coursera you've completed this lesson now.
+
+| Great work!
+
+| I've notified Coursera that you have completed rprog-002,
+| Basic_Building_Blocks.
+
+| You've reached the end of this lesson! Returning to the main menu...
+
+| Please choose a course, or type 0 to exit swirl.
+
+1: R Programming
+2: Take me to the swirl course repository!
+
+Selection: 1
+
+| Please choose a lesson, or type 0 to return to course menu.
+
+1: Basic Building Blocks
+2: Sequences of Numbers
+3: Vectors
+4: Missing Values
+5: Subsetting Vectors
+6: Matrices and Data Frames
+
+Selection: 2
+
+
+  |                                                                            
+  |                                                                      |   0%
+
+| In this lesson, you'll learn how to create sequences of numbers in R.
+
+...
+
+
+  |                                                                            
+  |===                                                                   |   5%
+| The simplest way to create a sequence of numbers in R is by using the `:`
+| operator. Type 1:20 to see how it works.
+
+> 
+> 1:20
+ [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20
+
+| You are quite good my friend!
+
+
+  |                                                                            
+  |======                                                                |   9%
+| That gave us every integer between (and including) 1 and 20. We could also
+| use it to create a sequence of real numbers. For example, try pi:10.
+
+> pi:10
+[1] 3.141593 4.141593 5.141593 6.141593 7.141593 8.141593 9.141593
+
+| Excellent job!
+
+
+  |                                                                            
+  |==========                                                            |  14%
+| The result is a vector of real numbers starting with pi (3.142...) and
+| increasing in increments of 1. The upper limit of 10 is never reached, since
+| the next number in our sequence would be greater than 10.
+
+...
+
+
+  |                                                                            
+  |=============                                                         |  18%
+| What happens if we do this: 15:1? Give it a try to find out.
+
+> 15:1
+ [1] 15 14 13 12 11 10  9  8  7  6  5  4  3  2  1
+
+| Great job!
+
+
+  |                                                                            
+  |================                                                      |  23%
+| It counted backwards in increments of 1! It's unlikely we'd want this
+| behavior, but nonetheless it's good to know how it could happen.
+
+...
+
+
+  |                                                                            
+  |===================                                                   |  27%
+| Remember that if you have questions about a particular R function, you can
+| access its documentation with a question mark followed by the function name:
+| ?function_name_here. However, in the case of an operator like the colon used
+| above, you must enclose the symbol in backticks like this: ?`:`. (NOTE: The
+| backtick (`) key is generally located in the top left corner of a keyboard,
+| above the Tab key.)
+
+...
+
+
+  |                                                                            
+  |======================                                                |  32%
+| Pull up the documentation for `:` now.
+
+> ?:
+Error: unexpected ':' in "?:"
+> ?`:`
+
+| Great job!
+
+
+  |                                                                            
+  |=========================                                             |  36%
+| Often, we'll desire more control over a sequence we're creating than what the
+| `:` operator gives us. The seq() function serves this purpose.
+
+...
+
+
+  |                                                                            
+  |=============================                                         |  41%
+| The most basic use of seq() does exactly the same thing as the `:` operator.
+| Try seq(1, 20) to see this.
+
+> seq(1,20)
+ [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20
+
+| Nice work!
+
+
+  |                                                                            
+  |================================                                      |  45%
+| This gives us the same output as 1:20. However, let's say that instead we
+| want a vector of numbers ranging from 0 to 10, incremented by 0.5. seq(0, 10,
+| by=0.5) does just that. Try it out.
+
+> seq(0,10,by=0.5)
+ [1]  0.0  0.5  1.0  1.5  2.0  2.5  3.0  3.5  4.0  4.5  5.0  5.5  6.0  6.5  7.0
+[16]  7.5  8.0  8.5  9.0  9.5 10.0
+
+| Keep up the great work!
+
+
+  |                                                                            
+  |===================================                                   |  50%
+| Or maybe we don't care what the increment is and we just want a sequence of
+| 30 numbers between 5 and 10. seq(5, 10, length=30) does the trick. Give it
+| shot now and store the result in a new variable called my_seq.
+
+> my_seq<-seq(5,10,length=30)
+
+| Great job!
+
+
+  |                                                                            
+  |======================================                                |  55%
+| To confirm that my_seq has length 30, we can use the length() function. Try
+| it now.
+
+> length(my_seq)
+[1] 30
+
+| Nice work!
+
+
+  |                                                                            
+  |=========================================                             |  59%
+| Let's pretend we don't know the length of my_seq, but we want to generate a
+| sequence of integers from 1 to N, where N represents the length of the my_seq
+| vector. In other words, we want a new vector (1, 2, 3, ...) that is the same
+| length as my_seq.
+
+...
+
+
+  |                                                                            
+  |=============================================                         |  64%
+| There are several ways we could do this. One possibility is to combine the
+| `:` operator and the length() function like this: 1:length(my_seq). Give that
+| a try.
+
+> 1:length(my_seq)
+ [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25
+[26] 26 27 28 29 30
+
+| Keep up the great work!
+
+
+  |                                                                            
+  |================================================                      |  68%
+| Another option is to use seq(along = my_seq). Give that a try.
+
+> seq(along=my_seq)
+ [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25
+[26] 26 27 28 29 30
+
+| You're the best!
+
+
+  |                                                                            
+  |===================================================                   |  73%
+| However, as is the case with many common tasks, R has a separate built-in
+| function for this purpose called seq_along(). Type seq_along(my_seq) to see
+| it in action.
+
+> seq_along(my_seq)
+ [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25
+[26] 26 27 28 29 30
+
+| Keep up the great work!
+
+
+  |                                                                            
+  |======================================================                |  77%
+| There are often several approaches to solving the same problem, particularly
+| in R. Simple approaches that involve less typing are generally best. It's
+| also important for your code to be readable, so that you and others can
+| figure out what's going on without too much hassle.
+
+...
+
+
+  |                                                                            
+  |=========================================================             |  82%
+| If R has a built-in function for a particular task, it's likely that function
+| is highly optimized for that purpose and is your best option. As you become a
+| more advanced R programmer, you'll design your own functions to perform tasks
+| when there are no better options. We'll explore writing your own functions in
+| future lessons.
+
+...
+
+
+  |                                                                            
+  |============================================================          |  86%
+| One more function related to creating sequences of numbers is rep(), which
+| stands for 'replicate'. Let's look at a few uses.
+
+...
+
+
+  |                                                                            
+  |================================================================      |  91%
+| If we're interesting in creating a vector that contains 40 zeros, we can use
+| rep(0, times = 40). Try it out.
+
+> rep(0, times=40)
+ [1] 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+[39] 0 0
+
+| You got it right!
+
+
+  |                                                                            
+  |===================================================================   |  95%
+| If instead we want our vector to contain 10 repetitions of the vector (0, 1,
+| 2), we can do rep(c(0, 1, 2), times = 10). Go ahead.
+
+> rep(c(0,1,2), times=10)
+ [1] 0 1 2 0 1 2 0 1 2 0 1 2 0 1 2 0 1 2 0 1 2 0 1 2 0 1 2 0 1 2
+
+| That's correct!
+
+
+  |                                                                            
+  |======================================================================| 100%
+| Finally, let's say that rather than repeating the vector (0, 1, 2) over and
+| over again, we want our vector to contain 10 zeros, then 10 ones, then 10
+| twos. We can do this with the `each` argument. Try rep(c(0, 1, 2), each =
+| 10).
+
+> rep(c(0,1,2), each=10)
+ [1] 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2
+
+| Excellent job!
+
+| Are you currently enrolled in the Coursera course associated with this
+| lesson?
+
+1: Yes
+2: No
+
+Selection: 1
+
+| Would you like me to notify Coursera that you've completed this lesson? If
+| so, I'll need to get some more info from you.
+
+1: Yes
+2: No
+3: Maybe later
+
+Selection: 1
+
+| The first item I need is your course ID. If the homepage for your Coursera
+| course is 'https://class.coursera.org/rprog-001', then your course ID is
+| 'rprog-001' (without the quotes).
+
+Course ID: rprog-002
+
+| I'll try to tell Coursera you've completed this lesson now.
+
+| Great work!
+
+| I've notified Coursera that you have completed rprog-002,
+| Sequences_of_Numbers.
+
+| You've reached the end of this lesson! Returning to the main menu...
+
+Selection: 3
+
+
+  |                                                                                                                                                                   
+  |                                                                                                                                                             |   0%
+
+| The simplest and most common data structure in R is the vector.
+
+...
+
+
+  |                                                                                                                                                                   
+  |====                                                                                                                                                         |   3%
+| Vectors come in two different flavors: atomic vectors and lists. An atomic vector contains exactly one data type, whereas a list may contain multiple data types.
+| We'll explore atomic vectors further before we get to lists.
+
+...
+
+
+  |                                                                                                                                                                   
+  |========                                                                                                                                                     |   5%
+| In previous lessons, we dealt entirely with numeric vectors, which are one type of atomic vector. Other types of atomic vectors include logical, character, integer,
+| and complex. In this lesson, we'll take a closer look at logical and character vectors.
+
+...
+
+
+  |                                                                                                                                                                   
+  |=============                                                                                                                                                |   8%
+| Logical vectors can contain the values TRUE, FALSE, and NA (for 'not available'). These values are generated as the result of logical 'conditions'. Let's experiment
+| with some simple conditions.
+
+...
+
+
+  |                                                                                                                                                                   
+  |=================                                                                                                                                            |  11%
+| First, create a numeric vector num_vect that contains the values 0.5, 55, -10, and 6.
+
+> num_vect<-vector(0.5, 55, -10,6)
+Error in vector(0.5, 55, -10, 6) : unused arguments (-10, 6)
+> num_vect<-c(0.5, 55, -10,6)
+
+| You are really on a roll!
+
+
+  |                                                                                                                                                                   
+  |=====================                                                                                                                                        |  14%
+| Now, create a variable called tf that gets the result of num_vect < 1, which is read as 'num_vect is less than 1'.
+
+> tf <- num_vect < 1
+
+| Nice work!
+
+
+  |                                                                                                                                                                   
+  |=========================                                                                                                                                    |  16%
+| What do you think tf will look like?
+
+1: a single logical value
+2: a vector of 4 logical values
+
+Selection: 2
+
+| Great job!
+
+
+  |                                                                                                                                                                   
+  |==============================                                                                                                                               |  19%
+| Print the contents of tf now.
+
+> tf
+[1]  TRUE FALSE  TRUE FALSE
+
+| That's correct!
+
+
+  |                                                                                                                                                                   
+  |==================================                                                                                                                           |  22%
+| The statement num_vect < 1 is a condition and tf tells us whether each corresponding element of our numeric vector
+| num_vect satisfies this condition.
+
+...
+
+
+  |                                                                                                                                                                   
+  |======================================                                                                                                                       |  24%
+| The first element of num_vect is 0.5, which is less than 1 and therefore the statement 0.5 < 1 is TRUE. The second
+| element of num_vect is 55, which is greater than 1, so the statement 55 < 1 is FALSE. The same logic applies for the
+| third and forth elements.
+
+...
+
+
+  |                                                                                                                                                                   
+  |==========================================                                                                                                                   |  27%
+| Let's try another. Type num_vect >= 6 without assigning the result to a new variable.
+
+> v <- num_vect >= 6
+
+| Not quite! Try again. Or, type info() for more options.
+
+| Don't create a new variable on this one. We just want to see the result of num_vect >= 6. Make sure there is no space
+| between the `>` and `=` symbols. Think of them as one symbol representing 'greater than or equal to'.
+
+> num_vect >= 6
+[1] FALSE  TRUE FALSE  TRUE
+
+| That's correct!
+
+
+  |                                                                                                                                                                   
+  |===============================================                                                                                                              |  30%
+| This time, we are asking whether each individual element of num_vect is greater than OR equal to 6. Since only 55 and 6
+| are greater than or equal to 6, the second and forth elements of the result are TRUE and the first and third elements
+| are FALSE.
+
+...
+
+
+  |                                                                                                                                                                   
+  |===================================================                                                                                                          |  32%
+| The `<` and `>=` symbols in these examples are called 'logical operators'. Other logical operators include `>`, `<=`,
+| `==` for exact equality, and `!=` for inequality.
+
+...
+
+
+  |                                                                                                                                                                   
+  |=======================================================                                                                                                      |  35%
+| If we have two logical expressions, A and B, we can ask whether at least one is TRUE with A | B (logical 'or' a.k.a.
+| 'union') or whether they are both TRUE with A & B (logical 'and' a.k.a. 'intersection'). Lastly, !A is the negation of A
+| and is TRUE when A is FALSE and vice versa.
+
+...
+
+
+  |                                                                                                                                                                   
+  |===========================================================                                                                                                  |  38%
+| It's a good idea to spend some time playing around with various combinations of these logical operators until you get
+| comfortable with their use. We'll do a few examples here to get you started.
+
+...
+
+
+  |                                                                                                                                                                   
+  |================================================================                                                                                             |  41%
+| Try your best to predict the result of each of the following statements. You can use pencil and paper to work them out
+| if it's helpful. If you get stuck, just guess and you've got a 50% chance of getting the right answer!
+
+...
+
+
+  |                                                                                                                                                                   
+  |====================================================================                                                                                         |  43%
+| (3 > 5) & (4 == 4)
+
+1: TRUE
+2: FALSE
+
+Selection: 2
+
+| Excellent job!
+
+
+  |                                                                                                                                                                   
+  |========================================================================                                                                                     |  46%
+| (TRUE == TRUE) | (TRUE == FALSE)
+
+1: FALSE
+2: TRUE
+
+Selection: 2
+
+| Excellent job!
+
+
+  |                                                                                                                                                                   
+  |============================================================================                                                                                 |  49%
+| ((111 >= 111) | !(TRUE)) & ((4 + 1) == 5)
+
+1: FALSE
+2: TRUE
+
+Selection: 2
+
+| You're the best!
+
+
+  |                                                                                                                                                                   
+  |=================================================================================                                                                            |  51%
+| Don't worry if you found these to be tricky. They're supposed to be. Working with logical statements in R takes
+| practice, but your efforts will be rewarded in future lessons (e.g. subsetting and control structures).
+
+...
+
+
+  |                                                                                                                                                                   
+  |=====================================================================================                                                                        |  54%
+| Character vectors are also very common in R. Double quotes are used to distinguish character objects, as in the
+| following example.
+
+...
+
+
+  |                                                                                                                                                                   
+  |=========================================================================================                                                                    |  57%
+| Create a character vector that contains the following words: "My", "name", "is". Remember to enclose each word in it's
+| own set of double quotes, so that R knows they are character strings. Store the vector in a variable called my_char.
+
+> my_char <- c("My", "name", "is")
+
+| Keep up the great work!
+
+
+  |                                                                                                                                                                   
+  |=============================================================================================                                                                |  59%
+| Print the contents of my_char to see what it looks like.
+
+> my_char
+[1] "My"   "name" "is"  
+
+| That's correct!
+
+
+  |                                                                                                                                                                   
+  |==================================================================================================                                                           |  62%
+| Right now, my_char is a character vector of length 3. Let's say we want to join the elements of my_char together into
+| one continuous character string (i.e. a character vector of length 1). We can do this using the paste() function.
+
+...
+
+
+  |                                                                                                                                                                   
+  |======================================================================================================                                                       |  65%
+| Type paste(my_char, collapse = " ") now. Make sure there's a space between the double quotes in the `collapse` argument.
+| You'll see why in a second.
+
+> paste(my_char, collapse = " ")
+[1] "My name is"
+
+| Excellent job!
+
+
+  |                                                                                                                                                                   
+  |==========================================================================================================                                                   |  68%
+| The `collapse` argument to the paste() function tells R that when we join together the elements of the my_char character
+| vector, we'd like to separate them with single spaces.
+
+...
+
+
+  |                                                                                                                                                                   
+  |==============================================================================================================                                               |  70%
+| It seems that we're missing something.... Ah, yes! Your name!
+
+...
+
+
+  |                                                                                                                                                                   
+  |===================================================================================================================                                          |  73%
+| To add (or 'concatenate') your name to the end of my_char, use the c() function like this: c(my_char, "your_name_here").
+| Place your name in double quotes where I've put "your_name_here". Try it now, storing the result in a new variable
+| called my_name.
+
+> my_name <- c(my_char, "sandipan")
+
+| You are really on a roll!
+
+
+  |                                                                                                                                                                   
+  |=======================================================================================================================                                      |  76%
+| Take a look at the contents of my_name.
+
+> my_name
+[1] "My"       "name"     "is"       "sandipan"
+
+| You got it right!
+
+
+  |                                                                                                                                                                   
+  |===========================================================================================================================                                  |  78%
+| Now, use the paste() function once more to join the words in my_name together into a single character string. Don't
+| forget to say collapse = " "!
+
+> paste(my_name, collapse = " ")
+[1] "My name is sandipan"
+
+| You are really on a roll!
+
+
+  |                                                                                                                                                                   
+  |===============================================================================================================================                              |  81%
+| In this example, we used the paste() function to collapse the elements of a single character vector. paste() can also be
+| used to join the elements of multiple character vectors.
+
+...
+
+
+  |                                                                                                                                                                   
+  |====================================================================================================================================                         |  84%
+| In the simplest case, we can join two character vectors that are each of length 1 (i.e. join two words). Try
+| paste("Hello", "world!", sep = " "), where the `sep` argument tells R that we want to separate the joined elements with
+| a single space.
+
+> paste("Hello", "world!", sep = " ")
+[1] "Hello world!"
+
+| You got it right!
+
+
+  |                                                                                                                                                                   
+  |========================================================================================================================================                     |  86%
+| For a slightly more complicated example, we can join two vectors, each of length 3. Use paste() to join the numeric
+| vector 1:3 (recall this is the same as c(1, 2, 3)) with the character vector c("X", "Y", "Z"). This time, use sep = ""
+| to leave no space between the joined elements.
+
+> paste(1:3, c("X", "Y", "Z"), sep = "")
+[1] "1X" "2Y" "3Z"
+
+| That's correct!
+
+
+  |                                                                                                                                                                   
+  |============================================================================================================================================                 |  89%
+| What do you think will happen if our vectors are of different length? (Hint: we talked about this in a previous lesson.)
+
+...
+
+
+  |                                                                                                                                                                   
+  |================================================================================================================================================             |  92%
+| Vector recycling! Try paste(LETTERS, 1:4, sep = "-"), where LETTERS is a predefined variable in R containing a character
+| vector of all 26 letters in the English alphabet.
+
+> paste(LETTERS, 1:4, sep = "-")
+ [1] "A-1" "B-2" "C-3" "D-4" "E-1" "F-2" "G-3" "H-4" "I-1" "J-2" "K-3" "L-4" "M-1" "N-2" "O-3" "P-4" "Q-1" "R-2" "S-3"
+[20] "T-4" "U-1" "V-2" "W-3" "X-4" "Y-1" "Z-2"
+
+| Nice work!
+
+
+  |                                                                                                                                                                   
+  |=====================================================================================================================================================        |  95%
+| Since the character vector LETTERS is longer than the numeric vector 1:4, R simply recycles, or repeats, 1:4 until it
+| matches the length of LETTERS.
+
+...
+
+
+  |                                                                                                                                                                   
+  |=========================================================================================================================================================    |  97%
+| Also worth noting is that the numeric vector 1:4 gets 'coerced' into a character vector by the paste() function.
+
+...
+
+
+  |                                                                                                                                                                   
+  |=============================================================================================================================================================| 100%
+| We'll discuss coercion in another lesson, but all it really means that the numbers 1, 2, 3, and 4 in the output above
+| are no longer numbers to R, but rather characters "1", "2", "3", and "4".
+
+...
+
+| Are you currently enrolled in the Coursera course associated with this lesson?
+
+1: Yes
+2: No
+
+Selection: 1
+
+| Would you like me to notify Coursera that you've completed this lesson? If so, I'll need to get some more info from you.
+
+1: Yes
+2: No
+3: Maybe later
+
+Selection: 1
+
+| The first item I need is your course ID. If the homepage for your Coursera course is
+| 'https://class.coursera.org/rprog-001', then your course ID is 'rprog-001' (without the quotes).
+
+Course ID: rprog-002
+
+| I'll try to tell Coursera you've completed this lesson now.
+
+| Great work!
+
+| I've notified Coursera that you have completed rprog-002, Vectors.
+
+| You've reached the end of this lesson! Returning to the main menu...
+
+| Please choose a course, or type 0 to exit swirl.
+
+1: R Programming
+2: Take me to the swirl course repository!
+
+Selection: 4
+
+
+  |                                                                                                                                                                   
+  |                                                                                                                                                             |   0%
+
+| Missing values play an important role in statistics and data analysis. Often, missing values must not be ignored, but rather they should be carefully studied to see
+| if there's an underlying pattern or cause for their missingness.
+
+...
+
+
+  |                                                                                                                                                                   
+  |========                                                                                                                                                     |   5%
+| In R, NA is used to represent any value that is 'not available' or 'missing' (in the statistical sense). In this lesson, we'll explore missing values further.
+
+...
+
+
+  |                                                                                                                                                                   
+  |=================                                                                                                                                            |  11%
+| Any operation involving NA generally yields NA as the result. To illustrate, let's create a vector c(44, NA, 5, NA) and assign it to a variable x.
+
+> c(44, NA, 5, NA)
+[1] 44 NA  5 NA
+
+| You're close...I can feel it! Try it again. Or, type info() for more options.
+
+| Assign the vector c(44, NA, 5, NA) to a variable x. The NA must uppercase.
+
+> x <- c(44, NA, 5, NA)
+
+| You got it right!
+
+
+  |                                                                                                                                                                   
+  |=========================                                                                                                                                    |  16%
+| Now, let's multiply x by 3.
+
+> x*3
+[1] 132  NA  15  NA
+
+| You got it!
+
+
+  |                                                                                                                                                                   
+  |=================================                                                                                                                            |  21%
+| Notice that the elements of the resulting vector that correspond with the NA values in x are also NA.
+
+...
+
+
+  |                                                                                                                                                                   
+  |=========================================                                                                                                                    |  26%
+| To make things a little more interesting, lets create a vector containing 1000 draws from a standard normal distribution with y <- rnorm(1000).
+
+> y<-rnorm(1000)
+
+| You nailed it! Good job!
+
+
+  |                                                                                                                                                                   
+  |==================================================                                                                                                           |  32%
+| Next, let's create a vector containing 1000 NAs with z <- rep(NA, 1000).
+
+> z<-rep(NA, 1000)
+
+| Nice work!
+
+
+  |                                                                                                                                                                   
+  |==========================================================                                                                                                   |  37%
+| Finally, let's select 100 elements at random from these 2000 values (combining y and z) such that we don't know how many NAs we'll wind up with or what positions
+| they'll occupy in our final vector -- myData <- sample(c(y, z), 100).
+
+> myData <- sample(c(y,z),100)
+
+| Keep up the great work!
+
+
+  |                                                                                                                                                                   
+  |==================================================================                                                                                           |  42%
+| Let's first ask the question of where our NAs are located in our data. The is.na() function tells us whether each element of a vector is NA. Call is.na() on myData
+| and assign the result to myNA.
+
+> myNA <- is.na(myData)
+
+| You are quite good my friend!
+
+
+  |                                                                                                                                                                   
+  |==========================================================================                                                                                   |  47%
+| Now, print myNA to see what you came up with.
+
+> myNA
+  [1] FALSE FALSE FALSE FALSE  TRUE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE  TRUE  TRUE FALSE FALSE  TRUE
+ [28] FALSE FALSE  TRUE  TRUE  TRUE FALSE FALSE  TRUE  TRUE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE
+ [55]  TRUE  TRUE  TRUE  TRUE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE  TRUE  TRUE  TRUE  TRUE FALSE FALSE  TRUE  TRUE  TRUE FALSE FALSE  TRUE FALSE  TRUE FALSE
+ [82]  TRUE  TRUE FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE FALSE  TRUE  TRUE FALSE  TRUE  TRUE FALSE
+
+| You are doing so well!
+
+
+  |                                                                                                                                                                   
+  |===================================================================================                                                                          |  53%
+| Everywhere you see a TRUE, you know the corresponding element of myData is NA. Likewise, everywhere you see a FALSE, you know the corresponding element of myData is
+| one of our random draws from the standard normal distribution.
+
+...
+
+
+  |                                                                                                                                                                   
+  |===========================================================================================                                                                  |  58%
+| In our previous discussion of logical operators, we introduced the `==` operator as a method of testing for equality between two objects. So, you might think the
+| expression myData == NA yields the same results as is.na(). Give it a try.
+
+> myData == NA
+  [1] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA
+ [55] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA
+
+| You got it!
+
+
+  |                                                                                                                                                                   
+  |===================================================================================================                                                          |  63%
+| The reason you got a vector of all NAs is that NA is not really a value, but just a placeholder for a quantity that is not available. Therefore the logical
+| expression is incomplete and R has no choice but to return a vector of the same length as myData that contains all NAs.
+
+...
+
+
+  |                                                                                                                                                                   
+  |===========================================================================================================                                                  |  68%
+| Don't worry if that's a little confusing. The key takeaway is to be cautious when using logical expressions anytime NAs might creep in, since a single NA value can
+| derail the entire thing.
+
+...
+
+
+  |                                                                                                                                                                   
+  |====================================================================================================================                                         |  74%
+| So, back to the task at hand. Now that we have a vector, myNA, that has a TRUE for every NA and FALSE for every numeric value, we can compute the total number of
+| NAs in our data.
+
+...
+
+
+  |                                                                                                                                                                   
+  |============================================================================================================================                                 |  79%
+| The trick is to recognize that underneath the surface, R represents TRUE as the number 1 and FALSE as the number 0. Therefore, if we take the sum of a bunch of
+| TRUEs and FALSEs, we get the total number of TRUEs.
+
+...
+
+
+  |                                                                                                                                                                   
+  |====================================================================================================================================                         |  84%
+| Let's give that a try here. Call the sum() function on myNA to count the total number of TRUEs in myNA, and thus the total number of NAs in myData. Don't assign the
+| result to a new variable.
+
+> sum(myNA)
+[1] 45
+
+| That's a job well done!
+
+
+  |                                                                                                                                                                   
+  |============================================================================================================================================                 |  89%
+| Pretty cool, huh? Finally, let's take a look at the data to convince ourselves that everything 'adds up'. Print myData to the console.
+
+> myData
+  [1] -0.64554133 -1.32505952  1.34713221  1.21518315          NA -0.43118052          NA -0.04934016  0.58522122 -1.23045752          NA  1.41891868 -0.97563566
+ [14]          NA          NA -1.44694327 -0.52682045 -0.13223510  1.77218960  2.21827925          NA -0.51888663          NA          NA -0.28244739 -2.55291072
+ [27]          NA  0.52569394 -2.33291262          NA          NA          NA  0.68618211 -1.03736867          NA          NA  1.53030031          NA -0.13536925
+ [40]  1.12223953  0.91208045          NA  1.17477610          NA -0.64721978          NA  0.68898909  1.36151084  0.66587036          NA  1.97688571 -1.15535507
+ [53] -0.77886051 -0.71090408          NA          NA          NA          NA -0.33890462          NA -0.65002272  0.89236138 -0.79918320          NA -0.84528810
+ [66]  1.63176404          NA          NA          NA          NA -1.08875891 -1.01732361          NA          NA          NA  1.22607704 -1.29897480          NA
+ [79] -0.46373156          NA -0.41969695          NA          NA  0.64711550 -0.87385238 -0.37450678  0.56842922          NA          NA          NA          NA
+ [92]  0.37186100          NA -0.36316291          NA          NA  0.06766569          NA          NA -0.17555936
+
+| You are doing so well!
+
+
+  |                                                                                                                                                                   
+  |=====================================================================================================================================================        |  95%
+| Now that's we've got NAs down pat, let's look at a second type of missing value -- NaN, which stands for 'not a number'. To generate NaN, try dividing (using a
+| forward slash) 0 by 0 now.
+
+> 0/0
+[1] NaN
+
+| You are quite good my friend!
+
+
+  |                                                                                                                                                                   
+  |=============================================================================================================================================================| 100%
+| Let's do one more, just for fun. In R, Inf stands for infinity. What happens if you subtract Inf from Inf?
+
+> Inf-Inf
+[1] NaN
+
+| You are quite good my friend!
+
+| Are you currently enrolled in the Coursera course associated with this lesson?
+
+1: Yes
+2: No
+
+Selection: 1
+
+| Would you like me to notify Coursera that you've completed this lesson? If so, I'll need to get some more info from you.
+
+1: Yes
+2: No
+3: Maybe later
+
+Selection: 1
+
+| The first item I need is your course ID. If the homepage for your Coursera course is 'https://class.coursera.org/rprog-001', then your course ID is 'rprog-001'
+| (without the quotes).
+
+Course ID: rprog-002
+
+| I'll try to tell Coursera you've completed this lesson now.
+
+| I'm sorry, something went wrong with establishing connection.
+
+| To notify Coursera that you have completed this lesson, please upload ‘rprog-002_Missing_Values.txt’ to Coursera manually. I've placed the file in the following
+| directory: E:/Academics/Johns Hopkins/R Programming
+
+...
+Selection: 5
+
+
+  |                                                                                                                                                                   
+  |                                                                                                                                                             |   0%
+
+| In this lesson, we'll see how to extract elements from a vector based on some conditions that we specify.
+
+...
+
+
+  |                                                                                                                                                                   
+  |====                                                                                                                                                         |   3%
+| For example, we may only be interested in the first 20 elements of a vector, or only the elements that are not NA, or only those that are positive or correspond to
+| a specific variable of interest. By the end of this lesson, you'll know how to handle each of these scenarios.
+
+...
+
+
+  |                                                                                                                                                                   
+  |========                                                                                                                                                     |   5%
+| I've created for you a vector called x that contains a random ordering of 20 numbers (from a standard normal distribution) and 20 NAs. Type x now to see what it
+| looks like.
+
+> x
+ [1]          NA          NA          NA          NA          NA          NA          NA  0.04660788 -0.48634894 -0.51591117          NA          NA          NA
+[14]  2.57294398          NA  0.11511768          NA  0.76591702          NA  0.73958357          NA  2.18709758  1.84699642  0.75389667          NA          NA
+[27] -1.83183962          NA -0.05048014  1.22449183  0.82845378 -1.34521865  1.23679768 -1.29207807 -1.82280919          NA          NA  0.42918613  0.75490997
+[40]          NA
+
+| That's a job well done!
+
+
+  |                                                                                                                                                                   
+  |============                                                                                                                                                 |   8%
+| The way you tell R that you want to select some particular elements (i.e. a 'subset') from a vector is by placing an 'index vector' in square brackets immediately
+| following the name of the vector.
+
+...
+
+
+  |                                                                                                                                                                   
+  |=================                                                                                                                                            |  11%
+| For a simple example, try x[1:10] to view the first ten elements of x.
+
+> x[1:10]
+ [1]          NA          NA          NA          NA          NA          NA          NA  0.04660788 -0.48634894 -0.51591117
+
+| You are doing so well!
+
+
+  |                                                                                                                                                                   
+  |=====================                                                                                                                                        |  13%
+| Index vectors come in four different flavors -- logical vectors, vectors of positive integers, vectors of negative integers, and vectors of character strings --
+| each of which we'll cover in this lesson.
+
+...
+
+
+  |                                                                                                                                                                   
+  |=========================                                                                                                                                    |  16%
+| Let's start by indexing with logical vectors. One common scenario when working with real-world data is that we want to extract all elements of a vector that are not
+| NA (i.e. missing data). Recall that is.na(x) yields a vector of logical values the same length as x, with TRUEs corresponding to NA values in x and FALSEs
+| corresponding to non-NA values in x.
+
+...
+
+
+  |                                                                                                                                                                   
+  |=============================                                                                                                                                |  18%
+| What do you think x[is.na(x)] will give you?
+
+1: A vector with no NAs
+2: A vector of TRUEs and FALSEs
+3: A vector of length 0
+4: A vector of all NAs
+
+Selection: 4
+
+| That's a job well done!
+
+
+  |                                                                                                                                                                   
+  |=================================                                                                                                                            |  21%
+| Prove it to yourself by typing x[is.na(x)].
+
+> x[is.na(x)]
+ [1] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA
+
+| Keep up the great work!
+
+
+  |                                                                                                                                                                   
+  |=====================================                                                                                                                        |  24%
+| Recall that `!` gives us the negation of a logical expression, so !is.na(x) can be read as 'is not NA'. Therefore, if we want to create a vector called y that
+| contains all of the non-NA values from x, we can use y <- x[!is.na(x)]. Give it a try.
+
+> y<-x[!is.na(x)]
+
+| You are quite good my friend!
+
+
+  |                                                                                                                                                                   
+  |=========================================                                                                                                                    |  26%
+| Print y to the console.
+
+> y
+ [1]  0.04660788 -0.48634894 -0.51591117  2.57294398  0.11511768  0.76591702  0.73958357  2.18709758  1.84699642  0.75389667 -1.83183962 -0.05048014  1.22449183
+[14]  0.82845378 -1.34521865  1.23679768 -1.29207807 -1.82280919  0.42918613  0.75490997
+
+| That's correct!
+
+
+  |                                                                                                                                                                   
+  |=============================================                                                                                                                |  29%
+| Now that we've isolated the non-missing values of x and put them in y, we can subset y as we please.
+
+...
+
+
+  |                                                                                                                                                                   
+  |==================================================                                                                                                           |  32%
+| Recall that the expression y > 0 will give us a vector of logical values the same length as y, with TRUEs corresponding to values of y that are greater than zero
+| and FALSEs corresponding to values of y that are less than or equal to zero. What do you think y[y > 0] will give you?
+
+1: A vector of TRUEs and FALSEs
+2: A vector of length 0
+3: A vector of all the negative elements of y
+4: A vector of all NAs
+5: A vector of all the postive elements of y
+
+Selection: 5
+
+| You are doing so well!
+
+
+  |                                                                                                                                                                   
+  |======================================================                                                                                                       |  34%
+| Type y[y > 0] to see that we get all of the positive elements of y, which are also the positive elements of our original vector x.
+
+> y[y>0]
+ [1] 0.04660788 2.57294398 0.11511768 0.76591702 0.73958357 2.18709758 1.84699642 0.75389667 1.22449183 0.82845378 1.23679768 0.42918613 0.75490997
+
+| You are really on a roll!
+
+
+  |                                                                                                                                                                   
+  |==========================================================                                                                                                   |  37%
+| You might wonder why we didn't just start with x[x > 0] to isolate the positive elements of x. Try that now to see why.
+
+> x[x>0]
+ [1]         NA         NA         NA         NA         NA         NA         NA 0.04660788         NA         NA         NA 2.57294398         NA 0.11511768
+[15]         NA 0.76591702         NA 0.73958357         NA 2.18709758 1.84699642 0.75389667         NA         NA         NA 1.22449183 0.82845378 1.23679768
+[29]         NA         NA 0.42918613 0.75490997         NA
+
+| Great job!
+
+
+  |                                                                                                                                                                   
+  |==============================================================                                                                                               |  39%
+| Since NA is not a value, but rather a placeholder for an unknown quantity, the expression NA > 0 evaluates to NA. Hence we get a bunch of NAs mixed in with our
+| positive numbers when we do this.
+
+...
+
+
+  |                                                                                                                                                                   
+  |==================================================================                                                                                           |  42%
+| Combining our knowledge of logical operators with our new knowledge of subsetting, we could do this -- x[!is.na(x) & x > 0]. Try it out.
+
+> x[!is.na(x) & x>0]
+ [1] 0.04660788 2.57294398 0.11511768 0.76591702 0.73958357 2.18709758 1.84699642 0.75389667 1.22449183 0.82845378 1.23679768 0.42918613 0.75490997
+
+| You got it right!
+
+
+  |                                                                                                                                                                   
+  |======================================================================                                                                                       |  45%
+| In this case, we request only values of x that are both non-missing AND greater than zero.
+
+...
+
+
+  |                                                                                                                                                                   
+  |==========================================================================                                                                                   |  47%
+| I've already shown you how to subset just the first ten values of x using x[1:10]. In this case, we're providing a vector of positive integers inside of the square
+| brackets, which tells R to return only the elements of x numbered 1 through 10.
+
+...
+
+
+  |                                                                                                                                                                   
+  |==============================================================================                                                                               |  50%
+| Many programming languages use what's called 'zero-based indexing', which means that the first element of a vector is considered element 0. R uses 'one-based
+| indexing', which (you guessed it!) means the first element of a vector is considered element 1.
+
+...
+
+
+  |                                                                                                                                                                   
+  |===================================================================================                                                                          |  53%
+| Can you figure out how we'd subset the 3rd, 5th, and 7th elements of x? Hint -- Use the c() function to specify the element numbers as a numeric vector.
+
+> c(x[3],x[5],x[7])
+[1] NA NA NA
+
+| Give it another try. Or, type info() for more options.
+
+| Create a vector of indexes with c(3, 5, 7), then put that inside of the square brackets.
+
+> x[c(3,5,7)]
+[1] NA NA NA
+
+| You got it right!
+
+
+  |                                                                                                                                                                   
+  |=======================================================================================                                                                      |  55%
+| It's important that when using integer vectors to subset our vector x, we stick with the set of indexes {1, 2, ..., 40} since x only has 40 elements. What happens
+| if we ask for the zeroth element of x (i.e. x[0])? Give it a try.
+
+> x[0]
+numeric(0)
+
+| Nice work!
+
+
+  |                                                                                                                                                                   
+  |===========================================================================================                                                                  |  58%
+| As you might expect, we get nothing useful. Unfortunately, R doesn't prevent us from doing this. What if we ask for the 3000th element of x? Try it out.
+
+> x[3000]
+[1] NA
+
+| You are doing so well!
+
+
+  |                                                                                                                                                                   
+  |===============================================================================================                                                              |  61%
+| Again, nothing useful, but R doesn't prevent us from asking for it. This should be a cautionary tale. You should always make sure that what you are asking for is
+| within the bounds of the vector you're working with.
+
+...
+
+
+  |                                                                                                                                                                   
+  |===================================================================================================                                                          |  63%
+| What if we're interested in all elements of x EXCEPT the 2nd and 10th? It would be pretty tedious to construct a vector containing all numbers 1 through 40 EXCEPT 2
+| and 10.
+
+...
+
+
+  |                                                                                                                                                                   
+  |=======================================================================================================                                                      |  66%
+| Luckily, R accepts negative integer indexes. Whereas x[c(2, 10)] gives us ONLY the 2nd and 10th elements of x, x[c(-2, -10)] gives us all elements of x EXCEPT for
+| the 2nd and 10 elements.  Try x[c(-2, -10)] now to see this.
+
+> x[c(-2,-10)]
+ [1]          NA          NA          NA          NA          NA          NA  0.04660788 -0.48634894          NA          NA          NA  2.57294398          NA
+[14]  0.11511768          NA  0.76591702          NA  0.73958357          NA  2.18709758  1.84699642  0.75389667          NA          NA -1.83183962          NA
+[27] -0.05048014  1.22449183  0.82845378 -1.34521865  1.23679768 -1.29207807 -1.82280919          NA          NA  0.42918613  0.75490997          NA
+
+| You nailed it! Good job!
+
+
+  |                                                                                                                                                                   
+  |===========================================================================================================                                                  |  68%
+| A shorthand way of specifying multiple negative numbers is to put the negative sign out in front of the vector of positive numbers. Type x[-c(2, 10)] to get the
+| exact same result.
+
+> x[-c(2,10)]
+ [1]          NA          NA          NA          NA          NA          NA  0.04660788 -0.48634894          NA          NA          NA  2.57294398          NA
+[14]  0.11511768          NA  0.76591702          NA  0.73958357          NA  2.18709758  1.84699642  0.75389667          NA          NA -1.83183962          NA
+[27] -0.05048014  1.22449183  0.82845378 -1.34521865  1.23679768 -1.29207807 -1.82280919          NA          NA  0.42918613  0.75490997          NA
+
+| You are amazing!
+
+
+  |                                                                                                                                                                   
+  |================================================================================================================                                             |  71%
+| So far, we've covered three types of index vectors -- logical, postive integer, and negative integer. The only remaining type requires us to introduce the concept
+| of 'named' elements.
+
+...
+
+
+  |                                                                                                                                                                   
+  |====================================================================================================================                                         |  74%
+| Create a numeric vector with three named elements using vect <- c(foo = 11, bar = 2, norf = NA).
+
+> vect <- c(foo=11,bar=2,norf=NA)
+
+| Nice work!
+
+
+  |                                                                                                                                                                   
+  |========================================================================================================================                                     |  76%
+| When we print vect to the console, you'll see that each element has a name. Try it out.
+
+> vect
+ foo  bar norf 
+  11    2   NA 
+
+| You are doing so well!
+
+
+  |                                                                                                                                                                   
+  |============================================================================================================================                                 |  79%
+| We can also get the names of vect by passing vect as an argument to the names() function. Give that a try.
+
+> names(vect)
+[1] "foo"  "bar"  "norf"
+
+| You are amazing!
+
+
+  |                                                                                                                                                                   
+  |================================================================================================================================                             |  82%
+| Alternatively, we can create an unnamed vector vect2 with c(11, 2, NA). Do that now.
+
+> vect2 <- c(11,2,NA)
+
+| You nailed it! Good job!
+
+
+  |                                                                                                                                                                   
+  |====================================================================================================================================                         |  84%
+| Then, we can add the `names` attribute to vect2 after the fact with names(vect2) <- c("foo", "bar", "norf"). Go ahead.
+
+> names(vect2) <- c("foo", "bar", "norf")
+
+| You are quite good my friend!
+
+
+  |                                                                                                                                                                   
+  |========================================================================================================================================                     |  87%
+| Now, let's check that vect and vect2 are the same by passing them as arguments to the identical() function.
+
+> identical(vect, vect2)
+[1] TRUE
+
+| Keep up the great work!
+
+
+  |                                                                                                                                                                   
+  |============================================================================================================================================                 |  89%
+| Indeed, vect and vect2 are identical named vectors.
+
+...
+
+
+  |                                                                                                                                                                   
+  |=================================================================================================================================================            |  92%
+| Now, back to the matter of subsetting a vector by named elements. Which of the following commands do you think would give us the second element of vect?
+
+1: vect["bar"]
+2: vect[bar]
+3: vect["2"]
+
+Selection: 1
+
+| You're the best!
+
+
+  |                                                                                                                                                                   
+  |=====================================================================================================================================================        |  95%
+| Now, try it out.
+
+> vect["bar"]
+bar 
+  2 
+
+| That's correct!
+
+
+  |                                                                                                                                                                   
+  |=========================================================================================================================================================    |  97%
+| Likewise, we can specify a vector of names with vect[c("foo", "bar")]. Try it out.
+
+> vect[c("foo","bar")]
+foo bar 
+ 11   2 
+
+| You are amazing!
+
+
+  |                                                                                                                                                                   
+  |=============================================================================================================================================================| 100%
+| Now you know all four methods of subsetting data from vectors. Different approaches are best in different scenarios and when in doubt, try it out!
+
+...
+
+| Are you currently enrolled in the Coursera course associated with this lesson?
+
+1: Yes
+2: No
+
+Selection: 1
+
+| Would you like me to notify Coursera that you've completed this lesson? If so, I'll need to get some more info from you.
+
+1: Yes
+2: No
+3: Maybe later
+
+Selection: 1
+
+| The first item I need is your course ID. If the homepage for your Coursera course is 'https://class.coursera.org/rprog-001', then your course ID is 'rprog-001'
+| (without the quotes).
+
+Course ID: rprog-002
+
+| I'll try to tell Coursera you've completed this lesson now.
+
+| Great work!
+
+| I've notified Coursera that you have completed rprog-002, Subsetting_Vectors.
+
+Selection: 6
+
+
+  |                                                                                                                                                                   
+  |                                                                                                                                                             |   0%
+
+| In this lesson, we'll cover matrices and data frames. Both represent 'rectangular' data types, meaning that they are used to store tabular data, with rows and
+| columns.
+
+...
+
+
+  |                                                                                                                                                                   
+  |====                                                                                                                                                         |   3%
+| The main difference, as you'll see, is that matrices can only contain a single class of data, while data frames can consist of many different classes of data.
+
+...
+
+
+  |                                                                                                                                                                   
+  |=========                                                                                                                                                    |   6%
+| Let's create a vector containing the numbers 1 through 20 using the `:` operator. Store the result in a variable called myVector.
+
+> myVector <- 1:20
+
+| Nice work!
+
+
+  |                                                                                                                                                                   
+  |=============                                                                                                                                                |   9%
+| View the contents of the vector you just created.
+
+> myVector
+ [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20
+
+| You are quite good my friend!
+
+
+  |                                                                                                                                                                   
+  |==================                                                                                                                                           |  11%
+| The dim() function tells us the 'dimensions' of an object. What happens if we do dim(myVector)? Give it try.
+
+> dim(myVector)
+NULL
+
+| You are really on a roll!
+
+
+  |                                                                                                                                                                   
+  |======================                                                                                                                                       |  14%
+| Clearly, that's not very helpful! Since myVector is a vector, it doesn't have a `dim` attribute (so it's just NULL), but we can find its length using the length()
+| function. Try that now.
+
+> length(myVector)
+[1] 20
+
+| Excellent job!
+
+
+  |                                                                                                                                                                   
+  |===========================                                                                                                                                  |  17%
+| Ah! That's what we wanted. But, what happens if we give myVector a `dim` attribute? Let's give it a try. Type dim(myVector) <- c(4, 5).
+
+> dim(myVector) <- c(4,5)
+
+| Excellent job!
+
+
+  |                                                                                                                                                                   
+  |===============================                                                                                                                              |  20%
+| It's okay if that last command seemed a little strange to you. It should! The dim() function allows you to get OR set the `dim` attribute for an R object. In this
+| case, we assigned the value c(4, 5) to the `dim` attribute of myVector.
+
+...
+
+
+  |                                                                                                                                                                   
+  |====================================                                                                                                                         |  23%
+| Use dim(myVector) to confirm that we've set the `dim` attribute correctly.
+
+> dim(myVector)
+[1] 4 5
+
+| Nice work!
+
+
+  |                                                                                                                                                                   
+  |========================================                                                                                                                     |  26%
+| Another way to see this is by calling the attributes() function on myVector. Try it now.
+
+> attributes(myVector)
+$dim
+[1] 4 5
+
+
+| That's a job well done!
+
+
+  |                                                                                                                                                                   
+  |=============================================                                                                                                                |  29%
+| Just like in math class, when dealing with a 2-dimensional object (think rectangular table), the first number is the number of rows and the second is the number of
+| columns. Therefore, we just gave myVector 4 rows and 5 columns.
+
+...
+
+
+  |                                                                                                                                                                   
+  |=================================================                                                                                                            |  31%
+| But, wait! That doesn't sound like a vector any more. Well, it's not. Now it's a matrix. View the contents of myVector now to see what it looks like.
+
+> myVector
+     [,1] [,2] [,3] [,4] [,5]
+[1,]    1    5    9   13   17
+[2,]    2    6   10   14   18
+[3,]    3    7   11   15   19
+[4,]    4    8   12   16   20
+
+| You nailed it! Good job!
+
+
+  |                                                                                                                                                                   
+  |======================================================                                                                                                       |  34%
+| Now, let's confirm it's actually a matrix by using the class() function. Type class(myVector) to see what I mean.
+
+> class(myVector)
+[1] "matrix"
+
+| You are quite good my friend!
+
+
+  |                                                                                                                                                                   
+  |==========================================================                                                                                                   |  37%
+| Sure enough, myVector is now a matrix. We should store it in a new variable that helps us remember what it is. Store the value of myVector in a new variable called
+| myMatrix.
+
+> myMatrix <- myVector
+
+| You nailed it! Good job!
+
+
+  |                                                                                                                                                                   
+  |===============================================================                                                                                              |  40%
+| The example that we've used so far was meant to illustrate the point that a matrix is simply an atomic vector with a dimension attribute. A more direct method of
+| creating the same matrix uses the matrix() function.
+
+...
+
+
+  |                                                                                                                                                                   
+  |===================================================================                                                                                          |  43%
+| Bring up the help file for the matrix() function now using the `?` function.
+
+> ?matri
+No documentation for ‘matri’ in specified packages and libraries:
+you could try ‘??matri’
+
+| Keep trying! Or, type info() for more options.
+
+| The command ?matrix will do the trick.
+
+> ?matrix
+
+| Great job!
+
+
+  |                                                                                                                                                                   
+  |========================================================================                                                                                     |  46%
+| Now, look at the documentation for the matrix function and see if you can figure out how to create a matrix containing the same numbers (1-20) by calling the
+| matrix() function. Store the result in a variable called myMatrix2.
+
+> ?matrix
+
+| Not exactly. Give it another go. Or, type info() for more options.
+
+| Call the matrix() function with three arguments -- 1:20, the number of rows, and the number of columns. Be sure to specify arguments by their proper names and store
+| the result in myMatrix2 (not in myMatrix).
+
+> myMatrix2 <- matrix(1:20, nrow=4, ncol=5)
+
+| You got it right!
+
+
+  |                                                                                                                                                                   
+  |============================================================================                                                                                 |  49%
+| Finally, let's confirm that myMatrix and myMatrix2 are actually identical. The identical() function will tell us if its first two arguments are the same. Try it
+| out.
+
+> identical(myMatrix, myMatrix2)
+[1] TRUE
+
+| You are doing so well!
+
+
+  |                                                                                                                                                                   
+  |=================================================================================                                                                            |  51%
+| Now, imagine that the numbers in our table represent some measurements from a clinical experiment, where each row represents one patient and each column represents
+| one variable for which measurements where taken.
+
+...
+
+
+  |                                                                                                                                                                   
+  |=====================================================================================                                                                        |  54%
+| We may want to label the rows, so that we know which numbers belong to each patient in the experiment. One way to do this is to add a column to the matrix, which
+| contains the names of all four people.
+
+...
+
+
+  |                                                                                                                                                                   
+  |==========================================================================================                                                                   |  57%
+| Let's start by creating a character vector containing the names of our patients -- Bill, Gina, Kelly, and Sean. Remember that double quotes tell R that something is
+| a character string. Store the result in a variable called patients.
+
+> 
+> patients <- c('Bill', 'Gina', 'Kelly', 'Sean')
+
+| Excellent job!
+
+
+  |                                                                                                                                                                   
+  |==============================================================================================                                                               |  60%
+| Now we'll use the cbind() function to 'combine columns'. Don't worry about storing the result in a new variable. Just call cbind() with two arguments -- the
+| patients vector and myMatrix.
+
+> cbind(patients, myMatrix)
+     patients                       
+[1,] "Bill"   "1" "5" "9"  "13" "17"
+[2,] "Gina"   "2" "6" "10" "14" "18"
+[3,] "Kelly"  "3" "7" "11" "15" "19"
+[4,] "Sean"   "4" "8" "12" "16" "20"
+
+| You're the best!
+
+
+  |                                                                                                                                                                   
+  |===================================================================================================                                                          |  63%
+| Something is fishy about our result! It appears that combining the character vector with our matrix of numbers caused everything to be enclosed in double quotes.
+| This means we're left with a matrix of character strings, which is no good.
+
+...
+
+
+  |                                                                                                                                                                   
+  |=======================================================================================================                                                      |  66%
+| If you remember back to the beginning of this lesson, I told you that matrices can only contain ONE class of data. Therefore, when we tried to combine a character
+| vector with a numeric matrix, R was forced to 'coerce' the numbers to characters, hence the double quotes.
+
+...
+
+
+  |                                                                                                                                                                   
+  |============================================================================================================                                                 |  69%
+| This is called 'implicit coersion', because we didn't ask for it. It just happened. But why didn't R just convert the names of our patients to numbers? I'll let you
+| ponder that question on your own.
+
+...
+
+
+  |                                                                                                                                                                   
+  |================================================================================================================                                             |  71%
+| So, we're still left with the question of how to include the names of our patients in the table without destroying the intregrity of our numeric data. Try the
+| following -- myData <- data.frame(patients, myMatrix)
+
+> myData <- data.frame(patients, myMatrix)
+
+| Excellent job!
+
+
+  |                                                                                                                                                                   
+  |=====================================================================================================================                                        |  74%
+| Now view the contents of myData to see what we've come up with.
+
+> myData
+  patients X1 X2 X3 X4 X5
+1     Bill  1  5  9 13 17
+2     Gina  2  6 10 14 18
+3    Kelly  3  7 11 15 19
+4     Sean  4  8 12 16 20
+
+| You got it!
+
+
+  |                                                                                                                                                                   
+  |=========================================================================================================================                                    |  77%
+| It looks like the data.frame() function allowed us to store our character vector of names right alongside our matrix of numbers. That's exactly what we were hoping
+| for!
+
+...
+
+
+  |                                                                                                                                                                   
+  |==============================================================================================================================                               |  80%
+| Behind the scenes, the data.frame() function takes any number of arguments and returns a single object of class `data.frame` that is composed of the original
+| objects.
+
+...
+
+
+  |                                                                                                                                                                   
+  |==================================================================================================================================                           |  83%
+| Let's confirm this by calling the class() function on our newly created data frame.
+
+> class(myData)
+[1] "data.frame"
+
+| You are really on a roll!
+
+
+  |                                                                                                                                                                   
+  |=======================================================================================================================================                      |  86%
+| It's also possible to assign names to the individual rows and columns of a data frame, which presents another possible way of determining which row of values in our
+| table belongs to each patient.
+
+...
+
+
+  |                                                                                                                                                                   
+  |===========================================================================================================================================                  |  89%
+| However, since we've already solved that problem, let's solve a different problem by assigning names to the columns of our data frame so that we know what type of
+| measurement each column represents.
+
+...
+
+
+  |                                                                                                                                                                   
+  |================================================================================================================================================             |  91%
+| Since we have six columns (including patient names), we'll need to first create a vector containing one element for each column. Create a character vector called
+| cnames that contains the following values (in order) -- "patient", "age", "weight", "bp", "rating", "test".
+
+> cnames <- c("patient", "age", "weight", "bp", "rating", "test")
+
+| Keep up the great work!
+
+
+  |                                                                                                                                                                   
+  |====================================================================================================================================================         |  94%
+| Now, use the colnames() function to set the `colnames` attribute for our data frame. This is similar to the way we used the dim() function earlier in this lesson.
+
+> colnames(myData) <- cnames
+
+| Great job!
+
+
+  |                                                                                                                                                                   
+  |=========================================================================================================================================================    |  97%
+| Let's see if that got the job done. Print the contents of myData.
+
+> myData
+  patient age weight bp rating test
+1    Bill   1      5  9     13   17
+2    Gina   2      6 10     14   18
+3   Kelly   3      7 11     15   19
+4    Sean   4      8 12     16   20
+
+| That's a job well done!
+
+
+  |                                                                                                                                                                   
+  |=============================================================================================================================================================| 100%
+| In this lesson, you learned the basics of working with two very important and common data structures -- matrices and data frames. There's much more to learn and
+| we'll be covering more advanced topics, particularly with respect to data frames, in future lessons.
+
+...
+
+| Are you currently enrolled in the Coursera course associated with this lesson?
+
+1: Yes
+2: No
+
+Selection: 1
+
+| Would you like me to notify Coursera that you've completed this lesson? If so, I'll need to get some more info from you.
+
+1: Yes
+2: No
+3: Maybe later
+
+Selection: 1
+
+| The first item I need is your course ID. If the homepage for your Coursera course is 'https://class.coursera.org/rprog-001', then your course ID is 'rprog-001'
+| (without the quotes).
+
+Course ID: rprog-002
+
+| I'll try to tell Coursera you've completed this lesson now.
+
+| Great work!
+
+| I've notified Coursera that you have completed rprog-002, Matrices_and_Data_Frames.
+
+| You've reached the end of this lesson! Returning to the main menu...

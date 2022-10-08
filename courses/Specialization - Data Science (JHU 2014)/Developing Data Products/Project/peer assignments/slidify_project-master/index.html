@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Body Mass Index Calculator</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Body Mass Index Calculator">
+  <meta name="author" content="Huko Jack">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <aside class="gdbar">
+    <img src="assets/img/1.png">
+  </aside>
+  <hgroup class="auto-fadein">
+    <h1>Body Mass Index Calculator</h1>
+    <h2>A measurement of body fat based on height and weight</h2>
+    <p>Huko Jack<br/></p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Overview</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Obesity is a leading preventable cause of death worldwide, with increasing rates 
+in adults and children. Authorities view it as one of the most serious public 
+health problems of the 21st century. </p>
+
+<h3>Key facts:</h3>
+
+<ol>
+<li>Worldwide obesity has nearly doubled since 1980.</li>
+<li>In 2008, more than 1.4 billion adults, 20 and older, were overweight. Of these over 200 million men and nearly 300 million women were obese.</li>
+<li>35% of adults aged 20 and over were overweight in 2008, and 11% were obese.</li>
+<li>65% of the world&#39;s population live in countries where overweight and obesity kills more people than underweight.</li>
+<li>More than 40 million children under the age of five were overweight in 2011.</li>
+</ol>
+
+<ul>
+<li>Data from <a href="http://easo.org/">The European Association for the Study of Obesity</a></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Body Mass Index Calculator</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>We created an app to check body mass index and obesity status according to World 
+Health Organization Classification\(^1\). You can find this app here:</p>
+
+<ul>
+<li><a href="https://hukojack.shinyapps.io/course_project/">Body Mass Index Calculator</a></li>
+</ul>
+
+<p>This app:</p>
+
+<ul>
+<li>calculates body mass index using height, weight and sex information.</li>
+<li>prints how far from normal boundaries is it.</li>
+<li>prints state classification according to World Health Organization Database.</li>
+<li>draws a plot with obtained BMI, comparing to normal BMI. It also shows the boundaries that corresponds obesity/underveight classification.</li>
+</ul>
+
+<p>\(^1\) BMI Classification. Global Database on Body Mass Index. World Health Organization. 2006. </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Output example - plot</h2>
+  </hgroup>
+  <article data-timings="">
+    <p style='text-align: center;'><img width='600' src="assets/fig/r_code.png" alt="plot of chunk r_code"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Output example - summary</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>You Body Mass Index is:</p>
+
+<pre><code>[1] 32.0
+</code></pre>
+
+<p>How far from normal is it?</p>
+
+<pre><code>[1] &quot;You BMI is 7.0 points higher than upper normal boundary.&quot;
+</code></pre>
+
+<p>Classification according to World Health Organization Database:</p>
+
+<pre><code>[1] &quot;Overweight&quot;
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Overview'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Body Mass Index Calculator'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Output example - plot'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Output example - summary'>
+         4
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

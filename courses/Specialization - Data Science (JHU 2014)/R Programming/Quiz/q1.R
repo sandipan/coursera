@@ -1,0 +1,18 @@
+setwd("E:\\Academics\\Johns Hopkins\\R Programming")
+tbl <- read.csv("hw1_data.csv")
+names(tbl)
+colnames(tbl)
+head(tbl, 2)
+tail(tbl, 2)
+dim(tbl)
+nrow(tbl)
+tbl[47,]
+sum(is.na(tbl$Ozone))
+mean(tbl$Ozone, na.rm=TRUE)
+stbl <- subset(tbl, Ozone > 31 & Temp > 90)
+mean(stbl$Solar.R)
+mean(tbl[tbl$Month == 6, ]$Temp)
+max(tbl[tbl$Month == 5, ]$Ozone, na.rm=TRUE)
+
+library(swirl)
+swirl()

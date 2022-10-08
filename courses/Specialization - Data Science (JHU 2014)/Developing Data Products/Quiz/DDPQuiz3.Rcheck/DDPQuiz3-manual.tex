@@ -1,0 +1,56 @@
+\nonstopmode{}
+\documentclass[a4paper]{book}
+\usepackage[times,inconsolata,hyper]{Rd}
+\usepackage{makeidx}
+\usepackage[utf8,latin1]{inputenc}
+% \usepackage{graphicx} % @USE GRAPHICX@
+\makeindex{}
+\begin{document}
+\chapter*{}
+\begin{center}
+{\textbf{\huge Package `DDPQuiz3'}}
+\par\bigskip{\large \today}
+\end{center}
+\begin{description}
+\raggedright{}
+\item[Type]\AsIs{Package}
+\item[Title]\AsIs{What the package does (short line)}
+\item[Version]\AsIs{1.0}
+\item[Date]\AsIs{2014-04-23}
+\item[Author]\AsIs{Who wrote it}
+\item[Maintainer]\AsIs{Who to complain to }\email{yourfault@somewhere.net}\AsIs{}
+\item[Description]\AsIs{More about what it does (maybe more than one line)}
+\item[License]\AsIs{What license is it under?}
+\end{description}
+\Rdcontents{\R{} topics documented:}
+\inputencoding{utf8}
+\HeaderA{createmean}{This function calculates the mean}{createmean}
+%
+\begin{Description}\relax
+This function calculates the mean
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+createmean(x)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{x}] is a numeric vector
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+the mean of x
+\end{Value}
+%
+\begin{Examples}
+\begin{ExampleCode}
+x <- 1:10
+createmean(x)
+\end{ExampleCode}
+\end{Examples}
+\printindex{}
+\end{document}

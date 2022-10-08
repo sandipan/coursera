@@ -1,0 +1,280 @@
+## This first line will likely take a few seconds. Be patient!
+NEI <- readRDS("summarySCC_PM25.rds")
+SCC <- readRDS("Source_Classification_Code.rds")
+
+# convert to megaton
+NEI$megaton <- NEI$Emissions / 1000.0 / 1000.0
+
+data_subset <- NEI[, c("megaton", "year")]
+data_aggregate <- aggregate(data_subset$megaton, by=list(data_subset$year), FUN=sum)
+colnames(data_aggregate) <- c('year', "emissions_megaton")
+
+plot(x=data_aggregate$year, y=data_aggregate$emissions_megaton, type="l",xlab="year", 
+     ylab="Total PM2.5 emissions (mega-tons) per year", 
+     main="Total PM2.5 emission from all sources", col="red")
+
+dev.copy(png, file = "plot1.png")  ## Copy my plot to a PNG file
+dev.off()
+
+## This first line will likely take a few seconds. Be patient!
+NEI <- readRDS("summarySCC_PM25.rds")
+SCC <- readRDS("Source_Classification_Code.rds")
+
+# convert to kiloton
+#NEI$megaton <- NEI$Emissions / 1000.0 / 1000.0
+NEI$kiloton <- NEI$Emissions / 1000.0
+
+
+idxBaltimore <- NEI$fips == "24510"
+data_subset <- NEI[idxBaltimore, c("kiloton", "year")]
+data_aggregate <- aggregate(data_subset$kiloton, by=list(data_subset$year), FUN=sum)
+colnames(data_aggregate) <- c('year', "emissions_kiloton")
+
+plot(x=data_aggregate$year, y=data_aggregate$emissions_kiloton, type="l",xlab="year", 
+     ylab="Total PM2.5 emissions (kilo-tons) per year", 
+     main="Total PM2.5 emission in Baltimore City", col="red")
+
+dev.copy(png, file = "plot2.png")  ## Copy my plot to a PNG file
+dev.off()
+
+library(ggplot2)
+
+## This first line will likely take a few seconds. Be patient!
+NEI <- readRDS("summarySCC_PM25.rds")
+SCC <- readRDS("Source_Classification_Code.rds")
+
+# convert to kiloton
+NEI$kiloton <- NEI$Emissions / 1000.0
+
+idxBaltimore <- NEI$fips == "24510"
+data_subset <- NEI[idxBaltimore, c("kiloton", "year", "type")]
+data_aggregate <- aggregate(data_subset$kiloton, 
+                  by=list(data_subset$year, data_subset$type), FUN=sum)
+colnames(data_aggregate) <- c('year', 'type', 'kiloton')
+
+p1 <- ggplot(data_aggregate, 
+        aes(x=data_aggregate$year, y=data_aggregate$kiloton, colour=type)) +
+        ggtitle("Total PM2.5 emission by type in Baltimore City") +
+      xlab("year") +
+      ylab("Total PM2.5 emissions (kilo-tons) per year") +
+      geom_line() +
+      facet_wrap( ~ type, ncol=2) +
+      geom_point() 
+
+png("plot3.png")
+print(p1)
+dev.off()
+
+library(ggplot2)
+
+## This first line will likely take a few seconds. Be patient!
+NEI <- readRDS("summarySCC_PM25.rds")
+SCC <- readRDS("Source_Classification_Code.rds")
+
+# find coal combustion item in EI.Sector that starts with Fuel Comb and end with Coal
+pattern <- grep ("^Fuel Comb(.*)Coal$", SCC[,"EI.Sector"])
+data_comb_coal <- SCC[pattern, c("SCC", "EI.Sector")]
+
+#merge baltimore emission and mobile vehicle data
+merge_data <- merge(x=NEI, y=data_comb_coal, by.x="SCC", by.y="SCC")
+merge_data$kiloton <- merge_data$Emissions / 1000.0
+
+data_aggregate <- aggregate(merge_data$kiloton, 
+                            by=list(merge_data$year), FUN=sum)
+colnames(data_aggregate) <- c('year', 'kiloton')
+
+p1 <- ggplot(data_aggregate, 
+             aes(x=data_aggregate$year, y=data_aggregate$kiloton)) +
+  ggtitle("Total PM2.5 emissions of coal combustion-related sources in US") +
+  xlab("year") +
+  ylab("Total PM2.5 emissions (kilo-tons) per year") +
+  geom_line() +
+  geom_point()
+
+png("plot4.png")
+print(p1)
+dev.off()
+
+library(ggplot2)
+
+## This first line will likely take a few seconds. Be patient!
+NEI <- readRDS("summarySCC_PM25.rds")
+SCC <- readRDS("Source_Classification_Code.rds")
+
+
+idxBaltimore <- NEI$fips == "24510"
+data_subset <- NEI[idxBaltimore, c("SCC", "year", "type", "Emissions")]
+# convert to kiloton
+data_subset$kiloton <- data_subset$Emissions / 1000.0
+pattern <- grep("Mobile", SCC[, "EI.Sector"])
+data_mobile <- SCC[pattern, c("SCC", "EI.Sector")]
+
+#merge baltimore emission and mobile vehicle data
+merge_data <- merge(x=data_subset, y=data_mobile, by.x="SCC", by.y="SCC")
+# only keep type that is on-road
+merge_data <- merge_data[merge_data$type == "ON-ROAD", ]
+
+data_aggregate <- aggregate(merge_data$kiloton, 
+                            by=list(merge_data$year), FUN=sum)
+colnames(data_aggregate) <- c('year', 'kiloton')
+
+p1 <- ggplot(data_aggregate, 
+             aes(x=data_aggregate$year, y=data_aggregate$kiloton, colour="red")) +
+  ggtitle("Total PM2.5 emission of motor vehicle sources in Baltimore City") +
+  xlab("year") +
+  ylab("Total PM2.5 emissions (kilo-tons) per year") +
+  geom_line() +
+  geom_point() +
+  theme(legend.position = "none")	
+
+png("plot5.png")
+print(p1)
+dev.off()
+
+library(ggplot2)
+
+## This first line will likely take a few seconds. Be patient!
+NEI <- readRDS("summarySCC_PM25.rds")
+SCC <- readRDS("Source_Classification_Code.rds")
+
+
+idxBaltimore <- NEI$fips == "24510"
+data_subset <- NEI[idxBaltimore, c("SCC", "year", "type", "Emissions")]
+# convert to kiloton
+data_subset$kiloton <- data_subset$Emissions / 1000.0
+pattern <- grep("Mobile", SCC[, "EI.Sector"])
+data_mobile <- SCC[pattern, c("SCC", "EI.Sector")]
+
+#merge baltimore emission and mobile vehicle data
+merge_data <- merge(x=data_subset, y=data_mobile, by.x="SCC", by.y="SCC")
+# only keep type that is on-road
+merge_data <- merge_data[merge_data$type == "ON-ROAD", ]
+
+data_aggregate <- aggregate(merge_data$kiloton, 
+                            by=list(merge_data$year), FUN=sum)
+colnames(data_aggregate) <- c('year', 'kiloton')
+
+p1 <- ggplot(data_aggregate, 
+             aes(x=data_aggregate$year, y=data_aggregate$kiloton, colour="red")) +
+  ggtitle("Total PM2.5 emission of motor vehicle sources in Baltimore City") +
+  xlab("year") +
+  ylab("Total PM2.5 emissions (kilo-tons) per year") +
+  geom_line() +
+  geom_point() +
+  theme(legend.position = "none")	
+
+png("plot5.png")
+print(p1)
+dev.off()
+
+library(ggplot2)
+
+## This first line will likely take a few seconds. Be patient!
+NEI <- readRDS("summarySCC_PM25.rds")
+SCC <- readRDS("Source_Classification_Code.rds")
+
+idxBaltimore <- NEI$fips == "24510"
+idxLA <- NEI$fips == "06037"
+data_subset <- NEI[idxBaltimore | idxLA, c("fips", "SCC", "year", "type", "Emissions")]
+
+# convert to kiloton
+data_subset$kiloton <- data_subset$Emissions / 1000.0
+pattern <- grep("Mobile", SCC[, "EI.Sector"])
+data_mobile <- SCC[pattern, c("SCC", "EI.Sector")]
+
+#merge baltimore and LA emissions with mobile vehicle sources
+merge_data <- merge(x=data_subset, y=data_mobile, by.x="SCC", by.y="SCC")
+# only keep type that is on-road
+merge_data <- merge_data[merge_data$type == "ON-ROAD", ]
+
+# group data by year and fips
+data_aggregate <- aggregate(merge_data$kiloton, 
+                            by=list(merge_data$year, merge_data$fips), FUN=sum)
+colnames(data_aggregate) <- c('year', 'fips', 'kiloton')
+
+p1 <- ggplot(data_aggregate, 
+             aes(x=data_aggregate$year, y=data_aggregate$kiloton, colour=fips)) +
+  ggtitle("Total PM2.5 emissions of motor vehicle sources by City") +
+  xlab("year") +
+  ylab("Total PM2.5 emissions (kilo-tons) per year") +
+  geom_line() +
+  facet_wrap(~ fips, scales = 'free_y', nrow = 2)
+  geom_point() 
+
+png("plot6.png")
+print(p1)
+dev.off()
+
+library("quantmod")
+library(ggplot2)
+library(plyr)
+
+#load files
+NEI <- readRDS("summarySCC_PM25.rds")
+SCC <- readRDS("Source_Classification_Code.rds")
+
+q6_data<-NEI[(NEI$fips=="24510" | NEI$fips=="06037"),]
+q6_data<-q6_data[(q6_data$type=="ON-ROAD"),]
+q6_data<-q6_data[c("fips","Emissions","year")]
+q6_data <- ddply(q6_data, c("fips","year"), summarise,total=sum(Emissions))
+q6_data$city<-ifelse(q6_data$fips=="24510","Baltimore","Los Angeles")
+q6_data<-ddply(q6_data, c("fips"), transform,  Change=c(NA, diff(total)), DeltaCol = Delt(total))
+colnames(q6_data)[ncol(q6_data)]<-"Perc.Change"
+q6_data[is.na(q6_data)] <- 0
+q6_data$year<-as.factor(q6_data$year)
+
+png(filename = "plot6.png", width = 480, height = 720)
+
+plot1<-ggplot(data=q6_data, aes(x=year, y=Perc.Change, fill=city)) + 
+              geom_bar(stat="identity",position=position_dodge()) +
+              xlab("Year") +
+              ylab("% Change") +
+              ggtitle("Percentage Changes in PM.25 Emissions for Baltimore City \nand Los Angeles (1999-2008)")
+
+plot2<-ggplot(data=q6_data, aes(x=year, y=Change, fill=city)) + 
+              geom_bar(stat="identity",position=position_dodge()) +
+              xlab("Year") +
+              ylab("Actual Change") +
+              ggtitle("Total Changes in PM.25 Emissions for Baltimore City \nand Los Angeles (1999-2008)")
+  
+grid.arrange(plot1, plot2, nrow=2)
+
+dev.off()
+
+## Project 2
+# ==== Plot 3 ====
+# Of the four types of sources indicated by the type 
+# (point, nonpoint, onroad, nonroad) variable, which of these 
+# four sources have seen decreases in emissions from 1999–2008 
+# for Baltimore City? Which have seen increases in emissions 
+# from 1999–2008? Use the ggplot2 plotting system to make a 
+# plot answer this question.
+
+# 0. Get data
+if(!file.exists("./data")){dir.create("./data")}
+raw <- "./data/exdata%2Fdata%2FNEI_data.zip"
+if(!file.exists(raw))
+{
+        fileUrl <-"https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2FNEI_data.zip"
+        download.file(fileUrl,destfile=raw,method="auto")
+        unzip(zipfile=raw , exdir="./data",)
+}
+NEI <- readRDS("./data/summarySCC_PM25.rds")
+
+# 1. Summarize data
+data3 <-subset(NEI, fips == 24510, select = c("Emissions", "year","type"))
+t<-as.data.frame(unclass(xtabs(data=data3,Emissions~year+type)))
+table<-data.frame( 
+        year=c(rep(row.names(t),4)),
+        type=c(rep(names(t)[1],4), rep(names(t)[2],4) ,
+               rep(names(t)[3],4), rep(names(t)[4],4)  ),
+        Emissions=as.numeric(c(t[,1],t[,2],t[,3],t[,4])) )
+
+# 2. Plotting
+png(filename="./plot3.png",width = 480, height = 480)
+par(mar=c(5, 5, 6.5, 3))
+qplot(data=table,x=year,y=Emissions,
+      geom=c("point","line"),group=type,color=type,
+      ylab=" Emissions (tons) ", xlab="year",
+      main="Emission Source of Baltimore (1999-2008)")
+dev.off()

@@ -1,0 +1,25 @@
+library(datasets)
+data(iris)
+mean(iris[iris$Species == "virginica",]$Sepal.Length)
+apply(iris[, 1:4], 2, mean)
+data(mtcars)
+sapply(split(mtcars$mpg, mtcars$cyl), mean)
+ahp <- sapply(split(mtcars$hp, mtcars$cyl), mean)
+ahp[3] - ahp[1]
+debug(ls)
+
+
+### apply, sapply, tapply
+head(InsectSprays)
+(count_by_spray <- with(InsectSprays, split(count, spray)))
+(mean_by_spray <- lapply(count_by_spray, mean))
+unlist(mean_by_spray)
+sapply(count_by_spray, mean)
+vapply(count_by_spray, mean, numeric(1))
+with(InsectSprays, tapply(count, spray, mean))
+with(InsectSprays, by(count, spray, mean))
+aggregate(count ~ spray, InsectSprays, mean)
+library(plyr)
+ddply(InsectSprays, .(spray), summarise, mean.count = mean(count))
+dlply(InsectSprays, .(spray), summarise, mean.count = mean(count))
+with(InsectSprays, ave(count, spray))

@@ -1,0 +1,2584 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{C1M3\_Assignment}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \href{https://medium.com/stanford-ai-for-healthcare/its-a-no-brainer-deep-learning-for-brain-mr-images-f60116397472}{Image
+Source}
+
+\hypertarget{brain-tumor-auto-segmentation-for-magnetic-resonance-imaging-mri}{%
+\section{Brain Tumor Auto-Segmentation for Magnetic Resonance Imaging
+(MRI)}\label{brain-tumor-auto-segmentation-for-magnetic-resonance-imaging-mri}}
+
+Welcome to the final part of the ``Artificial Intelligence for
+Medicine'' course 1!
+
+You will learn how to build a neural network to automatically segment
+tumor regions in brain, using
+\href{https://en.wikipedia.org/wiki/Magnetic_resonance_imaging}{MRI
+(Magnetic Resonance Imaging}) scans.
+
+The MRI scan is one of the most common image modalities that we
+encounter in the radiology field.\\
+Other data modalities include: -
+\href{https://en.wikipedia.org/wiki/CT_scan}{Computer Tomography (CT)},
+- \href{https://en.wikipedia.org/wiki/Ultrasound}{Ultrasound} -
+\href{https://en.wikipedia.org/wiki/X-ray}{X-Rays}.
+
+In this assignment we will be focusing on MRIs but many of our learnings
+applies to other mentioned modalities as well. We'll walk you through
+some of the steps of training a deep learning model for segmentation.
+
+\textbf{You will learn:}
+
+\begin{itemize}
+\tightlist
+\item
+  What is in an MR image
+\item
+  Standard data preparation techniques for MRI datasets
+\item
+  Metrics and loss functions for segmentation
+\item
+  Visualizing and evaluating segmentation models
+\end{itemize}
+
+    \hypertarget{outline}{%
+\subsection{Outline}\label{outline}}
+
+Use these links to jump to particular sections of this assignment!
+
+\begin{itemize}
+\tightlist
+\item
+  Section \ref{1}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Section \ref{1-1}
+  \item
+    Section \ref{1-2}
+  \item
+    Section \ref{1-3}
+  \item
+    Section \ref{1-4}
+
+    \begin{itemize}
+    \tightlist
+    \item
+      Section \ref{1-4-1}
+    \item
+      Section \ref{1-4-2}
+    \end{itemize}
+  \end{itemize}
+\item
+  Section \ref{2}
+\item
+  Section \ref{3}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Section \ref{3-1}
+  \item
+    Section \ref{3-2}
+  \end{itemize}
+\item
+  Section \ref{4}
+\item
+  Section \ref{5}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Section \ref{5-1}
+  \item
+    Section \ref{5-2}
+  \item
+    Section \ref{5-3}
+  \end{itemize}
+\end{itemize}
+
+    \hypertarget{packages}{%
+\subsection{Packages}\label{packages}}
+
+In this assignment, we'll make use of the following packages:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{keras} is a framework for building deep learning models.
+\item
+  \texttt{keras.backend} allows us to perform math operations on
+  tensors.
+\item
+  \texttt{nibabel} will let us extract the images and labels from the
+  files in our dataset.
+\item
+  \texttt{numpy} is a library for mathematical and scientific
+  operations.
+\item
+  \texttt{pandas} is what we'll use to manipulate our data.
+\end{itemize}
+
+\hypertarget{import-packages}{%
+\subsection{Import Packages}\label{import-packages}}
+
+Run the next cell to import all the necessary packages, dependencies and
+custom util functions.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{keras}
+        \PY{k+kn}{import} \PY{n+nn}{json}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{nibabel} \PY{k}{as} \PY{n+nn}{nib}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        
+        \PY{k+kn}{from} \PY{n+nn}{tensorflow}\PY{n+nn}{.}\PY{n+nn}{keras} \PY{k}{import} \PY{n}{backend} \PY{k}{as} \PY{n}{K} 
+        
+        \PY{k+kn}{import} \PY{n+nn}{util}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Using TensorFlow backend.
+
+    \end{Verbatim}
+
+     \# 1 Dataset \#\# 1.1 What is an MRI?
+
+Magnetic resonance imaging (MRI) is an advanced imaging technique that
+is used to observe a variety of diseases and parts of the body.
+
+As we will see later, neural networks can analyze these images
+individually (as a radiologist would) or combine them into a single 3D
+volume to make predictions.
+
+At a high level, MRI works by measuring the radio waves emitting by
+atoms subjected to a magnetic field.
+
+In this assignment, we'll build a multi-class segmentation model. We'll
+identify 3 different abnormalities in each image: edemas, non-enhancing
+tumors, and enhancing tumors.
+
+    \hypertarget{mri-data-processing}{%
+\subsection{1.2 MRI Data Processing}\label{mri-data-processing}}
+
+We often encounter MR images in the
+\href{https://en.wikipedia.org/wiki/DICOM}{DICOM format}. - The DICOM
+format is the output format for most commercial MRI scanners. This type
+of data can be processed using the
+\href{https://pydicom.github.io/pydicom/stable/getting_started.html}{pydicom}
+Python library.
+
+In this assignment, we will be using the data from the
+\href{https://decathlon-10.grand-challenge.org}{Decathlon 10 Challenge}.
+This data has been mostly pre-processed for the competition
+participants, however in real practice, MRI data needs to be
+significantly pre-preprocessed before we can use it to train our models.
+
+     \#\# 1.3 Exploring the Dataset
+
+Our dataset is stored in the
+\href{https://nifti.nimh.nih.gov/nifti-1/}{NifTI-1 format} and we will
+be using the \href{https://github.com/nipy/nibabel}{NiBabel library} to
+interact with the files. Each training sample is composed of two
+separate files:
+
+The first file is an image file containing a 4D array of MR image in the
+shape of (240, 240, 155, 4). - The first 3 dimensions are the X, Y, and
+Z values for each point in the 3D volume, which is commonly called a
+voxel. - The 4th dimension is the values for 4 different sequences - 0:
+FLAIR: ``Fluid Attenuated Inversion Recovery'' (FLAIR) - 1: T1w:
+``T1-weighted'' - 2: t1gd: ``T1-weighted with gadolinium contrast
+enhancement'' (T1-Gd) - 3: T2w: ``T2-weighted''
+
+The second file in each training example is a label file containing a 3D
+array with the shape of (240, 240, 155).\\
+- The integer values in this array indicate the ``label'' for each voxel
+in the corresponding image files: - 0: background - 1: edema - 2:
+non-enhancing tumor - 3: enhancing tumor
+
+We have access to a total of 484 training images which we will be
+splitting into a training (80\%) and validation (20\%) dataset.
+
+Let's begin by looking at one single case and visualizing the data! You
+have access to 10 different cases via this notebook and we strongly
+encourage you to explore the data further on your own.
+
+    We'll use the
+\href{https://nipy.org/nibabel/nibabel_images.html}{NiBabel library} to
+load the image and label for a case. The function is shown below to give
+you a sense of how it works.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{} set home directory and data directory}
+        \PY{n}{HOME\PYZus{}DIR} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{./BraTS\PYZhy{}Data/}\PY{l+s+s2}{\PYZdq{}}
+        \PY{n}{DATA\PYZus{}DIR} \PY{o}{=} \PY{n}{HOME\PYZus{}DIR}
+        
+        \PY{k}{def} \PY{n+nf}{load\PYZus{}case}\PY{p}{(}\PY{n}{image\PYZus{}nifty\PYZus{}file}\PY{p}{,} \PY{n}{label\PYZus{}nifty\PYZus{}file}\PY{p}{)}\PY{p}{:}
+            \PY{c+c1}{\PYZsh{} load the image and label file, get the image content and return a numpy array for each}
+            \PY{n}{image} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{nib}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{n}{image\PYZus{}nifty\PYZus{}file}\PY{p}{)}\PY{o}{.}\PY{n}{get\PYZus{}fdata}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+            \PY{n}{label} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{nib}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{n}{label\PYZus{}nifty\PYZus{}file}\PY{p}{)}\PY{o}{.}\PY{n}{get\PYZus{}fdata}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+            
+            \PY{k}{return} \PY{n}{image}\PY{p}{,} \PY{n}{label}
+\end{Verbatim}
+
+
+    We'll now visualize an example. For this, we use a pre-defined function
+we have written in the \texttt{util.py} file that uses
+\texttt{matplotlib} to generate a summary of the image.
+
+The colors correspond to each class. - Red is edema - Green is a
+non-enhancing tumor - Blue is an enhancing tumor.
+
+Do feel free to look at this function at your own time to understand how
+this is achieved.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{image}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{load\PYZus{}case}\PY{p}{(}\PY{n}{DATA\PYZus{}DIR} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{imagesTr/BRATS\PYZus{}003.nii.gz}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{DATA\PYZus{}DIR} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{labelsTr/BRATS\PYZus{}003.nii.gz}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{image} \PY{o}{=} \PY{n}{util}\PY{o}{.}\PY{n}{get\PYZus{}labeled\PYZus{}image}\PY{p}{(}\PY{n}{image}\PY{p}{,} \PY{n}{label}\PY{p}{)}
+        
+        \PY{n}{util}\PY{o}{.}\PY{n}{plot\PYZus{}image\PYZus{}grid}\PY{p}{(}\PY{n}{image}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    We've also written a utility function which generates a GIF that shows
+what it looks like to iterate over each axis.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{image}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{load\PYZus{}case}\PY{p}{(}\PY{n}{DATA\PYZus{}DIR} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{imagesTr/BRATS\PYZus{}003.nii.gz}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{DATA\PYZus{}DIR} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{labelsTr/BRATS\PYZus{}003.nii.gz}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{util}\PY{o}{.}\PY{n}{visualize\PYZus{}data\PYZus{}gif}\PY{p}{(}\PY{n}{util}\PY{o}{.}\PY{n}{get\PYZus{}labeled\PYZus{}image}\PY{p}{(}\PY{n}{image}\PY{p}{,} \PY{n}{label}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+\texttt{\color{outcolor}Out[{\color{outcolor}4}]:}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    \textbf{Reminder:} You can explore more images in the \texttt{imagesTr}
+directory by changing the image name file.
+
+     \#\# 1.4 Data Preprocessing using patches
+
+While our dataset is provided to us post-registration and in the NIfTI
+format, we still have to do some minor pre-processing before feeding the
+data to our model.
+
+\hypertarget{generate-sub-volumes}{%
+\subparagraph{Generate sub-volumes}\label{generate-sub-volumes}}
+
+We are going to first generate ``patches'' of our data which you can
+think of as sub-volumes of the whole MR images. - The reason that we are
+generating patches is because a network that can process the entire
+volume at once will simply not fit inside our current environment's
+memory/GPU. - Therefore we will be using this common technique to
+generate spatially consistent sub-volumes of our data, which can be fed
+into our network. - Specifically, we will be generating randomly sampled
+sub-volumes of shape {[}160, 160, 16{]} from our images. - Furthermore,
+given that a large portion of the MRI volumes are just brain tissue or
+black background without any tumors, we want to make sure that we pick
+patches that at least include some amount of tumor data. - Therefore, we
+are only going to pick patches that have at most 95\% non-tumor regions
+(so at least 5\% tumor). - We do this by filtering the volumes based on
+the values present in the background labels.
+
+\hypertarget{standardization-mean-0-stdev-1}{%
+\subparagraph{Standardization (mean 0, stdev
+1)}\label{standardization-mean-0-stdev-1}}
+
+Lastly, given that the values in MR images cover a very wide range, we
+will standardize the values to have a mean of zero and standard
+deviation of 1. - This is a common technique in deep image processing
+since standardization makes it much easier for the network to learn.
+
+Let's walk through these steps in the following exercises.
+
+     \#\#\# 1.4.1 Sub-volume Sampling Fill in the function below takes in: -
+a 4D image (shape: {[}240, 240, 155, 4{]}) - its 3D label (shape:
+{[}240, 240, 155{]}) arrays,
+
+The function returns: - A randomly generated sub-volume of size {[}160,
+160, 16{]} - Its corresponding label in a 1-hot format which has the
+shape {[}3, 160, 160, 16{]}
+
+Additionally: 1. Make sure that at most 95\% of the returned patch is
+non-tumor regions. 2. Given that our network expects the channels for
+our images to appear as the first dimension (instead of the last one in
+our current setting) reorder the dimensions of the image to have the
+channels appear as the first dimension. 3. Reorder the dimensions of the
+label array to have the first dimension as the classes (instead of the
+last one in our current setting) 4. Reduce the labels array dimension to
+only include the non-background classes (total of 3 instead of 4)
+
+     Hints
+
+Check the lecture notebook for a similar example in 1 dimension
+
+To check the ratio of background to the whole sub-volume, the numerator
+is the number of background labels in the sub-volume. The last dimension
+of the label array at index 0 contains the labels to identify whether
+the voxel is a background (value of 1) or not a a background (value of
+0).
+
+For the denominator of the background ratio, this is the volume of the
+output (see output\_x, output\_y, output\_z in the function parameters).
+
+keras.utils.to\_categorical(y, num\_classes=)
+
+ np.moveaxis can help you re-arrange the dimensions of the arrays
+
+np.random.randint for random sampling
+
+When taking a subset of the label `y' that excludes the background
+class, remember which dimension contains the `num\_classes' channel
+after re-ordering the axes.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}60}]:} \PY{c+c1}{\PYZsh{} UNQ\PYZus{}C1 (UNIQUE CELL IDENTIFIER, DO NOT EDIT)}
+         \PY{k}{def} \PY{n+nf}{get\PYZus{}sub\PYZus{}volume}\PY{p}{(}\PY{n}{image}\PY{p}{,} \PY{n}{label}\PY{p}{,} 
+                            \PY{n}{orig\PYZus{}x} \PY{o}{=} \PY{l+m+mi}{240}\PY{p}{,} \PY{n}{orig\PYZus{}y} \PY{o}{=} \PY{l+m+mi}{240}\PY{p}{,} \PY{n}{orig\PYZus{}z} \PY{o}{=} \PY{l+m+mi}{155}\PY{p}{,} 
+                            \PY{n}{output\PYZus{}x} \PY{o}{=} \PY{l+m+mi}{160}\PY{p}{,} \PY{n}{output\PYZus{}y} \PY{o}{=} \PY{l+m+mi}{160}\PY{p}{,} \PY{n}{output\PYZus{}z} \PY{o}{=} \PY{l+m+mi}{16}\PY{p}{,}
+                            \PY{n}{num\PYZus{}classes} \PY{o}{=} \PY{l+m+mi}{4}\PY{p}{,} \PY{n}{max\PYZus{}tries} \PY{o}{=} \PY{l+m+mi}{1000}\PY{p}{,} 
+                            \PY{n}{background\PYZus{}threshold}\PY{o}{=}\PY{l+m+mf}{0.95}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{    Extract random sub\PYZhy{}volume from original images.}
+         
+         \PY{l+s+sd}{    Args:}
+         \PY{l+s+sd}{        image (np.array): original image, }
+         \PY{l+s+sd}{            of shape (orig\PYZus{}x, orig\PYZus{}y, orig\PYZus{}z, num\PYZus{}channels)}
+         \PY{l+s+sd}{        label (np.array): original label. }
+         \PY{l+s+sd}{            labels coded using discrete values rather than}
+         \PY{l+s+sd}{            a separate dimension, }
+         \PY{l+s+sd}{            so this is of shape (orig\PYZus{}x, orig\PYZus{}y, orig\PYZus{}z)}
+         \PY{l+s+sd}{        orig\PYZus{}x (int): x\PYZus{}dim of input image}
+         \PY{l+s+sd}{        orig\PYZus{}y (int): y\PYZus{}dim of input image}
+         \PY{l+s+sd}{        orig\PYZus{}z (int): z\PYZus{}dim of input image}
+         \PY{l+s+sd}{        output\PYZus{}x (int): desired x\PYZus{}dim of output}
+         \PY{l+s+sd}{        output\PYZus{}y (int): desired y\PYZus{}dim of output}
+         \PY{l+s+sd}{        output\PYZus{}z (int): desired z\PYZus{}dim of output}
+         \PY{l+s+sd}{        num\PYZus{}classes (int): number of class labels}
+         \PY{l+s+sd}{        max\PYZus{}tries (int): maximum trials to do when sampling}
+         \PY{l+s+sd}{        background\PYZus{}threshold (float): limit on the fraction }
+         \PY{l+s+sd}{            of the sample which can be the background}
+         
+         \PY{l+s+sd}{    returns:}
+         \PY{l+s+sd}{        X (np.array): sample of original image of dimension }
+         \PY{l+s+sd}{            (num\PYZus{}channels, output\PYZus{}x, output\PYZus{}y, output\PYZus{}z)}
+         \PY{l+s+sd}{        y (np.array): labels which correspond to X, of dimension }
+         \PY{l+s+sd}{            (num\PYZus{}classes, output\PYZus{}x, output\PYZus{}y, output\PYZus{}z)}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{c+c1}{\PYZsh{} Initialize features and labels with `None`}
+             \PY{n}{X} \PY{o}{=} \PY{k+kc}{None}
+             \PY{n}{y} \PY{o}{=} \PY{k+kc}{None}
+         
+             \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} START CODE HERE (REPLACE INSTANCES OF \PYZsq{}None\PYZsq{} with your code) \PYZsh{}\PYZsh{}\PYZsh{}}
+             
+             \PY{n}{tries} \PY{o}{=} \PY{l+m+mi}{0}
+             
+             \PY{k}{while} \PY{n}{tries} \PY{o}{\PYZlt{}} \PY{n}{max\PYZus{}tries}\PY{p}{:}
+                 \PY{c+c1}{\PYZsh{} randomly sample sub\PYZhy{}volume by sampling the corner voxel}
+                 \PY{c+c1}{\PYZsh{} hint: make sure to leave enough room for the output dimensions!}
+                 \PY{n}{start\PYZus{}x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{n}{orig\PYZus{}x} \PY{o}{\PYZhy{}} \PY{n}{output\PYZus{}x} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}
+                 \PY{n}{start\PYZus{}y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{n}{orig\PYZus{}y} \PY{o}{\PYZhy{}} \PY{n}{output\PYZus{}y} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}
+                 \PY{n}{start\PYZus{}z} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{n}{orig\PYZus{}z} \PY{o}{\PYZhy{}} \PY{n}{output\PYZus{}z} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}
+         
+                 \PY{c+c1}{\PYZsh{} extract relevant area of label}
+                 \PY{n}{y} \PY{o}{=} \PY{n}{label}\PY{p}{[}\PY{n}{start\PYZus{}x}\PY{p}{:} \PY{n}{start\PYZus{}x} \PY{o}{+} \PY{n}{output\PYZus{}x}\PY{p}{,}
+                           \PY{n}{start\PYZus{}y}\PY{p}{:} \PY{n}{start\PYZus{}y} \PY{o}{+} \PY{n}{output\PYZus{}y}\PY{p}{,}
+                           \PY{n}{start\PYZus{}z}\PY{p}{:} \PY{n}{start\PYZus{}z} \PY{o}{+} \PY{n}{output\PYZus{}z}\PY{p}{]}
+                 
+                 \PY{c+c1}{\PYZsh{} One\PYZhy{}hot encode the categories.}
+                 \PY{c+c1}{\PYZsh{} This adds a 4th dimension, \PYZsq{}num\PYZus{}classes\PYZsq{}}
+                 \PY{c+c1}{\PYZsh{} (output\PYZus{}x, output\PYZus{}y, output\PYZus{}z, num\PYZus{}classes)}
+                 \PY{n}{y\PYZus{}f} \PY{o}{=} \PY{n}{y}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}
+                 \PY{n}{y} \PY{o}{=} \PY{n}{keras}\PY{o}{.}\PY{n}{utils}\PY{o}{.}\PY{n}{to\PYZus{}categorical}\PY{p}{(}\PY{n}{y}\PY{p}{,} \PY{n}{num\PYZus{}classes}\PY{o}{=}\PY{n}{num\PYZus{}classes}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{}print(\PYZsq{}y\PYZsq{}, y)}
+         
+                 \PY{c+c1}{\PYZsh{} compute the background ratio}
+                 \PY{n}{bgrd\PYZus{}ratio} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{count\PYZus{}nonzero}\PY{p}{(}\PY{n}{y\PYZus{}f} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{)} \PY{o}{/} \PY{n+nb}{len}\PY{p}{(}\PY{n}{y\PYZus{}f}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{}print(bgrd\PYZus{}ratio, background\PYZus{}threshold)}
+         
+                 \PY{c+c1}{\PYZsh{} increment tries counter}
+                 \PY{n}{tries} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+         
+                 \PY{c+c1}{\PYZsh{} if background ratio is below the desired threshold,}
+                 \PY{c+c1}{\PYZsh{} use that sub\PYZhy{}volume.}
+                 \PY{c+c1}{\PYZsh{} otherwise continue the loop and try another random sub\PYZhy{}volume}
+                 \PY{k}{if} \PY{n}{bgrd\PYZus{}ratio} \PY{o}{\PYZlt{}} \PY{n}{background\PYZus{}threshold}\PY{p}{:}
+         
+                     \PY{c+c1}{\PYZsh{} make copy of the sub\PYZhy{}volume}
+                     \PY{n}{X} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{n}{image}\PY{p}{[}\PY{n}{start\PYZus{}x}\PY{p}{:} \PY{n}{start\PYZus{}x} \PY{o}{+} \PY{n}{output\PYZus{}x}\PY{p}{,}
+                                       \PY{n}{start\PYZus{}y}\PY{p}{:} \PY{n}{start\PYZus{}y} \PY{o}{+} \PY{n}{output\PYZus{}y}\PY{p}{,}
+                                       \PY{n}{start\PYZus{}z}\PY{p}{:} \PY{n}{start\PYZus{}z} \PY{o}{+} \PY{n}{output\PYZus{}z}\PY{p}{,} \PY{p}{:}\PY{p}{]}\PY{p}{)}
+                     
+                     \PY{c+c1}{\PYZsh{} change dimension of X}
+                     \PY{c+c1}{\PYZsh{} from (x\PYZus{}dim, y\PYZus{}dim, z\PYZus{}dim, num\PYZus{}channels)}
+                     \PY{c+c1}{\PYZsh{} to (num\PYZus{}channels, x\PYZus{}dim, y\PYZus{}dim, z\PYZus{}dim)}
+                     \PY{n}{X} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{moveaxis}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}
+         
+                     \PY{c+c1}{\PYZsh{} change dimension of y}
+                     \PY{c+c1}{\PYZsh{} from (x\PYZus{}dim, y\PYZus{}dim, z\PYZus{}dim, num\PYZus{}classes)}
+                     \PY{c+c1}{\PYZsh{} to (num\PYZus{}classes, x\PYZus{}dim, y\PYZus{}dim, z\PYZus{}dim)}
+                     \PY{n}{y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{moveaxis}\PY{p}{(}\PY{n}{y}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}
+         
+                     \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} END CODE HERE \PYZsh{}\PYZsh{}\PYZsh{}}
+                     
+                     \PY{c+c1}{\PYZsh{} take a subset of y that excludes the background class}
+                     \PY{c+c1}{\PYZsh{} in the \PYZsq{}num\PYZus{}classes\PYZsq{} dimension}
+                     \PY{n}{y} \PY{o}{=} \PY{n}{y}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{]}
+             
+                     \PY{k}{return} \PY{n}{X}\PY{p}{,} \PY{n}{y}
+         
+             \PY{c+c1}{\PYZsh{} if we\PYZsq{}ve tried max\PYZus{}tries number of samples}
+             \PY{c+c1}{\PYZsh{} Give up in order to avoid looping forever.}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Tried }\PY{l+s+si}{\PYZob{}tries\PYZcb{}}\PY{l+s+s2}{ times to find a sub\PYZhy{}volume. Giving up...}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{test-case}{%
+\subsubsection{Test Case:}\label{test-case}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}61}]:} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}
+         
+         \PY{n}{image} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+         \PY{n}{label} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{:}
+             \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{image}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{,} \PY{n}{k}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{n}{i}\PY{o}{*}\PY{n}{j}\PY{o}{*}\PY{n}{k}
+                     \PY{n}{label}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{,} \PY{n}{k}\PY{p}{]} \PY{o}{=} \PY{n}{k}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{image:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{z = }\PY{l+s+si}{\PYZob{}k\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{image}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{n}{k}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{label:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{z = }\PY{l+s+si}{\PYZob{}k\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{label}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{n}{k}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+image:
+z = 0
+[[0. 0. 0. 0.]
+ [0. 0. 0. 0.]
+ [0. 0. 0. 0.]
+ [0. 0. 0. 0.]]
+z = 1
+[[0. 0. 0. 0.]
+ [0. 1. 2. 3.]
+ [0. 2. 4. 6.]
+ [0. 3. 6. 9.]]
+z = 2
+[[ 0.  0.  0.  0.]
+ [ 0.  2.  4.  6.]
+ [ 0.  4.  8. 12.]
+ [ 0.  6. 12. 18.]]
+
+
+label:
+z = 0
+[[0. 0. 0. 0.]
+ [0. 0. 0. 0.]
+ [0. 0. 0. 0.]
+ [0. 0. 0. 0.]]
+z = 1
+[[1. 1. 1. 1.]
+ [1. 1. 1. 1.]
+ [1. 1. 1. 1.]
+ [1. 1. 1. 1.]]
+z = 2
+[[2. 2. 2. 2.]
+ [2. 2. 2. 2.]
+ [2. 2. 2. 2.]
+ [2. 2. 2. 2.]]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}62}]:} \PY{c+c1}{\PYZsh{}np.count\PYZus{}nonzero(label == 0), np.prod(label.shape)}
+\end{Verbatim}
+
+
+    \hypertarget{test-extracting-2-2-2-sub-volume}{%
+\paragraph{Test: Extracting (2, 2, 2)
+sub-volume}\label{test-extracting-2-2-2-sub-volume}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}63}]:} \PY{n}{sample\PYZus{}image}\PY{p}{,} \PY{n}{sample\PYZus{}label} \PY{o}{=} \PY{n}{get\PYZus{}sub\PYZus{}volume}\PY{p}{(}\PY{n}{image}\PY{p}{,} 
+                                                     \PY{n}{label}\PY{p}{,}
+                                                     \PY{n}{orig\PYZus{}x}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{,} 
+                                                     \PY{n}{orig\PYZus{}y}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{,} 
+                                                     \PY{n}{orig\PYZus{}z}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,}
+                                                     \PY{n}{output\PYZus{}x}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} 
+                                                     \PY{n}{output\PYZus{}y}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} 
+                                                     \PY{n}{output\PYZus{}z}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,}
+                                                     \PY{n}{num\PYZus{}classes} \PY{o}{=} \PY{l+m+mi}{3}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sampled Image:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{z = }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{k}\PY{p}{)}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{sample\PYZus{}image}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{n}{k}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Sampled Image:
+z = 0
+[[0. 2.]
+ [0. 3.]]
+z = 1
+[[0. 4.]
+ [0. 6.]]
+
+    \end{Verbatim}
+
+    \hypertarget{expected-output}{%
+\paragraph{Expected output:}\label{expected-output}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Sampled Image:}
+\NormalTok{z }\OperatorTok{=} \DecValTok{0}
+\NormalTok{[[}\FloatTok{0.} \FloatTok{2.}\NormalTok{]}
+\NormalTok{ [}\FloatTok{0.} \FloatTok{3.}\NormalTok{]]}
+\NormalTok{z }\OperatorTok{=} \DecValTok{1}
+\NormalTok{[[}\FloatTok{0.} \FloatTok{4.}\NormalTok{]}
+\NormalTok{ [}\FloatTok{0.} \FloatTok{6.}\NormalTok{]]}
+\end{Highlighting}
+\end{Shaded}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}64}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sampled Label:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{k}{for} \PY{n}{c} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{class = }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{c}\PY{p}{)}\PY{p}{)}
+             \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{z = }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{k}\PY{p}{)}\PY{p}{)}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{n}{sample\PYZus{}label}\PY{p}{[}\PY{n}{c}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{n}{k}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Sampled Label:
+class = 0
+z = 0
+[[1. 1.]
+ [1. 1.]]
+z = 1
+[[0. 0.]
+ [0. 0.]]
+class = 1
+z = 0
+[[0. 0.]
+ [0. 0.]]
+z = 1
+[[1. 1.]
+ [1. 1.]]
+
+    \end{Verbatim}
+
+    \hypertarget{expected-output}{%
+\paragraph{Expected output:}\label{expected-output}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Sampled Label:}
+\KeywordTok{class} \OperatorTok{=} \DecValTok{0}
+\NormalTok{z }\OperatorTok{=} \DecValTok{0}
+\NormalTok{[[}\FloatTok{1.} \FloatTok{1.}\NormalTok{]}
+\NormalTok{ [}\FloatTok{1.} \FloatTok{1.}\NormalTok{]]}
+\NormalTok{z }\OperatorTok{=} \DecValTok{1}
+\NormalTok{[[}\FloatTok{0.} \FloatTok{0.}\NormalTok{]}
+\NormalTok{ [}\FloatTok{0.} \FloatTok{0.}\NormalTok{]]}
+\KeywordTok{class} \OperatorTok{=} \DecValTok{1}
+\NormalTok{z }\OperatorTok{=} \DecValTok{0}
+\NormalTok{[[}\FloatTok{0.} \FloatTok{0.}\NormalTok{]}
+\NormalTok{ [}\FloatTok{0.} \FloatTok{0.}\NormalTok{]]}
+\NormalTok{z }\OperatorTok{=} \DecValTok{1}
+\NormalTok{[[}\FloatTok{1.} \FloatTok{1.}\NormalTok{]}
+\NormalTok{ [}\FloatTok{1.} \FloatTok{1.}\NormalTok{]]}
+\end{Highlighting}
+\end{Shaded}
+
+    You can run the following cell to look at a candidate patch and ensure
+that the function works correctly. We'll look at the enhancing tumor
+part of the label.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}65}]:} \PY{n}{image}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{load\PYZus{}case}\PY{p}{(}\PY{n}{DATA\PYZus{}DIR} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{imagesTr/BRATS\PYZus{}001.nii.gz}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{DATA\PYZus{}DIR} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{labelsTr/BRATS\PYZus{}001.nii.gz}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{X}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{n}{get\PYZus{}sub\PYZus{}volume}\PY{p}{(}\PY{n}{image}\PY{p}{,} \PY{n}{label}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} enhancing tumor is channel 2 in the class label}
+         \PY{c+c1}{\PYZsh{} you can change indexer for y to look at different classes}
+         \PY{n}{util}\PY{o}{.}\PY{n}{visualize\PYZus{}patch}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{]}\PY{p}{,} \PY{n}{y}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_27_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+     \#\#\# 1.4.2 Standardization
+
+Next, fill in the following function that given a patch (sub-volume),
+standardizes the values across each channel and each Z plane to have a
+mean of zero and standard deviation of 1.
+
+     Hints
+
+Check that the standard deviation is not zero before dividing by it.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}66}]:} \PY{c+c1}{\PYZsh{} UNQ\PYZus{}C2 (UNIQUE CELL IDENTIFIER, DO NOT EDIT)}
+         \PY{k}{def} \PY{n+nf}{standardize}\PY{p}{(}\PY{n}{image}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{    Standardize mean and standard deviation }
+         \PY{l+s+sd}{        of each channel and z\PYZus{}dimension.}
+         
+         \PY{l+s+sd}{    Args:}
+         \PY{l+s+sd}{        image (np.array): input image, }
+         \PY{l+s+sd}{            shape (num\PYZus{}channels, dim\PYZus{}x, dim\PYZus{}y, dim\PYZus{}z)}
+         
+         \PY{l+s+sd}{    Returns:}
+         \PY{l+s+sd}{        standardized\PYZus{}image (np.array): standardized version of input image}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             
+             \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} START CODE HERE (REPLACE INSTANCES OF \PYZsq{}None\PYZsq{} with your code) \PYZsh{}\PYZsh{}\PYZsh{}}
+             
+             \PY{c+c1}{\PYZsh{} initialize to array of zeros, with same shape as the image}
+             \PY{n}{standardized\PYZus{}image} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros\PYZus{}like}\PY{p}{(}\PY{n}{image}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} iterate over channels}
+             \PY{k}{for} \PY{n}{c} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{image}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                 \PY{c+c1}{\PYZsh{} iterate over the `z` dimension}
+                 \PY{k}{for} \PY{n}{z} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{image}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                     \PY{c+c1}{\PYZsh{} get a slice of the image }
+                     \PY{c+c1}{\PYZsh{} at channel c and z\PYZhy{}th dimension `z`}
+                     \PY{n}{image\PYZus{}slice} \PY{o}{=} \PY{n}{image}\PY{p}{[}\PY{n}{c}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{n}{z}\PY{p}{]}
+         
+                     \PY{c+c1}{\PYZsh{} subtract the mean from image\PYZus{}slice}
+                     \PY{n}{centered} \PY{o}{=} \PY{n}{image\PYZus{}slice} \PY{o}{\PYZhy{}} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{image\PYZus{}slice}\PY{p}{)}
+                     
+                     \PY{c+c1}{\PYZsh{} divide by the standard deviation (only if it is different from zero)}
+                     \PY{k}{if} \PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{centered}\PY{p}{)} \PY{o}{!=} \PY{l+m+mi}{0}\PY{p}{:}
+                         \PY{n}{centered\PYZus{}scaled} \PY{o}{=} \PY{n}{centered} \PY{o}{/} \PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{centered}\PY{p}{)}
+         
+                         \PY{c+c1}{\PYZsh{} update  the slice of standardized image}
+                         \PY{c+c1}{\PYZsh{} with the scaled centered and scaled image}
+                         \PY{n}{standardized\PYZus{}image}\PY{p}{[}\PY{n}{c}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{n}{z}\PY{p}{]} \PY{o}{=} \PY{n}{centered\PYZus{}scaled}
+         
+             \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} END CODE HERE \PYZsh{}\PYZsh{}\PYZsh{}}
+         
+             \PY{k}{return} \PY{n}{standardized\PYZus{}image}
+\end{Verbatim}
+
+
+    And to sanity check, let's look at the output of our function:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}67}]:} \PY{n}{X\PYZus{}norm} \PY{o}{=} \PY{n}{standardize}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{standard deviation for a slice should be 1.0}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{stddv for X\PYZus{}norm[0, :, :, 0]: }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{X\PYZus{}norm[0,:,:,0].std():.2f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+standard deviation for a slice should be 1.0
+stddv for X\_norm[0, :, :, 0]: 1.00
+
+    \end{Verbatim}
+
+    Let's visualize our patch again just to make sure (it won't look
+different since the \texttt{imshow} function we use to visualize
+automatically normalizes the pixels when displaying in black and white).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}68}]:} \PY{n}{util}\PY{o}{.}\PY{n}{visualize\PYZus{}patch}\PY{p}{(}\PY{n}{X\PYZus{}norm}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{]}\PY{p}{,} \PY{n}{y}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_34_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+     \# 2 Model: 3D U-Net Now let's build our model. In this assignment we
+will be building a \href{https://arxiv.org/abs/1606.06650}{3D U-net}. -
+This architecture will take advantage of the volumetric shape of MR
+images and is one of the best performing models for this task. - Feel
+free to familiarize yourself with the architecture by reading
+\href{https://arxiv.org/abs/1606.06650}{this paper}.
+
+     \# 3 Metrics
+
+     \#\# 3.1 Dice Similarity Coefficient
+
+Aside from the architecture, one of the most important elements of any
+deep learning method is the choice of our loss function.
+
+A natural choice that you may be familiar with is the cross-entropy loss
+function. - However, this loss function is not ideal for segmentation
+tasks due to heavy class imbalance (there are typically not many
+positive regions).
+
+A much more common loss for segmentation tasks is the Dice similarity
+coefficient, which is a measure of how well two contours overlap. - The
+Dice index ranges from 0 (complete mismatch) - To 1 (perfect match).
+
+In general, for two sets \(A\) and \(B\), the Dice similarity
+coefficient is defined as:
+\[\text{DSC}(A, B) = \frac{2 \times |A \cap B|}{|A| + |B|}.\]
+
+Here we can interpret \(A\) and \(B\) as sets of voxels, \(A\) being the
+predicted tumor region and \(B\) being the ground truth.
+
+Our model will map each voxel to 0 or 1 - 0 means it is a background
+voxel - 1 means it is part of the segmented region.
+
+In the dice coefficient, the variables in the formula are: - \(x\) : the
+input image - \(f(x)\) : the model output (prediction) - \(y\) : the
+label (actual ground truth)
+
+The dice coefficient ``DSC'' is:
+
+\[\text{DSC}(f, x, y) = \frac{2 \times \sum_{i, j} f(x)_{ij} \times y_{ij} + \epsilon}{\sum_{i,j} f(x)_{ij} + \sum_{i, j} y_{ij} + \epsilon}\]
+
+\begin{itemize}
+\tightlist
+\item
+  \(\epsilon\) is a small number that is added to avoid division by zero
+\end{itemize}
+
+\href{https://www.researchgate.net/figure/Calculation-of-the-Dice-similarity-coefficient-The-deformed-contour-of-the-liver-from_fig4_328671987}{Image
+Source}
+
+Implement the dice coefficient for a single output class below.
+
+\begin{itemize}
+\tightlist
+\item
+  Please use the
+  \href{https://www.tensorflow.org/api_docs/python/tf/keras/backend/sum}{Keras.sum(x,axis=)}
+  function to compute the numerator and denominator of the dice
+  coefficient.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}73}]:} \PY{c+c1}{\PYZsh{} UNQ\PYZus{}C3 (UNIQUE CELL IDENTIFIER, DO NOT EDIT)}
+         \PY{k}{def} \PY{n+nf}{single\PYZus{}class\PYZus{}dice\PYZus{}coefficient}\PY{p}{(}\PY{n}{y\PYZus{}true}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,} 
+                                           \PY{n}{epsilon}\PY{o}{=}\PY{l+m+mf}{0.00001}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{    Compute dice coefficient for single class.}
+         
+         \PY{l+s+sd}{    Args:}
+         \PY{l+s+sd}{        y\PYZus{}true (Tensorflow tensor): tensor of ground truth values for single class.}
+         \PY{l+s+sd}{                                    shape: (x\PYZus{}dim, y\PYZus{}dim, z\PYZus{}dim)}
+         \PY{l+s+sd}{        y\PYZus{}pred (Tensorflow tensor): tensor of predictions for single class.}
+         \PY{l+s+sd}{                                    shape: (x\PYZus{}dim, y\PYZus{}dim, z\PYZus{}dim)}
+         \PY{l+s+sd}{        axis (tuple): spatial axes to sum over when computing numerator and}
+         \PY{l+s+sd}{                      denominator of dice coefficient.}
+         \PY{l+s+sd}{                      Hint: pass this as the \PYZsq{}axis\PYZsq{} argument to the K.sum function.}
+         \PY{l+s+sd}{        epsilon (float): small constant added to numerator and denominator to}
+         \PY{l+s+sd}{                        avoid divide by 0 errors.}
+         \PY{l+s+sd}{    Returns:}
+         \PY{l+s+sd}{        dice\PYZus{}coefficient (float): computed value of dice coefficient.     }
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+         
+             \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} START CODE HERE (REPLACE INSTANCES OF \PYZsq{}None\PYZsq{} with your code) \PYZsh{}\PYZsh{}\PYZsh{}}
+             
+             \PY{n}{dice\PYZus{}numerator} \PY{o}{=} \PY{l+m+mi}{2} \PY{o}{*} \PY{n}{K}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{y\PYZus{}pred} \PY{o}{*} \PY{n}{y\PYZus{}true}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{n}{axis}\PY{p}{)}
+             \PY{n}{dice\PYZus{}denominator} \PY{o}{=} \PY{n}{K}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{y\PYZus{}pred}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{n}{axis}\PY{p}{)} \PY{o}{+} \PY{n}{K}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{y\PYZus{}true}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{n}{axis}\PY{p}{)}
+             \PY{n}{dice\PYZus{}coefficient} \PY{o}{=} \PY{p}{(}\PY{n}{dice\PYZus{}numerator} \PY{o}{+} \PY{n}{epsilon}\PY{p}{)} \PY{o}{/} \PY{p}{(}\PY{n}{dice\PYZus{}denominator} \PY{o}{+} \PY{n}{epsilon}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} END CODE HERE \PYZsh{}\PYZsh{}\PYZsh{}}
+         
+             \PY{k}{return} \PY{n}{dice\PYZus{}coefficient}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}74}]:} \PY{c+c1}{\PYZsh{} TEST CASES}
+         \PY{n}{sess} \PY{o}{=} \PY{n}{K}\PY{o}{.}\PY{n}{get\PYZus{}session}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}sess = tf.compat.v1.Session()}
+         \PY{k}{with} \PY{n}{sess}\PY{o}{.}\PY{n}{as\PYZus{}default}\PY{p}{(}\PY{p}{)} \PY{k}{as} \PY{n}{sess}\PY{p}{:}
+             \PY{n}{pred} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{expand\PYZus{}dims}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{eye}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{label} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{expand\PYZus{}dims}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{l+m+mf}{0.0}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+         
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Test Case \PYZsh{}1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{pred:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{pred}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{label:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{label}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} choosing a large epsilon to help check for implementation errors}
+             \PY{n}{dc} \PY{o}{=} \PY{n}{single\PYZus{}class\PYZus{}dice\PYZus{}coefficient}\PY{p}{(}\PY{n}{pred}\PY{p}{,} \PY{n}{label}\PY{p}{,}\PY{n}{epsilon}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{dice coefficient: }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{dc.eval():.4f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Test Case \PYZsh{}2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{pred} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{expand\PYZus{}dims}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{eye}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{label} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{expand\PYZus{}dims}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+         
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{pred:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{pred}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{label:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{label}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} choosing a large epsilon to help check for implementation errors}
+             \PY{n}{dc} \PY{o}{=} \PY{n}{single\PYZus{}class\PYZus{}dice\PYZus{}coefficient}\PY{p}{(}\PY{n}{pred}\PY{p}{,} \PY{n}{label}\PY{p}{,}\PY{n}{epsilon}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{dice\PYZus{}coefficient: }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{dc.eval():.4f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Test Case \#1
+pred:
+[[1. 0.]
+ [0. 1.]]
+label:
+[[1. 1.]
+ [0. 0.]]
+dice coefficient: 0.6000
+
+
+Test Case \#2
+pred:
+[[1. 0.]
+ [0. 1.]]
+label:
+[[1. 1.]
+ [0. 1.]]
+dice\_coefficient: 0.8333
+
+    \end{Verbatim}
+
+    \hypertarget{expected-output}{%
+\subparagraph{Expected output}\label{expected-output}}
+
+If you get a different result, please check that you implemented the
+equation completely.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Test Case }\CommentTok{#1}
+\NormalTok{pred:}
+\NormalTok{[[}\FloatTok{1.} \FloatTok{0.}\NormalTok{]}
+\NormalTok{ [}\FloatTok{0.} \FloatTok{1.}\NormalTok{]]}
+\NormalTok{label:}
+\NormalTok{[[}\FloatTok{1.} \FloatTok{1.}\NormalTok{]}
+\NormalTok{ [}\FloatTok{0.} \FloatTok{0.}\NormalTok{]]}
+\NormalTok{dice coefficient: }\FloatTok{0.6000}
+
+
+\NormalTok{Test Case }\CommentTok{#2}
+\NormalTok{pred:}
+\NormalTok{[[}\FloatTok{1.} \FloatTok{0.}\NormalTok{]}
+\NormalTok{ [}\FloatTok{0.} \FloatTok{1.}\NormalTok{]]}
+\NormalTok{label:}
+\NormalTok{[[}\FloatTok{1.} \FloatTok{1.}\NormalTok{]}
+\NormalTok{ [}\FloatTok{0.} \FloatTok{1.}\NormalTok{]]}
+\NormalTok{dice_coefficient: }\FloatTok{0.8333}
+\end{Highlighting}
+\end{Shaded}
+
+    \hypertarget{dice-coefficient-for-multiple-classes}{%
+\subsubsection{Dice Coefficient for Multiple
+classes}\label{dice-coefficient-for-multiple-classes}}
+
+Now that we have the single class case, we can think about how to
+approach the multi class context. - Remember that for this task, we want
+segmentations for each of the 3 classes of abnormality (edema, enhancing
+tumor, non-enhancing tumor). - This will give us 3 different dice
+coefficients (one for each abnormality class). - To combine these, we
+can just take the average. We can write that the overall dice
+coefficient is:
+
+\[DC(f, x, y) = \frac{1}{3} \left ( DC_{1}(f, x, y) + DC_{2}(f, x, y) + DC_{3}(f, x, y) \right )\]
+
+\begin{itemize}
+\tightlist
+\item
+  \(DC_{1}\), \(DC_{2}\) and \(DC_{3}\) are edema, enhancing tumor, and
+  non-enhancing tumor dice coefficients.
+\end{itemize}
+
+For any number of classes, the equation becomes:\\
+\[DC(f, x, y) = \frac{1}{N} \sum_{c=1}^{C} \left ( DC_{c}(f, x, y) \right )\]
+
+In this case, with three categories, \(C = 3\)
+
+Implement the mean dice coefficient below. This should not be very
+different from your singe-class implementation.
+
+Please use the \href{https://keras.io/backend/\#mean}{K.mean} function
+to take the average of the three classes.\\
+- Apply the mean to the ratio that you calculate in the last line of
+code that you'll implement.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}75}]:} \PY{c+c1}{\PYZsh{} UNQ\PYZus{}C4 (UNIQUE CELL IDENTIFIER, DO NOT EDIT)}
+         \PY{k}{def} \PY{n+nf}{dice\PYZus{}coefficient}\PY{p}{(}\PY{n}{y\PYZus{}true}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,} 
+                              \PY{n}{epsilon}\PY{o}{=}\PY{l+m+mf}{0.00001}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{    Compute mean dice coefficient over all abnormality classes.}
+         
+         \PY{l+s+sd}{    Args:}
+         \PY{l+s+sd}{        y\PYZus{}true (Tensorflow tensor): tensor of ground truth values for all classes.}
+         \PY{l+s+sd}{                                    shape: (num\PYZus{}classes, x\PYZus{}dim, y\PYZus{}dim, z\PYZus{}dim)}
+         \PY{l+s+sd}{        y\PYZus{}pred (Tensorflow tensor): tensor of predictions for all classes.}
+         \PY{l+s+sd}{                                    shape: (num\PYZus{}classes, x\PYZus{}dim, y\PYZus{}dim, z\PYZus{}dim)}
+         \PY{l+s+sd}{        axis (tuple): spatial axes to sum over when computing numerator and}
+         \PY{l+s+sd}{                      denominator of dice coefficient.}
+         \PY{l+s+sd}{                      Hint: pass this as the \PYZsq{}axis\PYZsq{} argument to the K.sum}
+         \PY{l+s+sd}{                            and K.mean functions.}
+         \PY{l+s+sd}{        epsilon (float): small constant add to numerator and denominator to}
+         \PY{l+s+sd}{                        avoid divide by 0 errors.}
+         \PY{l+s+sd}{    Returns:}
+         \PY{l+s+sd}{        dice\PYZus{}coefficient (float): computed value of dice coefficient.     }
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+         
+             \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} START CODE HERE (REPLACE INSTANCES OF \PYZsq{}None\PYZsq{} with your code) \PYZsh{}\PYZsh{}\PYZsh{}}
+             
+             \PY{n}{dice\PYZus{}numerator} \PY{o}{=} \PY{l+m+mi}{2} \PY{o}{*} \PY{n}{K}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{y\PYZus{}pred} \PY{o}{*} \PY{n}{y\PYZus{}true}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{n}{axis}\PY{p}{)}
+             \PY{n}{dice\PYZus{}denominator} \PY{o}{=} \PY{n}{K}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{y\PYZus{}pred}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{n}{axis}\PY{p}{)} \PY{o}{+} \PY{n}{K}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{y\PYZus{}true}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{n}{axis}\PY{p}{)}
+             \PY{n}{dice\PYZus{}coefficient} \PY{o}{=} \PY{n}{K}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{(}\PY{n}{dice\PYZus{}numerator} \PY{o}{+} \PY{n}{epsilon}\PY{p}{)} \PY{o}{/} \PY{p}{(}\PY{n}{dice\PYZus{}denominator} \PY{o}{+} \PY{n}{epsilon}\PY{p}{)}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} END CODE HERE \PYZsh{}\PYZsh{}\PYZsh{}}
+         
+             \PY{k}{return} \PY{n}{dice\PYZus{}coefficient}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}76}]:} \PY{c+c1}{\PYZsh{} TEST CASES}
+         \PY{n}{sess} \PY{o}{=} \PY{n}{K}\PY{o}{.}\PY{n}{get\PYZus{}session}\PY{p}{(}\PY{p}{)}
+         \PY{k}{with} \PY{n}{sess}\PY{o}{.}\PY{n}{as\PYZus{}default}\PY{p}{(}\PY{p}{)} \PY{k}{as} \PY{n}{sess}\PY{p}{:}
+             \PY{n}{pred} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{expand\PYZus{}dims}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{expand\PYZus{}dims}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{eye}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{label} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{expand\PYZus{}dims}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{expand\PYZus{}dims}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{l+m+mf}{0.0}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+         
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Test Case \PYZsh{}1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{pred:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{pred}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{label:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{label}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         
+             \PY{n}{dc} \PY{o}{=} \PY{n}{dice\PYZus{}coefficient}\PY{p}{(}\PY{n}{label}\PY{p}{,} \PY{n}{pred}\PY{p}{,} \PY{n}{epsilon}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{dice coefficient: }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{dc.eval():.4f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Test Case \PYZsh{}2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{pred} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{expand\PYZus{}dims}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{expand\PYZus{}dims}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{eye}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{label} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{expand\PYZus{}dims}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{expand\PYZus{}dims}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+         
+         
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{pred:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{pred}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{label:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{label}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         
+             \PY{n}{dc} \PY{o}{=} \PY{n}{dice\PYZus{}coefficient}\PY{p}{(}\PY{n}{pred}\PY{p}{,} \PY{n}{label}\PY{p}{,}\PY{n}{epsilon}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{dice coefficient: }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{dc.eval():.4f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Test Case \PYZsh{}3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{pred} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+             \PY{n}{pred}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{expand\PYZus{}dims}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{eye}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{pred}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{expand\PYZus{}dims}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{eye}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+             
+             \PY{n}{label} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+             \PY{n}{label}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{expand\PYZus{}dims}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{l+m+mf}{0.0}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{label}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{expand\PYZus{}dims}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+         
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{pred:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{class = 0}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{pred}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{class = 1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{pred}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{label:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{class = 0}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{label}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{class = 1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{label}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         
+             \PY{n}{dc} \PY{o}{=} \PY{n}{dice\PYZus{}coefficient}\PY{p}{(}\PY{n}{pred}\PY{p}{,} \PY{n}{label}\PY{p}{,}\PY{n}{epsilon}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{dice coefficient: }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{dc.eval():.4f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Test Case \#1
+pred:
+[[1. 0.]
+ [0. 1.]]
+label:
+[[1. 1.]
+ [0. 0.]]
+dice coefficient: 0.6000
+
+
+Test Case \#2
+pred:
+[[1. 0.]
+ [0. 1.]]
+label:
+[[1. 1.]
+ [0. 1.]]
+dice coefficient: 0.8333
+
+
+Test Case \#3
+pred:
+class = 0
+[[1. 0.]
+ [0. 1.]]
+class = 1
+[[1. 0.]
+ [0. 1.]]
+label:
+class = 0
+[[1. 1.]
+ [0. 0.]]
+class = 1
+[[1. 1.]
+ [0. 1.]]
+dice coefficient: 0.7167
+
+    \end{Verbatim}
+
+    \hypertarget{expected-output}{%
+\paragraph{Expected output:}\label{expected-output}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Test Case }\CommentTok{#1}
+\NormalTok{pred:}
+\NormalTok{[[}\FloatTok{1.} \FloatTok{0.}\NormalTok{]}
+\NormalTok{ [}\FloatTok{0.} \FloatTok{1.}\NormalTok{]]}
+\NormalTok{label:}
+\NormalTok{[[}\FloatTok{1.} \FloatTok{1.}\NormalTok{]}
+\NormalTok{ [}\FloatTok{0.} \FloatTok{0.}\NormalTok{]]}
+\NormalTok{dice coefficient: }\FloatTok{0.6000}
+
+
+\NormalTok{Test Case }\CommentTok{#2}
+\NormalTok{pred:}
+\NormalTok{[[}\FloatTok{1.} \FloatTok{0.}\NormalTok{]}
+\NormalTok{ [}\FloatTok{0.} \FloatTok{1.}\NormalTok{]]}
+\NormalTok{label:}
+\NormalTok{[[}\FloatTok{1.} \FloatTok{1.}\NormalTok{]}
+\NormalTok{ [}\FloatTok{0.} \FloatTok{1.}\NormalTok{]]}
+\NormalTok{dice coefficient: }\FloatTok{0.8333}
+
+
+\NormalTok{Test Case }\CommentTok{#3}
+\NormalTok{pred:}
+\KeywordTok{class} \OperatorTok{=} \DecValTok{0}
+\NormalTok{[[}\FloatTok{1.} \FloatTok{0.}\NormalTok{]}
+\NormalTok{ [}\FloatTok{0.} \FloatTok{1.}\NormalTok{]]}
+\KeywordTok{class} \OperatorTok{=} \DecValTok{1}
+\NormalTok{[[}\FloatTok{1.} \FloatTok{0.}\NormalTok{]}
+\NormalTok{ [}\FloatTok{0.} \FloatTok{1.}\NormalTok{]]}
+\NormalTok{label:}
+\KeywordTok{class} \OperatorTok{=} \DecValTok{0}
+\NormalTok{[[}\FloatTok{1.} \FloatTok{1.}\NormalTok{]}
+\NormalTok{ [}\FloatTok{0.} \FloatTok{0.}\NormalTok{]]}
+\KeywordTok{class} \OperatorTok{=} \DecValTok{1}
+\NormalTok{[[}\FloatTok{1.} \FloatTok{1.}\NormalTok{]}
+\NormalTok{ [}\FloatTok{0.} \FloatTok{1.}\NormalTok{]]}
+\NormalTok{dice coefficient: }\FloatTok{0.7167}
+\end{Highlighting}
+\end{Shaded}
+
+     \#\# 3.2 Soft Dice Loss
+
+While the Dice Coefficient makes intuitive sense, it is not the best for
+training. - This is because it takes in discrete values (zeros and
+ones). - The model outputs \emph{probabilities} that each pixel is, say,
+a tumor or not, and we want to be able to backpropagate through those
+outputs.
+
+Therefore, we need an analogue of the Dice loss which takes real valued
+input. This is where the \textbf{Soft Dice loss} comes in. The formula
+is:
+
+\[\mathcal{L}_{Dice}(p, q) = 1 - \frac{2\times\sum_{i, j} p_{ij}q_{ij} + \epsilon}{\left(\sum_{i, j} p_{ij}^2 \right) + \left(\sum_{i, j} q_{ij}^2 \right) + \epsilon}\]
+
+\begin{itemize}
+\tightlist
+\item
+  \(p\) is our predictions
+\item
+  \(q\) is the ground truth
+\item
+  In practice each \(q_i\) will either be 0 or 1.
+\item
+  \(\epsilon\) is a small number that is added to avoid division by zero
+\end{itemize}
+
+The soft Dice loss ranges between - 0: perfectly matching the ground
+truth distribution \(q\) - 1: complete mismatch with the ground truth.
+
+You can also check that if \(p_i\) and \(q_i\) are each 0 or 1, then the
+soft Dice loss is just one minus the dice coefficient.
+
+\hypertarget{multi-class-soft-dice-loss}{%
+\subsubsection{Multi-Class Soft Dice
+Loss}\label{multi-class-soft-dice-loss}}
+
+We've explained the single class case for simplicity, but the
+multi-class generalization is exactly the same as that of the dice
+coefficient. - Since you've already implemented the multi-class dice
+coefficient, we'll have you jump directly to the multi-class soft dice
+loss.
+
+For any number of categories of diseases, the expression becomes:
+
+\[\mathcal{L}_{Dice}(p, q) = 1 - \frac{1}{N} \sum_{c=1}^{C} \frac{2\times\sum_{i, j} p_{cij}q_{cij} + \epsilon}{\left(\sum_{i, j} p_{cij}^2 \right) + \left(\sum_{i, j} q_{cij}^2 \right) + \epsilon}\]
+
+Please implement the soft dice loss below!
+
+As before, you will use K.mean() - Apply the average the mean to ratio
+that you'll calculate in the last line of code that you'll implement.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}80}]:} \PY{c+c1}{\PYZsh{} UNQ\PYZus{}C5 (UNIQUE CELL IDENTIFIER, DO NOT EDIT)}
+         \PY{k}{def} \PY{n+nf}{soft\PYZus{}dice\PYZus{}loss}\PY{p}{(}\PY{n}{y\PYZus{}true}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,} 
+                            \PY{n}{epsilon}\PY{o}{=}\PY{l+m+mf}{0.00001}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{    Compute mean soft dice loss over all abnormality classes.}
+         
+         \PY{l+s+sd}{    Args:}
+         \PY{l+s+sd}{        y\PYZus{}true (Tensorflow tensor): tensor of ground truth values for all classes.}
+         \PY{l+s+sd}{                                    shape: (num\PYZus{}classes, x\PYZus{}dim, y\PYZus{}dim, z\PYZus{}dim)}
+         \PY{l+s+sd}{        y\PYZus{}pred (Tensorflow tensor): tensor of soft predictions for all classes.}
+         \PY{l+s+sd}{                                    shape: (num\PYZus{}classes, x\PYZus{}dim, y\PYZus{}dim, z\PYZus{}dim)}
+         \PY{l+s+sd}{        axis (tuple): spatial axes to sum over when computing numerator and}
+         \PY{l+s+sd}{                      denominator in formula for dice loss.}
+         \PY{l+s+sd}{                      Hint: pass this as the \PYZsq{}axis\PYZsq{} argument to the K.sum}
+         \PY{l+s+sd}{                            and K.mean functions.}
+         \PY{l+s+sd}{        epsilon (float): small constant added to numerator and denominator to}
+         \PY{l+s+sd}{                        avoid divide by 0 errors.}
+         \PY{l+s+sd}{    Returns:}
+         \PY{l+s+sd}{        dice\PYZus{}loss (float): computed value of dice loss.     }
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+         
+             \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} START CODE HERE (REPLACE INSTANCES OF \PYZsq{}None\PYZsq{} with your code) \PYZsh{}\PYZsh{}\PYZsh{}}
+         
+             \PY{n}{dice\PYZus{}numerator} \PY{o}{=} \PY{l+m+mi}{2} \PY{o}{*} \PY{n}{K}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{y\PYZus{}pred} \PY{o}{*} \PY{n}{y\PYZus{}true}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{n}{axis}\PY{p}{)}
+             \PY{n}{dice\PYZus{}denominator} \PY{o}{=} \PY{n}{K}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{y\PYZus{}pred}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{n}{axis}\PY{p}{)} \PY{o}{+} \PY{n}{K}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{y\PYZus{}true}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{n}{axis}\PY{p}{)}
+             \PY{n}{dice\PYZus{}loss} \PY{o}{=} \PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{n}{K}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{(}\PY{n}{dice\PYZus{}numerator} \PY{o}{+} \PY{n}{epsilon}\PY{p}{)} \PY{o}{/} \PY{p}{(}\PY{n}{dice\PYZus{}denominator} \PY{o}{+} \PY{n}{epsilon}\PY{p}{)}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} END CODE HERE \PYZsh{}\PYZsh{}\PYZsh{}}
+         
+             \PY{k}{return} \PY{n}{dice\PYZus{}loss}
+\end{Verbatim}
+
+
+    \hypertarget{test-case-1}{%
+\paragraph{Test Case 1}\label{test-case-1}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}81}]:} \PY{c+c1}{\PYZsh{} TEST CASES}
+         \PY{n}{sess} \PY{o}{=} \PY{n}{K}\PY{o}{.}\PY{n}{get\PYZus{}session}\PY{p}{(}\PY{p}{)}
+         \PY{k}{with} \PY{n}{sess}\PY{o}{.}\PY{n}{as\PYZus{}default}\PY{p}{(}\PY{p}{)} \PY{k}{as} \PY{n}{sess}\PY{p}{:}
+             \PY{n}{pred} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{expand\PYZus{}dims}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{expand\PYZus{}dims}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{eye}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{label} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{expand\PYZus{}dims}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{expand\PYZus{}dims}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{l+m+mf}{0.0}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+         
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Test Case \PYZsh{}1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{pred:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{pred}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{label:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{label}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         
+             \PY{n}{dc} \PY{o}{=} \PY{n}{soft\PYZus{}dice\PYZus{}loss}\PY{p}{(}\PY{n}{pred}\PY{p}{,} \PY{n}{label}\PY{p}{,} \PY{n}{epsilon}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{soft dice loss:}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{dc.eval():.4f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Test Case \#1
+pred:
+[[1. 0.]
+ [0. 1.]]
+label:
+[[1. 1.]
+ [0. 0.]]
+soft dice loss:0.4000
+
+    \end{Verbatim}
+
+    \hypertarget{expected-output}{%
+\paragraph{Expected output:}\label{expected-output}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Test Case }\CommentTok{#1}
+\NormalTok{pred:}
+\NormalTok{[[}\FloatTok{1.} \FloatTok{0.}\NormalTok{]}
+\NormalTok{ [}\FloatTok{0.} \FloatTok{1.}\NormalTok{]]}
+\NormalTok{label:}
+\NormalTok{[[}\FloatTok{1.} \FloatTok{1.}\NormalTok{]}
+\NormalTok{ [}\FloatTok{0.} \FloatTok{0.}\NormalTok{]]}
+\NormalTok{soft dice loss:}\FloatTok{0.4000}
+\end{Highlighting}
+\end{Shaded}
+
+    \hypertarget{test-case-2}{%
+\paragraph{Test Case 2}\label{test-case-2}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}82}]:} \PY{n}{sess} \PY{o}{=} \PY{n}{K}\PY{o}{.}\PY{n}{get\PYZus{}session}\PY{p}{(}\PY{p}{)}
+         \PY{k}{with} \PY{n}{sess}\PY{o}{.}\PY{n}{as\PYZus{}default}\PY{p}{(}\PY{p}{)} \PY{k}{as} \PY{n}{sess}\PY{p}{:}
+             \PY{n}{pred} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{expand\PYZus{}dims}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{expand\PYZus{}dims}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{eye}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{label} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{expand\PYZus{}dims}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{expand\PYZus{}dims}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{l+m+mf}{0.0}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+             
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Test Case \PYZsh{}2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{pred} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{expand\PYZus{}dims}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{expand\PYZus{}dims}\PY{p}{(}\PY{l+m+mf}{0.5}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{eye}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{pred:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{pred}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{label:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{label}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+             \PY{n}{dc} \PY{o}{=} \PY{n}{soft\PYZus{}dice\PYZus{}loss}\PY{p}{(}\PY{n}{pred}\PY{p}{,} \PY{n}{label}\PY{p}{,} \PY{n}{epsilon}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{soft dice loss: }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{dc.eval():.4f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Test Case \#2
+pred:
+[[0.5 0. ]
+ [0.  0.5]]
+label:
+[[1. 1.]
+ [0. 0.]]
+soft dice loss: 0.4286
+
+    \end{Verbatim}
+
+    \hypertarget{expected-output}{%
+\paragraph{Expected output:}\label{expected-output}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Test Case }\CommentTok{#2}
+\NormalTok{pred:}
+\NormalTok{[[}\FloatTok{0.5} \FloatTok{0.}\NormalTok{ ]}
+\NormalTok{ [}\FloatTok{0.}  \FloatTok{0.5}\NormalTok{]]}
+\NormalTok{label:}
+\NormalTok{[[}\FloatTok{1.} \FloatTok{1.}\NormalTok{]}
+\NormalTok{ [}\FloatTok{0.} \FloatTok{0.}\NormalTok{]]}
+\NormalTok{soft dice loss: }\FloatTok{0.4286}
+\end{Highlighting}
+\end{Shaded}
+
+    \hypertarget{test-case-3}{%
+\paragraph{Test Case 3}\label{test-case-3}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}83}]:} \PY{n}{sess} \PY{o}{=} \PY{n}{K}\PY{o}{.}\PY{n}{get\PYZus{}session}\PY{p}{(}\PY{p}{)}
+         \PY{k}{with} \PY{n}{sess}\PY{o}{.}\PY{n}{as\PYZus{}default}\PY{p}{(}\PY{p}{)} \PY{k}{as} \PY{n}{sess}\PY{p}{:}
+             \PY{n}{pred} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{expand\PYZus{}dims}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{expand\PYZus{}dims}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{eye}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{label} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{expand\PYZus{}dims}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{expand\PYZus{}dims}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{l+m+mf}{0.0}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+             
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Test Case \PYZsh{}3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{pred} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{expand\PYZus{}dims}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{expand\PYZus{}dims}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{eye}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{label} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{expand\PYZus{}dims}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{expand\PYZus{}dims}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+         
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{pred:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{pred}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{label:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{label}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         
+             \PY{n}{dc} \PY{o}{=} \PY{n}{soft\PYZus{}dice\PYZus{}loss}\PY{p}{(}\PY{n}{pred}\PY{p}{,} \PY{n}{label}\PY{p}{,} \PY{n}{epsilon}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{soft dice loss: }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{dc.eval():.4f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Test Case \#3
+pred:
+[[1. 0.]
+ [0. 1.]]
+label:
+[[1. 1.]
+ [0. 1.]]
+soft dice loss: 0.1667
+
+    \end{Verbatim}
+
+    \hypertarget{expected-output}{%
+\paragraph{Expected output:}\label{expected-output}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Test Case }\CommentTok{#3}
+\NormalTok{pred:}
+\NormalTok{[[}\FloatTok{1.} \FloatTok{0.}\NormalTok{]}
+\NormalTok{ [}\FloatTok{0.} \FloatTok{1.}\NormalTok{]]}
+\NormalTok{label:}
+\NormalTok{[[}\FloatTok{1.} \FloatTok{1.}\NormalTok{]}
+\NormalTok{ [}\FloatTok{0.} \FloatTok{1.}\NormalTok{]]}
+\NormalTok{soft dice loss: }\FloatTok{0.1667}
+\end{Highlighting}
+\end{Shaded}
+
+    \hypertarget{test-case-4}{%
+\paragraph{Test Case 4}\label{test-case-4}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}84}]:} \PY{n}{sess} \PY{o}{=} \PY{n}{K}\PY{o}{.}\PY{n}{get\PYZus{}session}\PY{p}{(}\PY{p}{)}
+         \PY{k}{with} \PY{n}{sess}\PY{o}{.}\PY{n}{as\PYZus{}default}\PY{p}{(}\PY{p}{)} \PY{k}{as} \PY{n}{sess}\PY{p}{:}
+             \PY{n}{pred} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{expand\PYZus{}dims}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{expand\PYZus{}dims}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{eye}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{label} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{expand\PYZus{}dims}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{expand\PYZus{}dims}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{l+m+mf}{0.0}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+         
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Test Case \PYZsh{}4}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{pred} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{expand\PYZus{}dims}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{expand\PYZus{}dims}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{eye}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{pred}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{0.8}
+             \PY{n}{label} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{expand\PYZus{}dims}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{expand\PYZus{}dims}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+         
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{pred:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{pred}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{label:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{label}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         
+             \PY{n}{dc} \PY{o}{=} \PY{n}{soft\PYZus{}dice\PYZus{}loss}\PY{p}{(}\PY{n}{pred}\PY{p}{,} \PY{n}{label}\PY{p}{,} \PY{n}{epsilon}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{soft dice loss: }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{dc.eval():.4f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Test Case \#4
+pred:
+[[1.  0.8]
+ [0.  1. ]]
+label:
+[[1. 1.]
+ [0. 1.]]
+soft dice loss: 0.0060
+
+    \end{Verbatim}
+
+    \hypertarget{expected-output}{%
+\paragraph{Expected output:}\label{expected-output}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Test Case }\CommentTok{#4}
+\NormalTok{pred:}
+\NormalTok{[[}\FloatTok{1.}  \FloatTok{0.8}\NormalTok{]}
+\NormalTok{ [}\FloatTok{0.}  \FloatTok{1.}\NormalTok{ ]]}
+\NormalTok{label:}
+\NormalTok{[[}\FloatTok{1.} \FloatTok{1.}\NormalTok{]}
+\NormalTok{ [}\FloatTok{0.} \FloatTok{1.}\NormalTok{]]}
+\NormalTok{soft dice loss: }\FloatTok{0.0060}
+\end{Highlighting}
+\end{Shaded}
+
+    \hypertarget{test-case-5}{%
+\paragraph{Test Case 5}\label{test-case-5}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}85}]:} \PY{n}{sess} \PY{o}{=} \PY{n}{K}\PY{o}{.}\PY{n}{get\PYZus{}session}\PY{p}{(}\PY{p}{)}
+         \PY{k}{with} \PY{n}{sess}\PY{o}{.}\PY{n}{as\PYZus{}default}\PY{p}{(}\PY{p}{)} \PY{k}{as} \PY{n}{sess}\PY{p}{:}
+             \PY{n}{pred} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{expand\PYZus{}dims}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{expand\PYZus{}dims}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{eye}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{label} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{expand\PYZus{}dims}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{expand\PYZus{}dims}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{l+m+mf}{0.0}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+             
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Test Case \PYZsh{}5}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{pred} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+             \PY{n}{pred}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{expand\PYZus{}dims}\PY{p}{(}\PY{l+m+mf}{0.5}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{eye}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{pred}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{expand\PYZus{}dims}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{eye}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{pred}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{0.8}
+         
+             \PY{n}{label} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+             \PY{n}{label}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{expand\PYZus{}dims}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{l+m+mf}{0.0}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{label}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{expand\PYZus{}dims}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+         
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{pred:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{class = 0}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{pred}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{class = 1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{pred}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{label:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{class = 0}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{label}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{class = 1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{label}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         
+             \PY{n}{dc} \PY{o}{=} \PY{n}{soft\PYZus{}dice\PYZus{}loss}\PY{p}{(}\PY{n}{pred}\PY{p}{,} \PY{n}{label}\PY{p}{,} \PY{n}{epsilon}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{soft dice loss: }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{dc.eval():.4f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Test Case \#5
+pred:
+class = 0
+[[0.5 0. ]
+ [0.  0.5]]
+class = 1
+[[1.  0.8]
+ [0.  1. ]]
+label:
+class = 0
+[[1. 1.]
+ [0. 0.]]
+class = 1
+[[1. 1.]
+ [0. 1.]]
+soft dice loss: 0.2173
+
+    \end{Verbatim}
+
+    \hypertarget{expected-output}{%
+\paragraph{Expected output:}\label{expected-output}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Test Case }\CommentTok{#5}
+\NormalTok{pred:}
+\KeywordTok{class} \OperatorTok{=} \DecValTok{0}
+\NormalTok{[[}\FloatTok{0.5} \FloatTok{0.}\NormalTok{ ]}
+\NormalTok{ [}\FloatTok{0.}  \FloatTok{0.5}\NormalTok{]]}
+\KeywordTok{class} \OperatorTok{=} \DecValTok{1}
+\NormalTok{[[}\FloatTok{1.}  \FloatTok{0.8}\NormalTok{]}
+\NormalTok{ [}\FloatTok{0.}  \FloatTok{1.}\NormalTok{ ]]}
+\NormalTok{label:}
+\KeywordTok{class} \OperatorTok{=} \DecValTok{0}
+\NormalTok{[[}\FloatTok{1.} \FloatTok{1.}\NormalTok{]}
+\NormalTok{ [}\FloatTok{0.} \FloatTok{0.}\NormalTok{]]}
+\KeywordTok{class} \OperatorTok{=} \DecValTok{1}
+\NormalTok{[[}\FloatTok{1.} \FloatTok{1.}\NormalTok{]}
+\NormalTok{ [}\FloatTok{0.} \FloatTok{1.}\NormalTok{]]}
+\NormalTok{soft dice loss: }\FloatTok{0.2173}
+\end{Highlighting}
+\end{Shaded}
+
+    \hypertarget{test-case-6}{%
+\paragraph{Test Case 6}\label{test-case-6}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}86}]:} \PY{c+c1}{\PYZsh{} Test case 6}
+         \PY{n}{pred} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}
+                             \PY{p}{[}
+                                 \PY{p}{[} 
+                                     \PY{p}{[}\PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{l+m+mf}{0.0}\PY{p}{]}
+                                 \PY{p}{]}\PY{p}{,}
+                                 \PY{p}{[}
+                                     \PY{p}{[}\PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mf}{0.0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{]}
+                                 \PY{p}{]}
+                             \PY{p}{]}\PY{p}{,}
+                             \PY{p}{[}
+                                 \PY{p}{[} 
+                                     \PY{p}{[}\PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{l+m+mf}{0.0}\PY{p}{]}
+                                 \PY{p}{]}\PY{p}{,}
+                                 \PY{p}{[}
+                                     \PY{p}{[}\PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mf}{0.0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{]}
+                                 \PY{p}{]}
+                             \PY{p}{]}\PY{p}{,}
+                           \PY{p}{]}\PY{p}{)}
+         \PY{n}{label} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}
+                             \PY{p}{[}
+                                 \PY{p}{[} 
+                                     \PY{p}{[}\PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mf}{0.0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mf}{0.0}\PY{p}{]}
+                                 \PY{p}{]}\PY{p}{,}
+                                 \PY{p}{[}
+                                     \PY{p}{[}\PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mf}{0.0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{l+m+mf}{0.0}\PY{p}{]}
+                                 \PY{p}{]}
+                             \PY{p}{]}\PY{p}{,}
+                             \PY{p}{[}
+                                 \PY{p}{[} 
+                                     \PY{p}{[}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{l+m+mf}{0.0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{l+m+mf}{0.0}\PY{p}{]}
+                                 \PY{p}{]}\PY{p}{,}
+                                 \PY{p}{[}
+                                     \PY{p}{[}\PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mf}{0.0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{l+m+mf}{0.0}\PY{p}{]}
+                                 \PY{p}{]}
+                             \PY{p}{]}
+                           \PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{sess} \PY{o}{=} \PY{n}{K}\PY{o}{.}\PY{n}{get\PYZus{}session}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Test case \PYZsh{}6}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{k}{with} \PY{n}{sess}\PY{o}{.}\PY{n}{as\PYZus{}default}\PY{p}{(}\PY{p}{)} \PY{k}{as} \PY{n}{sess}\PY{p}{:}
+             \PY{n}{dc} \PY{o}{=} \PY{n}{soft\PYZus{}dice\PYZus{}loss}\PY{p}{(}\PY{n}{pred}\PY{p}{,} \PY{n}{label}\PY{p}{,} \PY{n}{epsilon}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{soft dice loss}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{dc}\PY{o}{.}\PY{n}{eval}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Test case \#6
+soft dice loss 0.4375
+
+    \end{Verbatim}
+
+    \hypertarget{expected-output}{%
+\paragraph{Expected Output}\label{expected-output}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Test case }\CommentTok{#6}
+\NormalTok{soft dice loss: }\FloatTok{0.4375}
+\end{Highlighting}
+\end{Shaded}
+
+Note, if you don't have a scalar, and have an array with more than one
+value, please check your implementation!
+
+     \# 4 Create and Train the model
+
+Once you've finished implementing the soft dice loss, we can create the
+model!
+
+We'll use the \texttt{unet\_model\_3d} function in \texttt{utils} which
+we implemented for you. - This creates the model architecture and
+compiles the model with the specified loss functions and metrics. -
+Check out function \texttt{util.unet\_model\_3d(loss\_function)} in the
+\texttt{util.py} file.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}87}]:} \PY{n}{model} \PY{o}{=} \PY{n}{util}\PY{o}{.}\PY{n}{unet\PYZus{}model\PYZus{}3d}\PY{p}{(}\PY{n}{loss\PYZus{}function}\PY{o}{=}\PY{n}{soft\PYZus{}dice\PYZus{}loss}\PY{p}{,} \PY{n}{metrics}\PY{o}{=}\PY{p}{[}\PY{n}{dice\PYZus{}coefficient}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+WARNING:tensorflow:From /opt/conda/lib/python3.6/site-packages/tensorflow\_core/python/ops/resource\_variable\_ops.py:1630: calling BaseResourceVariable.\_\_init\_\_ (from tensorflow.python.ops.resource\_variable\_ops) with constraint is deprecated and will be removed in a future version.
+Instructions for updating:
+If using Keras pass *\_constraint arguments to layers.
+
+    \end{Verbatim}
+
+     \#\# 4.1 Training on a Large Dataset
+
+In order to facilitate the training on the large dataset: - We have
+pre-processed the entire dataset into patches and stored the patches in
+the \href{http://docs.h5py.org/en/stable/}{\texttt{h5py}} format. - We
+also wrote a custom Keras
+\href{https://www.tensorflow.org/api_docs/python/tf/keras/utils/Sequence}{\texttt{Sequence}}
+class which can be used as a \texttt{Generator} for the keras model to
+train on large datasets. - Feel free to look at the
+\texttt{VolumeDataGenerator} class in \texttt{util.py} to learn about
+how such a generator can be coded.
+
+Note:
+\href{https://www.geeksforgeeks.org/keras-fit-and-keras-fit_generator/}{Here}
+you can check the difference between \texttt{fit} and
+\texttt{fit\_generator} functions.
+
+To get a flavor of the training on the larger dataset, you can run the
+following cell to train the model on a small subset of the dataset (85
+patches). You should see the loss going down and the dice coefficient
+going up.
+
+Running \texttt{model.fit()} on the Coursera workspace may cause the
+kernel to die. - Soon, we will load a pre-trained version of this model,
+so that you don't need to train the model on this workspace.
+
+    \begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Run this on your local machine only}
+\CommentTok{# May cause the kernel to die if running in the Coursera platform}
+
+\NormalTok{base_dir }\OperatorTok{=}\NormalTok{ HOME_DIR }\OperatorTok{+} \StringTok{"processed/"}
+
+\ControlFlowTok{with} \BuiltInTok{open}\NormalTok{(base_dir }\OperatorTok{+} \StringTok{"config.json"}\NormalTok{) }\ImportTok{as}\NormalTok{ json_file:}
+\NormalTok{    config }\OperatorTok{=}\NormalTok{ json.load(json_file)}
+
+\CommentTok{# Get generators for training and validation sets}
+\NormalTok{train_generator }\OperatorTok{=}\NormalTok{ util.VolumeDataGenerator(config[}\StringTok{"train"}\NormalTok{], base_dir }\OperatorTok{+} \StringTok{"train/"}\NormalTok{, batch_size}\OperatorTok{=}\DecValTok{3}\NormalTok{, dim}\OperatorTok{=}\NormalTok{(}\DecValTok{160}\NormalTok{, }\DecValTok{160}\NormalTok{, }\DecValTok{16}\NormalTok{), verbose}\OperatorTok{=}\DecValTok{0}\NormalTok{)}
+\NormalTok{valid_generator }\OperatorTok{=}\NormalTok{ util.VolumeDataGenerator(config[}\StringTok{"valid"}\NormalTok{], base_dir }\OperatorTok{+} \StringTok{"valid/"}\NormalTok{, batch_size}\OperatorTok{=}\DecValTok{3}\NormalTok{, dim}\OperatorTok{=}\NormalTok{(}\DecValTok{160}\NormalTok{, }\DecValTok{160}\NormalTok{, }\DecValTok{16}\NormalTok{), verbose}\OperatorTok{=}\DecValTok{0}\NormalTok{)}
+
+\NormalTok{steps_per_epoch }\OperatorTok{=} \DecValTok{20}
+\NormalTok{n_epochs}\OperatorTok{=}\DecValTok{10}
+\NormalTok{validation_steps }\OperatorTok{=} \DecValTok{20}
+
+\NormalTok{model.fit_generator(generator}\OperatorTok{=}\NormalTok{train_generator,}
+\NormalTok{        steps_per_epoch}\OperatorTok{=}\NormalTok{steps_per_epoch,}
+\NormalTok{        epochs}\OperatorTok{=}\NormalTok{n_epochs,}
+\NormalTok{        use_multiprocessing}\OperatorTok{=}\VariableTok{True}\NormalTok{,}
+\NormalTok{        validation_data}\OperatorTok{=}\NormalTok{valid_generator,}
+\NormalTok{        validation_steps}\OperatorTok{=}\NormalTok{validation_steps)}
+
+\CommentTok{# run this cell if you to save the weights of your trained model in cell section 4.1}
+\CommentTok{#model.save_weights(base_dir + 'my_model_pretrained.hdf5')}
+\end{Highlighting}
+\end{Shaded}
+
+     \#\# 4.2 Loading a Pre-Trained Model As in assignment 1, instead of
+having the model train for longer, we'll give you access to a pretrained
+version. We'll use this to extract predictions and measure performance.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}88}]:} \PY{c+c1}{\PYZsh{} run this cell if you didn\PYZsq{}t run the training cell in section 4.1}
+         \PY{n}{base\PYZus{}dir} \PY{o}{=} \PY{n}{HOME\PYZus{}DIR} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{processed/}\PY{l+s+s2}{\PYZdq{}}
+         \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{n}{base\PYZus{}dir} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{config.json}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{k}{as} \PY{n}{json\PYZus{}file}\PY{p}{:}
+             \PY{n}{config} \PY{o}{=} \PY{n}{json}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{n}{json\PYZus{}file}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} Get generators for training and validation sets}
+         \PY{n}{train\PYZus{}generator} \PY{o}{=} \PY{n}{util}\PY{o}{.}\PY{n}{VolumeDataGenerator}\PY{p}{(}\PY{n}{config}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{train}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{base\PYZus{}dir} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{train/}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{dim}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{160}\PY{p}{,} \PY{l+m+mi}{160}\PY{p}{,} \PY{l+m+mi}{16}\PY{p}{)}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{valid\PYZus{}generator} \PY{o}{=} \PY{n}{util}\PY{o}{.}\PY{n}{VolumeDataGenerator}\PY{p}{(}\PY{n}{config}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{valid}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{base\PYZus{}dir} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{valid/}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{dim}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{160}\PY{p}{,} \PY{l+m+mi}{160}\PY{p}{,} \PY{l+m+mi}{16}\PY{p}{)}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}89}]:} \PY{n}{model}\PY{o}{.}\PY{n}{load\PYZus{}weights}\PY{p}{(}\PY{n}{HOME\PYZus{}DIR} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{model\PYZus{}pretrained.hdf5}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}90}]:} \PY{n}{model}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Model: "model\_1"
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Layer (type)                    Output Shape         Param \#     Connected to                     
+==================================================================================================
+input\_1 (InputLayer)            (None, 4, 160, 160,  0                                            
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+conv3d\_1 (Conv3D)               (None, 32, 160, 160, 3488        input\_1[0][0]                    
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+activation\_1 (Activation)       (None, 32, 160, 160, 0           conv3d\_1[0][0]                   
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+conv3d\_2 (Conv3D)               (None, 64, 160, 160, 55360       activation\_1[0][0]               
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+activation\_2 (Activation)       (None, 64, 160, 160, 0           conv3d\_2[0][0]                   
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+max\_pooling3d\_1 (MaxPooling3D)  (None, 64, 80, 80, 8 0           activation\_2[0][0]               
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+conv3d\_3 (Conv3D)               (None, 64, 80, 80, 8 110656      max\_pooling3d\_1[0][0]            
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+activation\_3 (Activation)       (None, 64, 80, 80, 8 0           conv3d\_3[0][0]                   
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+conv3d\_4 (Conv3D)               (None, 128, 80, 80,  221312      activation\_3[0][0]               
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+activation\_4 (Activation)       (None, 128, 80, 80,  0           conv3d\_4[0][0]                   
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+max\_pooling3d\_2 (MaxPooling3D)  (None, 128, 40, 40,  0           activation\_4[0][0]               
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+conv3d\_5 (Conv3D)               (None, 128, 40, 40,  442496      max\_pooling3d\_2[0][0]            
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+activation\_5 (Activation)       (None, 128, 40, 40,  0           conv3d\_5[0][0]                   
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+conv3d\_6 (Conv3D)               (None, 256, 40, 40,  884992      activation\_5[0][0]               
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+activation\_6 (Activation)       (None, 256, 40, 40,  0           conv3d\_6[0][0]                   
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+max\_pooling3d\_3 (MaxPooling3D)  (None, 256, 20, 20,  0           activation\_6[0][0]               
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+conv3d\_7 (Conv3D)               (None, 256, 20, 20,  1769728     max\_pooling3d\_3[0][0]            
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+activation\_7 (Activation)       (None, 256, 20, 20,  0           conv3d\_7[0][0]                   
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+conv3d\_8 (Conv3D)               (None, 512, 20, 20,  3539456     activation\_7[0][0]               
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+activation\_8 (Activation)       (None, 512, 20, 20,  0           conv3d\_8[0][0]                   
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+up\_sampling3d\_1 (UpSampling3D)  (None, 512, 40, 40,  0           activation\_8[0][0]               
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+concatenate\_1 (Concatenate)     (None, 768, 40, 40,  0           up\_sampling3d\_1[0][0]            
+                                                                 activation\_6[0][0]               
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+conv3d\_9 (Conv3D)               (None, 256, 40, 40,  5308672     concatenate\_1[0][0]              
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+activation\_9 (Activation)       (None, 256, 40, 40,  0           conv3d\_9[0][0]                   
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+conv3d\_10 (Conv3D)              (None, 256, 40, 40,  1769728     activation\_9[0][0]               
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+activation\_10 (Activation)      (None, 256, 40, 40,  0           conv3d\_10[0][0]                  
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+up\_sampling3d\_2 (UpSampling3D)  (None, 256, 80, 80,  0           activation\_10[0][0]              
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+concatenate\_2 (Concatenate)     (None, 384, 80, 80,  0           up\_sampling3d\_2[0][0]            
+                                                                 activation\_4[0][0]               
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+conv3d\_11 (Conv3D)              (None, 128, 80, 80,  1327232     concatenate\_2[0][0]              
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+activation\_11 (Activation)      (None, 128, 80, 80,  0           conv3d\_11[0][0]                  
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+conv3d\_12 (Conv3D)              (None, 128, 80, 80,  442496      activation\_11[0][0]              
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+activation\_12 (Activation)      (None, 128, 80, 80,  0           conv3d\_12[0][0]                  
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+up\_sampling3d\_3 (UpSampling3D)  (None, 128, 160, 160 0           activation\_12[0][0]              
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+concatenate\_3 (Concatenate)     (None, 192, 160, 160 0           up\_sampling3d\_3[0][0]            
+                                                                 activation\_2[0][0]               
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+conv3d\_13 (Conv3D)              (None, 64, 160, 160, 331840      concatenate\_3[0][0]              
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+activation\_13 (Activation)      (None, 64, 160, 160, 0           conv3d\_13[0][0]                  
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+conv3d\_14 (Conv3D)              (None, 64, 160, 160, 110656      activation\_13[0][0]              
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+activation\_14 (Activation)      (None, 64, 160, 160, 0           conv3d\_14[0][0]                  
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+conv3d\_15 (Conv3D)              (None, 3, 160, 160,  195         activation\_14[0][0]              
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+activation\_15 (Activation)      (None, 3, 160, 160,  0           conv3d\_15[0][0]                  
+==================================================================================================
+Total params: 16,318,307
+Trainable params: 16,318,307
+Non-trainable params: 0
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+    \end{Verbatim}
+
+     \# 5 Evaluation
+
+Now that we have a trained model, we'll learn to extract its predictions
+and evaluate its performance on scans from our validation set.
+
+     \#\# 5.1 Overall Performance
+
+    First let's measure the overall performance on the validation set. - We
+can do this by calling the keras
+\href{https://keras.io/models/model/\#evaluate_generator}{evaluate\_generator}
+function and passing in the validation generator, created in section
+4.1.
+
+\hypertarget{using-the-validation-set-for-testing}{%
+\paragraph{Using the validation set for
+testing}\label{using-the-validation-set-for-testing}}
+
+\begin{itemize}
+\tightlist
+\item
+  Note: since we didn't do cross validation tuning on the final model,
+  it's okay to use the validation set.
+\item
+  For real life implementations, however, you would want to do cross
+  validation as usual to choose hyperparamters and then use a hold out
+  test set to assess performance
+\end{itemize}
+
+Python Code for measuring the overall performance on the validation set:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{val_loss, val_dice }\OperatorTok{=}\NormalTok{ model.evaluate_generator(valid_generator)}
+
+\BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"validation soft dice loss: }\SpecialCharTok{\{}\NormalTok{val_loss}\SpecialCharTok{:.4f\}}\SpecialStringTok{"}\NormalTok{)}
+\BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"validation dice coefficient: }\SpecialCharTok{\{}\NormalTok{val_dice}\SpecialCharTok{:.4f\}}\SpecialStringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{expected-output}{%
+\paragraph{Expected output:}\label{expected-output}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{validation soft dice loss: }\FloatTok{0.4742}
+\NormalTok{validation dice coefficient: }\FloatTok{0.5152}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{NOTE:} Do not run the code shown above on the Coursera platform
+as it will exceed the platform's memory limitations. However, you can
+run the code shown above locally on your machine or in Colab to practice
+measuring the overall performance on the validation set.
+
+Like we mentioned above, due to memory limitiations on the Coursera
+platform we won't be runing the above code, however, you should take
+note of the \textbf{expected output} below it. We should note that due
+to the randomness in choosing sub-volumes, the values for soft dice loss
+and dice coefficient will be different each time that you run it.
+
+     \#\# 5.2 Patch-level predictions
+
+When applying the model, we'll want to look at segmentations for
+individual scans (entire scans, not just the sub-volumes) - This will be
+a bit complicated because of our sub-volume approach. - First let's keep
+things simple and extract model predictions for sub-volumes. - We can
+use the sub-volume which we extracted at the beginning of the
+assignment.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}91}]:} \PY{n}{util}\PY{o}{.}\PY{n}{visualize\PYZus{}patch}\PY{p}{(}\PY{n}{X\PYZus{}norm}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{]}\PY{p}{,} \PY{n}{y}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_77_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{add-a-batch-dimension}{%
+\paragraph{Add a `batch' dimension}\label{add-a-batch-dimension}}
+
+We can extract predictions by calling \texttt{model.predict} on the
+patch. - We'll add an \texttt{images\_per\_batch} dimension, since the
+\texttt{predict} method is written to take in batches. - The dimensions
+of the input should be
+\texttt{(images\_per\_batch,\ num\_channels,\ x\_dim,\ y\_dim,\ z\_dim)}.
+- Use
+\href{https://docs.scipy.org/doc/numpy/reference/generated/numpy.expand_dims.html}{numpy.expand\_dims}
+to add a new dimension as the zero-th dimension by setting axis=0
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}92}]:} \PY{n}{X\PYZus{}norm\PYZus{}with\PYZus{}batch\PYZus{}dimension} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{expand\PYZus{}dims}\PY{p}{(}\PY{n}{X\PYZus{}norm}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{patch\PYZus{}pred} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}norm\PYZus{}with\PYZus{}batch\PYZus{}dimension}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+WARNING:tensorflow:From /opt/conda/lib/python3.6/site-packages/keras/backend/tensorflow\_backend.py:422: The name tf.global\_variables is deprecated. Please use tf.compat.v1.global\_variables instead.
+
+
+    \end{Verbatim}
+
+    \hypertarget{convert-prediction-from-probability-into-a-category}{%
+\paragraph{Convert prediction from probability into a
+category}\label{convert-prediction-from-probability-into-a-category}}
+
+Currently, each element of \texttt{patch\_pred} is a number between 0.0
+and 1.0. - Each number is the model's confidence that a voxel is part of
+a given class. - You will convert these to discrete 0 and 1 integers by
+using a threshold. - We'll use a threshold of 0.5. - In real
+applications, you would tune this to achieve your required level of
+sensitivity or specificity.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}93}]:} \PY{c+c1}{\PYZsh{} set threshold.}
+         \PY{n}{threshold} \PY{o}{=} \PY{l+m+mf}{0.5}
+         
+         \PY{c+c1}{\PYZsh{} use threshold to get hard predictions}
+         \PY{n}{patch\PYZus{}pred}\PY{p}{[}\PY{n}{patch\PYZus{}pred} \PY{o}{\PYZgt{}} \PY{n}{threshold}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{1.0}
+         \PY{n}{patch\PYZus{}pred}\PY{p}{[}\PY{n}{patch\PYZus{}pred} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{threshold}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{0.0}
+\end{Verbatim}
+
+
+    Now let's visualize the original patch and ground truth alongside our
+thresholded predictions.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}94}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Patch and ground truth}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{util}\PY{o}{.}\PY{n}{visualize\PYZus{}patch}\PY{p}{(}\PY{n}{X\PYZus{}norm}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{]}\PY{p}{,} \PY{n}{y}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Patch and prediction}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{util}\PY{o}{.}\PY{n}{visualize\PYZus{}patch}\PY{p}{(}\PY{n}{X\PYZus{}norm}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{]}\PY{p}{,} \PY{n}{patch\PYZus{}pred}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Patch and ground truth
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_83_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Patch and prediction
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_83_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{sensitivity-and-specificity}{%
+\paragraph{Sensitivity and
+Specificity}\label{sensitivity-and-specificity}}
+
+The model is covering some of the relevant areas, but it's definitely
+not perfect. - To quantify its performance, we can use per-pixel
+sensitivity and specificity.
+
+Recall that in terms of the true positives, true negatives, false
+positives, and false negatives,
+
+\[\text{sensitivity} = \frac{\text{true positives}}{\text{true positives} + \text{false negatives}}\]
+
+\[\text{specificity} = \frac{\text{true negatives}}{\text{true negatives} + \text{false positives}}\]
+
+Below let's write a function to compute the sensitivity and specificity
+per output class.
+
+     Hints
+
+Recall that a true positive occurs when the class prediction is equal to
+1, and the class label is also equal to 1
+
+Use numpy.sum() 
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}95}]:} \PY{c+c1}{\PYZsh{} UNQ\PYZus{}C6 (UNIQUE CELL IDENTIFIER, DO NOT EDIT)}
+         \PY{k}{def} \PY{n+nf}{compute\PYZus{}class\PYZus{}sens\PYZus{}spec}\PY{p}{(}\PY{n}{pred}\PY{p}{,} \PY{n}{label}\PY{p}{,} \PY{n}{class\PYZus{}num}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{    Compute sensitivity and specificity for a particular example}
+         \PY{l+s+sd}{    for a given class.}
+         
+         \PY{l+s+sd}{    Args:}
+         \PY{l+s+sd}{        pred (np.array): binary arrary of predictions, shape is}
+         \PY{l+s+sd}{                         (num classes, height, width, depth).}
+         \PY{l+s+sd}{        label (np.array): binary array of labels, shape is}
+         \PY{l+s+sd}{                          (num classes, height, width, depth).}
+         \PY{l+s+sd}{        class\PYZus{}num (int): number between 0 \PYZhy{} (num\PYZus{}classes \PYZhy{}1) which says}
+         \PY{l+s+sd}{                         which prediction class to compute statistics}
+         \PY{l+s+sd}{                         for.}
+         
+         \PY{l+s+sd}{    Returns:}
+         \PY{l+s+sd}{        sensitivity (float): precision for given class\PYZus{}num.}
+         \PY{l+s+sd}{        specificity (float): recall for given class\PYZus{}num}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+         
+             \PY{c+c1}{\PYZsh{} extract sub\PYZhy{}array for specified class}
+             \PY{n}{class\PYZus{}pred} \PY{o}{=} \PY{n}{pred}\PY{p}{[}\PY{n}{class\PYZus{}num}\PY{p}{]}
+             \PY{n}{class\PYZus{}label} \PY{o}{=} \PY{n}{label}\PY{p}{[}\PY{n}{class\PYZus{}num}\PY{p}{]}
+         
+             \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} START CODE HERE (REPLACE INSTANCES OF \PYZsq{}None\PYZsq{} with your code) \PYZsh{}\PYZsh{}\PYZsh{}}
+             
+             \PY{c+c1}{\PYZsh{} compute:}
+             
+             \PY{c+c1}{\PYZsh{} true positives}
+             \PY{n}{tp} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{(}\PY{n}{class\PYZus{}pred} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{class\PYZus{}label} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} true negatives}
+             \PY{n}{tn} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{(}\PY{n}{class\PYZus{}pred} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{class\PYZus{}label} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{}false positives}
+             \PY{n}{fp} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{(}\PY{n}{class\PYZus{}pred} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{class\PYZus{}label} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} false negatives}
+             \PY{n}{fn} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{(}\PY{n}{class\PYZus{}pred} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{class\PYZus{}label} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} compute sensitivity and specificity}
+             \PY{n}{sensitivity} \PY{o}{=} \PY{n}{tp} \PY{o}{/} \PY{p}{(}\PY{n}{tp} \PY{o}{+} \PY{n}{fn}\PY{p}{)}
+             \PY{n}{specificity} \PY{o}{=} \PY{n}{tn} \PY{o}{/} \PY{p}{(}\PY{n}{tn} \PY{o}{+} \PY{n}{fp}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} END CODE HERE \PYZsh{}\PYZsh{}\PYZsh{}}
+         
+             \PY{k}{return} \PY{n}{sensitivity}\PY{p}{,} \PY{n}{specificity}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}96}]:} \PY{c+c1}{\PYZsh{} TEST CASES}
+         \PY{n}{pred} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{expand\PYZus{}dims}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{expand\PYZus{}dims}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{eye}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{label} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{expand\PYZus{}dims}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{expand\PYZus{}dims}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{l+m+mf}{0.0}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Test Case \PYZsh{}1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{pred:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{pred}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{label:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{label}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{sensitivity}\PY{p}{,} \PY{n}{specificity} \PY{o}{=} \PY{n}{compute\PYZus{}class\PYZus{}sens\PYZus{}spec}\PY{p}{(}\PY{n}{pred}\PY{p}{,} \PY{n}{label}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sensitivity: }\PY{l+s+si}{\PYZob{}sensitivity:.4f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{specificity: }\PY{l+s+si}{\PYZob{}specificity:.4f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Test Case \#1
+pred:
+[[1. 0.]
+ [0. 1.]]
+label:
+[[1. 1.]
+ [0. 0.]]
+sensitivity: 0.5000
+specificity: 0.5000
+
+    \end{Verbatim}
+
+    \hypertarget{expected-output}{%
+\paragraph{Expected output:}\label{expected-output}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Test Case }\CommentTok{#1}
+\NormalTok{pred:}
+\NormalTok{[[}\FloatTok{1.} \FloatTok{0.}\NormalTok{]}
+\NormalTok{ [}\FloatTok{0.} \FloatTok{1.}\NormalTok{]]}
+\NormalTok{label:}
+\NormalTok{[[}\FloatTok{1.} \FloatTok{1.}\NormalTok{]}
+\NormalTok{ [}\FloatTok{0.} \FloatTok{0.}\NormalTok{]]}
+\NormalTok{sensitivity: }\FloatTok{0.5000}
+\NormalTok{specificity: }\FloatTok{0.5000}
+\end{Highlighting}
+\end{Shaded}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}97}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Test Case \PYZsh{}2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{pred} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{expand\PYZus{}dims}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{expand\PYZus{}dims}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{eye}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{label} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{expand\PYZus{}dims}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{expand\PYZus{}dims}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{pred:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{pred}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{label:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{label}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{sensitivity}\PY{p}{,} \PY{n}{specificity} \PY{o}{=} \PY{n}{compute\PYZus{}class\PYZus{}sens\PYZus{}spec}\PY{p}{(}\PY{n}{pred}\PY{p}{,} \PY{n}{label}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sensitivity: }\PY{l+s+si}{\PYZob{}sensitivity:.4f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{specificity: }\PY{l+s+si}{\PYZob{}specificity:.4f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Test Case \#2
+pred:
+[[1. 0.]
+ [0. 1.]]
+label:
+[[1. 1.]
+ [0. 1.]]
+sensitivity: 0.6667
+specificity: 1.0000
+
+    \end{Verbatim}
+
+    \hypertarget{expected-output}{%
+\paragraph{Expected output:}\label{expected-output}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Test Case }\CommentTok{#2}
+\NormalTok{pred:}
+\NormalTok{[[}\FloatTok{1.} \FloatTok{0.}\NormalTok{]}
+\NormalTok{ [}\FloatTok{0.} \FloatTok{1.}\NormalTok{]]}
+\NormalTok{label:}
+\NormalTok{[[}\FloatTok{1.} \FloatTok{1.}\NormalTok{]}
+\NormalTok{ [}\FloatTok{0.} \FloatTok{1.}\NormalTok{]]}
+\NormalTok{sensitivity: }\FloatTok{0.6667}
+\NormalTok{specificity: }\FloatTok{1.0000}
+\end{Highlighting}
+\end{Shaded}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}98}]:} \PY{c+c1}{\PYZsh{} Note: we must explicity import \PYZsq{}display\PYZsq{} in order for the autograder to compile the submitted code}
+         \PY{c+c1}{\PYZsh{} Even though we could use this function without importing it, keep this import in order to allow the grader to work}
+         \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{display} \PY{k}{import} \PY{n}{display}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Test Case \PYZsh{}3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y\PYZus{}test}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}
+                            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{preds\PYZus{}test}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}
+                            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TP}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TP}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TN}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TN}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TN}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FP}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FP}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FP}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FP}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FN}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FN}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FN}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FN}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FN}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                           \PY{p}{\PYZcb{}}\PY{p}{)}
+         
+         \PY{n}{display}\PY{p}{(}\PY{n}{df}\PY{p}{)}
+         \PY{n}{pred} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(} \PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{preds\PYZus{}test}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         \PY{n}{label} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(} \PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y\PYZus{}test}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{sensitivity}\PY{p}{,} \PY{n}{specificity} \PY{o}{=} \PY{n}{compute\PYZus{}class\PYZus{}sens\PYZus{}spec}\PY{p}{(}\PY{n}{pred}\PY{p}{,} \PY{n}{label}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sensitivity: }\PY{l+s+si}{\PYZob{}sensitivity:.4f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{specificity: }\PY{l+s+si}{\PYZob{}specificity:.4f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Test Case \#3
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+    y_test  preds_test category
+0        1           1       TP
+1        1           1       TP
+2        0           0       TN
+3        0           0       TN
+4        0           0       TN
+5        0           1       FP
+6        0           1       FP
+7        0           1       FP
+8        0           1       FP
+9        1           0       FN
+10       1           0       FN
+11       1           0       FN
+12       1           0       FN
+13       1           0       FN
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+sensitivity: 0.2857
+specificity: 0.4286
+
+    \end{Verbatim}
+
+    \hypertarget{expected-output}{%
+\paragraph{Expected Output}\label{expected-output}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Test case }\CommentTok{#3}
+\NormalTok{...}
+\NormalTok{sensitivity: }\FloatTok{0.2857}
+\NormalTok{specificity: }\FloatTok{0.4286}
+\end{Highlighting}
+\end{Shaded}
+
+    \hypertarget{sensitivity-and-specificity-for-the-patch-prediction}{%
+\paragraph{Sensitivity and Specificity for the patch
+prediction}\label{sensitivity-and-specificity-for-the-patch-prediction}}
+
+Next let's compute the sensitivity and specificity on that patch for
+expanding tumors.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}99}]:} \PY{n}{sensitivity}\PY{p}{,} \PY{n}{specificity} \PY{o}{=} \PY{n}{compute\PYZus{}class\PYZus{}sens\PYZus{}spec}\PY{p}{(}\PY{n}{patch\PYZus{}pred}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sensitivity: }\PY{l+s+si}{\PYZob{}sensitivity:.4f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Specificity: }\PY{l+s+si}{\PYZob{}specificity:.4f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Sensitivity: 0.7891
+Specificity: 0.9960
+
+    \end{Verbatim}
+
+    \hypertarget{expected-output}{%
+\paragraph{Expected output:}\label{expected-output}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Sensitivity: }\FloatTok{0.7891}
+\NormalTok{Specificity: }\FloatTok{0.9960}
+\end{Highlighting}
+\end{Shaded}
+
+    We can also display the sensitivity and specificity for each class.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}100}]:} \PY{k}{def} \PY{n+nf}{get\PYZus{}sens\PYZus{}spec\PYZus{}df}\PY{p}{(}\PY{n}{pred}\PY{p}{,} \PY{n}{label}\PY{p}{)}\PY{p}{:}
+              \PY{n}{patch\PYZus{}metrics} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}
+                  \PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Edema}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Non\PYZhy{}Enhancing Tumor}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Enhancing Tumor}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} 
+                  \PY{n}{index} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sensitivity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Specificity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+              
+              \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{class\PYZus{}name} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{patch\PYZus{}metrics}\PY{o}{.}\PY{n}{columns}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{sens}\PY{p}{,} \PY{n}{spec} \PY{o}{=} \PY{n}{compute\PYZus{}class\PYZus{}sens\PYZus{}spec}\PY{p}{(}\PY{n}{pred}\PY{p}{,} \PY{n}{label}\PY{p}{,} \PY{n}{i}\PY{p}{)}
+                  \PY{n}{patch\PYZus{}metrics}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sensitivity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{class\PYZus{}name}\PY{p}{]} \PY{o}{=} \PY{n+nb}{round}\PY{p}{(}\PY{n}{sens}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}
+                  \PY{n}{patch\PYZus{}metrics}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Specificity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{class\PYZus{}name}\PY{p}{]} \PY{o}{=} \PY{n+nb}{round}\PY{p}{(}\PY{n}{spec}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}
+          
+              \PY{k}{return} \PY{n}{patch\PYZus{}metrics}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}101}]:} \PY{n}{df} \PY{o}{=} \PY{n}{get\PYZus{}sens\PYZus{}spec\PYZus{}df}\PY{p}{(}\PY{n}{patch\PYZus{}pred}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{df}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+              Edema Non-Enhancing Tumor Enhancing Tumor
+Sensitivity  0.9085              0.9505          0.7891
+Specificity  0.9848              0.9961           0.996
+
+    \end{Verbatim}
+
+    \hypertarget{expected-output}{%
+\paragraph{Expected output}\label{expected-output}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{              Edema Non}\OperatorTok{-}\NormalTok{Enhancing Tumor Enhancing Tumor}
+\NormalTok{Sensitivity  }\FloatTok{0.9085}              \FloatTok{0.9505}          \FloatTok{0.7891}
+\NormalTok{Specificity  }\FloatTok{0.9848}              \FloatTok{0.9961}           \FloatTok{0.996}
+\end{Highlighting}
+\end{Shaded}
+
+     \#\# 5.3 Running on entire scans As of now, our model just runs on
+patches, but what we really want to see is our model's result on a whole
+MRI scan.
+
+\begin{itemize}
+\tightlist
+\item
+  To do this, generate patches for the scan.
+\item
+  Then we run the model on the patches.
+\item
+  Then combine the results together to get a fully labeled MR image.
+\end{itemize}
+
+The output of our model will be a 4D array with 3 probability values for
+each voxel in our data. - We then can use a threshold (which you can
+find by a calibration process) to decide whether or not to report a
+label for each voxel.
+
+We have written a function that stitches the patches together:
+\texttt{predict\_and\_viz(image,\ label,\ model,\ threshold)} - Inputs:
+an image, label and model. - Ouputs: the model prediction over the whole
+image, and a visual of the ground truth and prediction.
+
+Run the following cell to see this function in action!
+
+\hypertarget{note-the-prediction-takes-some-time}{%
+\paragraph{Note: the prediction takes some
+time!}\label{note-the-prediction-takes-some-time}}
+
+\begin{itemize}
+\tightlist
+\item
+  The first prediction will take about 7 to 8 minutes to run.
+\item
+  You can skip running this first prediction to save time.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}102}]:} \PY{c+c1}{\PYZsh{} uncomment this code to run it}
+          \PY{c+c1}{\PYZsh{} image, label = load\PYZus{}case(DATA\PYZus{}DIR + \PYZdq{}imagesTr/BRATS\PYZus{}001.nii.gz\PYZdq{}, DATA\PYZus{}DIR + \PYZdq{}labelsTr/BRATS\PYZus{}001.nii.gz\PYZdq{})}
+          \PY{c+c1}{\PYZsh{} pred = util.predict\PYZus{}and\PYZus{}viz(image, label, model, .5, loc=(130, 130, 77))                }
+\end{Verbatim}
+
+
+    Here's a second prediction. - Takes about 7 to 8 minutes to run
+
+Please run this second prediction so that we can check the predictions.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{image}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{load\PYZus{}case}\PY{p}{(}\PY{n}{DATA\PYZus{}DIR} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{imagesTr/BRATS\PYZus{}003.nii.gz}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{DATA\PYZus{}DIR} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{labelsTr/BRATS\PYZus{}003.nii.gz}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{pred} \PY{o}{=} \PY{n}{util}\PY{o}{.}\PY{n}{predict\PYZus{}and\PYZus{}viz}\PY{p}{(}\PY{n}{image}\PY{p}{,} \PY{n}{label}\PY{p}{,} \PY{n}{model}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{loc}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{130}\PY{p}{,} \PY{l+m+mi}{130}\PY{p}{,} \PY{l+m+mi}{77}\PY{p}{)}\PY{p}{)}                
+\end{Verbatim}
+
+
+    \hypertarget{check-how-well-the-predictions-do}{%
+\paragraph{Check how well the predictions
+do}\label{check-how-well-the-predictions-do}}
+
+We can see some of the discrepancies between the model and the ground
+truth visually. - We can also use the functions we wrote previously to
+compute sensitivity and specificity for each class over the whole scan.
+- First we need to format the label and prediction to match our
+functions expect.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{whole\PYZus{}scan\PYZus{}label} \PY{o}{=} \PY{n}{keras}\PY{o}{.}\PY{n}{utils}\PY{o}{.}\PY{n}{to\PYZus{}categorical}\PY{p}{(}\PY{n}{label}\PY{p}{,} \PY{n}{num\PYZus{}classes} \PY{o}{=} \PY{l+m+mi}{4}\PY{p}{)}
+        \PY{n}{whole\PYZus{}scan\PYZus{}pred} \PY{o}{=} \PY{n}{pred}
+        
+        \PY{c+c1}{\PYZsh{} move axis to match shape expected in functions}
+        \PY{n}{whole\PYZus{}scan\PYZus{}label} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{moveaxis}\PY{p}{(}\PY{n}{whole\PYZus{}scan\PYZus{}label}\PY{p}{,} \PY{l+m+mi}{3} \PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{l+m+mi}{4}\PY{p}{]}
+        \PY{n}{whole\PYZus{}scan\PYZus{}pred} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{moveaxis}\PY{p}{(}\PY{n}{whole\PYZus{}scan\PYZus{}pred}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{l+m+mi}{4}\PY{p}{]}
+\end{Verbatim}
+
+
+    Now we can compute sensitivity and specificity for each class just like
+before.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{whole\PYZus{}scan\PYZus{}df} \PY{o}{=} \PY{n}{get\PYZus{}sens\PYZus{}spec\PYZus{}df}\PY{p}{(}\PY{n}{whole\PYZus{}scan\PYZus{}pred}\PY{p}{,} \PY{n}{whole\PYZus{}scan\PYZus{}label}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{whole\PYZus{}scan\PYZus{}df}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{thats-all-for-now}{%
+\section{That's all for now!}\label{thats-all-for-now}}
+
+Congratulations on finishing this challenging assignment! You now know
+all the basics for building a neural auto-segmentation model for MRI
+images. We hope that you end up using these skills on interesting and
+challenging problems that you face in the real world.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

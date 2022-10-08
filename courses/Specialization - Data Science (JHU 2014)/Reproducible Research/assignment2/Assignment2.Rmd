@@ -1,0 +1,144 @@
+Analyzing the impacts of Severe Weather Events  on Health and Economy from the NOAA dataset
+=================================================================================
+
+Synopsys
+--------
+
+The basic goal of this analysis is to explore the **NOAA Storm Database** and answer some basic questions about severe weather events. 
+
+The data analysis will address the following two questions:
+
+* "Across the United States, which types of events (as indicated in the 
+ **EVTYPE** variable) are most harmful with respect to population health".
+In order to answer this question couple of variables in the dataset will be used to measure the impact of a severe weather event on population health, namely, **INJURIES** and **FATALITIES**. Also, a new derived variable **Health_Hazards** will be created by adding these variables to measure the total impact.
+
+* "Across the United States, which types of events have the greatest economic
+consequences". In order to answer this question, again another couple of variables in the dataset will be used to measure the impact of a severe weather event on economy, namely, **PROPDMG** and **CROPDMG**. Also, a new derived variable **Eco_Hazards** will be created by adding these variables to measure the total impact.
+
+The exploratory data analysis will be done using R and **barplots** will be used to compare the impact of a severe event, both on population health and economy. Two sepearate analysis will be done to answer to two different questions.
+
+As will be seen, **TORNADO** has the highest impact in terms of harmfulness in both the cases.
+
+### Data Processing
+
+```{r, cache=TRUE}
+storm <- read.csv(bzfile("repdata-data-StormData.csv.bz2"))
+names(storm)
+head(storm)
+dim(storm)
+
+loc_vars <- c("STATE", "BGN_DATE", "EVTYPE")
+health_vars <- c("FATALITIES", "INJURIES")
+prop_vars <- c("PROPDMG", "CROPDMG")
+```
+* As can be seen from above, only the *health_vars* and the *population_vars* are the two sets of variables that will be used to answer question 1 and 2 respectively. The variables from the set *loc_vars*, although never used in current analysis, could be used to analyze location-specific impacts.
+
+### Q1: Across the United States, which types of events (as indicated in the **EVTYPE** variable) are most harmful with respect to population health?
+
+* In order to answer this question, couple of variables in the dataset will be used to measure the impact of a severe weather event on population health, 
+namely, **INJURIES** and **FATALITIES**. 
+* A new derived variable **Health_Hazards** is created by adding these two variables (**Health_Hazards = INJURIES + FATALITIES**) to measure the total impact.
+
+### Results of Analysis
+
+```{r, cache=TRUE}
+storm1 <- storm[c(loc_vars, health_vars)]
+storm1$Health_Hazards <- storm1$FATALITIES + storm1$INJURIES
+fatalities <- sort(tapply(storm1$FATALITIES, storm1$EVTYPE, sum), decreasing=TRUE)
+injuries <- sort(tapply(storm1$INJURIES, storm1$EVTYPE, sum), decreasing=TRUE)
+hazards <- sort(tapply(storm1$Health_Hazards, storm1$EVTYPE, sum), decreasing=TRUE)
+n <- 20 # top 20 harmful events
+fatalities <- head(fatalities, n) #f[f > 0]
+injuries <- head(injuries, n) #i[i > 0]
+hazards <- head(hazards, n) #h[h > 0]
+fatalities <- as.data.frame(cbind(event=names(fatalities), count=fatalities, type="Fatalities"))
+injuries <- as.data.frame(cbind(event=names(injuries), count=injuries, type="Injuries"))
+hazards <- as.data.frame(cbind(event=names(hazards), count=hazards, type="Health Hazard"))
+d <- rbind(fatalities, injuries, hazards)
+d$count <- as.integer(as.character(d$count))
+d <- transform(d, event = reorder(event, -count))
+hazards$count <- as.integer(as.character(hazards$count))
+tblHealth <- cbind(fatalities[1:2], injuries[1:2])
+names(tblHealth) <- c("Events", "Fatalities", "Events", "Injuries")
+print(tblHealth, row.names=FALSE)
+tblHealth <- cbind(hazards[1:2], round(100*hazards[2] / sum(hazards[2]),2))
+names(tblHealth) <- c("Events", "Total.Health.Hazards", "Percent.Total.Health.Hazards")
+print(tblHealth, row.names=FALSE)
+```
+
+* As can be seen from above, **TORNADO, EXCESSIVE HEAT, TSTM WIND, FLOOD, LIGHTNING** are the top events that are most harmful to population health, causing 65.86%, 5.72%, 5.07%, 4.93%, 4.11% and 2.06% of health hazards resepectively. The barplot and the pie charts below pictorially show the same result.
+
+
+```{r fig.width=15, fig.height=8}
+library(ggplot2)
+ggplot(d, aes(x=event, y=count, fill=type)) + 
+geom_bar(stat="identity") +
+facet_wrap(~type, scales = "free") + 
+ggtitle("Barplot showing the top events most harmful to population health") + 
+theme(axis.text.x=element_text(angle=90,hjust=1,vjust=0.5),
+      plot.title = element_text(lineheight=.8, face="bold"))  
+```
+
+```{r fig.width=10, fig.height=10}
+tblHealth <- transform(tblHealth, Events = reorder(Events, -Percent.Total.Health.Hazards))
+p <- ggplot(data=tblHealth, 
+       aes(x=factor(1),
+           y=Percent.Total.Health.Hazards,
+           fill = factor(Events))
+       )
+p <- p + geom_bar(stat = "identity") + xlab("")
+p + coord_polar(theta="y") + 
+    ggtitle("Piechart showing the top events most harmful to population health") + 
+    theme(plot.title = element_text(lineheight=.8, face="bold"))  
+```
+
+
+### Q2: Across the United States, which types of events have the greatest economic
+consequences? 
+
+* In order to answer this question, again another couple of variables in the dataset are used to measure the impact of a severe weather event on economy, namely, 
+**PROPDMG** and **CROPDMG**. 
+
+* Also, a new derived variable **Eco_Hazards** is created by adding these variables (**Eco_Hazards = PROPDMG + CROPDMG**) to measure the total impact.
+
+### Results of Analysis
+
+```{r, cache=TRUE}
+storm2 <- storm[c(loc_vars, prop_vars)]
+storm2$PROPDMG <- as.numeric(as.character(storm2$PROPDMG))
+storm2$CROPDMG <- as.numeric(as.character(storm2$CROPDMG))
+storm2$Eco_Hazards <- storm2$PROPDMG + storm2$CROPDMG
+hazards <- sort(tapply(storm2$Eco_Hazards, storm2$EVTYPE, sum), decreasing=TRUE)
+prop <- sort(tapply(storm2$PROPDMG, storm2$EVTYPE, sum), decreasing=TRUE)
+crop <- sort(tapply(storm2$CROPDMG, storm2$EVTYPE, sum), decreasing=TRUE)
+n <- 20 # top 20 harmful
+prop <- head(prop, n)
+crop <- head(crop, n)
+hazards <- head(hazards, n)
+hazards <- as.data.frame(cbind(event=names(hazards), count=hazards, type="Eco Hazard"))
+prop <- as.data.frame(cbind(event=names(prop), count=prop, type="Prop Dmg"))
+crop <- as.data.frame(cbind(event=names(crop), count=crop, type="Crop Dmg"))
+d <- rbind(hazards, prop, crop)
+d$count <- as.numeric(as.character(d$count))
+d <- transform(d, event = reorder(event, -count))
+hazards$count <- as.numeric(as.character(hazards$count))
+tblHealth <- cbind(prop[1:2], crop[1:2])
+names(tblHealth) <- c("Events", "PropDmg", "Events", "CropDmg")
+print(tblHealth, row.names=FALSE)
+tblHealth <- cbind(hazards[1:2], round(100*hazards[2] / sum(hazards[2]),2))
+names(tblHealth) <- c("Events", "Total.Eco.Hazards", "Percent.Total.Eco.Hazards")
+print(tblHealth, row.names=FALSE)
+```
+* As can be seen from above, **TORNADO, FLASH FLOOD, TSTM WIND, HAIL, FLOOD, THUNDERSTORM WIND** are the top events that have greatest economic consequences, causing 28.02%, 13.53%, 12.23%, 10.73%, 9.04% and 7.98% of economic hazards resepectively. The barplot below pictorially shows the same result.
+
+```{r fig.width=15, fig.height=8}
+ggplot(d, aes(x=event, y=count, fill=type)) + 
+geom_bar(stat="identity") + facet_wrap(~type, scales = "free") + 
+ggtitle("Barplot showing the top events with greatest economic conseqeunces") + 
+theme(axis.text.x=element_text(angle=90,hjust=1,vjust=0.5),
+      plot.title = element_text(lineheight=.8, face="bold"))  
+```
+
+### Data Transformation
+
+* As can be seen from the above analysis, the only data transformation used was to convert the absolute values of the health / economic hazards to corresponding percentage values, since proportions (relative to all the hazards) give better insights.
