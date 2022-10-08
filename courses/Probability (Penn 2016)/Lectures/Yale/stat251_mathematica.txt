@@ -1,0 +1,34 @@
+_________________________________________________________________
+Here's the program we developed together in the Mathematica
+introductory session in the Statlab.  It's the same as what we did
+together, except I've added a couple of extra conditions -- see the
+"&&" things below) that make sure we do not produce a negative entry.
+So this will run the Markov chain we discussed in class to produce a
+nearly uniformly distributed table with given row and column sums.
+_________________________________________________________________
+
+
+M={{10,10,10},{5,10,0},{4,25,7}}
+
+
+flip[n_]:=Module[{r1,c1,r2,c2,i},
+For [i=1,i<=n,i++,
+{r1,r2}=Delete[{1,2,3},Random[Integer,{1,3}]];
+{c1,c2}=Delete[{1,2,3},Random[Integer,{1,3}]];
+toss=Random[Integer,{0,1}];
+If [toss==0 && M[[r1,c2]] >= 1 && M[[r2,c1]] >= 1,
+	M[[r1,c1]]+= 1;
+	M[[r2,c2]]+= 1;
+	M[[r1,c2]]+= -1;
+	M[[r2,c1]]+= -1;
+	];
+If [toss==1 && M[[r1,c1]] >= 1 && M[[r2,c2]] >= 1,
+	M[[r1,c1]]+= -1;
+	M[[r2,c2]]+= -1;
+	M[[r1,c2]]+= 1;
+	M[[r2,c1]]+= 1;
+	];
+	Print[MatrixForm[M]];
+]
+]
+

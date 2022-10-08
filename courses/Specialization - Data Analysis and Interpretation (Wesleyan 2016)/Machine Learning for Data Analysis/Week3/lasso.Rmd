@@ -1,0 +1,87 @@
+Predicting life expectancy for different countries with the GapMinder dataset using Lasso Regression with R
+-----------------------------------------------------------------------------------------------------------------------
+
+A **lasso regression analysis** was conducted to identify a subset of variables from a pool of 14 quantitative predictor variables that best predicted a quantitative response variable measuring the *life expectancy* in different countries. Quantitative predictor variables include income per person, alcohol consumption, armed forces rate, breast cancer per 100th, co2 emissions, female employment rate, hiv rate, internet use rate, oil per person, polity score, relectric per person, suicide per 100th, 
+employment rate, urbanization rate. All predictor variables were standardized (z-score normalized) to have a mean of zero and a standard deviation of one.
+
+After removal of the NA values in the *life expectancy* variable, the predictor variables in the original dataset were imputed, the missing values in the numeric columns were replaced with median values. Then the data were randomly split into a training set that included 70% of the observations (N=133) and a test set that included 30% of the observations (N=58). The least angle regression algorithm with k=10 fold cross validation was used to estimate the lasso regression model in the training set, and the model was validated using the test set. The change in the cross validation average (mean) squared error at each step was used to identify the best subset of predictor variables.
+Of the 14 predictor variables, 9 were retained in the selected model. During the estimation process, internetuserate and hivrate were most strongly associated with life expectancy, followed by polityscore and employrate. The variables hivrate and employrate were negatively associated with life expectancy and polityscore and internetuserate were positively associated with life expectancy. Other predictors associated with life expectancy included alcconsumption, incomeperperson, suicideper100th, urbanrate and armedforcesrate. These 9 variables accounted for 74.12% of the variance in the life expectancy response variable.
+
+The model learnt from the training dataset was used to predict the *life expectancy* for the countries in the test dataset. The mean square error on the train and test dataset are shown below, the model could explain ~66.12% variance on the held-out unseen dataset. The figures below show the results (the coefficients, the Change in the validation mean square error at each step, how the alpha is chosen with cross validation etc.) with Lasso Regression.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(glmnet)
+setwd('C:\\courses\\Coursera\\Current\\ML for Data Analysis\\Week3\\')
+
+df <- read.csv('gapminder.csv')
+df <- df[-1]
+df <- df[!is.na(df$lifeexpectancy),]
+
+index <- which(names(df) == 'lifeexpectancy')
+n <- ncol(df)
+
+impute.with.med <- function(x){
+  #x<-as.numeric(as.character(x)) #first convert each column into numeric if it is from factor
+  x[is.na(x)] <- median(x, na.rm=TRUE) #convert the item with NA to median value from the column
+  x #display the column
+}
+df <- sapply(df, impute.with.med)
+
+X <- as.matrix(df[,-index][,1:(n-1)])
+Y <- df[,index]
+
+n.train <- as.integer(nrow(df) * 0.7)
+train.index <- sample(1:nrow(df), n.train)
+X.train <- X[train.index,]
+Y.train <- Y[train.index]
+X.test <- X[-train.index,]
+Y.test <- Y[-train.index]
+model <- cv.glmnet(X.train, Y.train, alpha=1) # lasso
+```
+
+### Lasso Coefficients (for minimum lambda)
+```{r, echo=FALSE}
+print(coef(model, s="lambda.min"))
+plot(model$glmnet.fit, "norm", label=TRUE)
+plot(model$glmnet.fit, "lambda", label=TRUE)
+plot(model)
+grid()
+print(paste('lambda for which the cross validation error is minimum=', model$lambda.min))
+#print(mse.min <- model$cvm[model$lambda == model$lambda.min]))
+train.pred <- predict(model, newx=X.train, s=model$lambda.min)
+test.pred <- predict(model, newx=X.test, s=model$lambda.min)
+print(paste('training data MSE =', mean((Y.train-train.pred)^2)))
+print(paste('test data MSE =', mean((Y.test-test.pred)^2)))
+#print(paste('training data R-Square =', sum((train.pred-mean(Y.train))^2)/sum((Y.train-mean(Y.train))^2)))
+#print(paste('test data R-Square', sum((test.pred-mean(Y.test))^2)/sum((Y.test-mean(Y.test))^2)))
+```
+
+## Comparing Lasso with Linear Regression
+
+As can be seen from the results below, is performing better on the held-out dataset, the model is more generalizable.
+
+```{r, echo=FALSE, warning=FALSE}
+training <- cbind.data.frame(X.train, y=Y.train)
+test <- cbind.data.frame(X.test, y=Y.test)
+lm.model <- lm(y~., training)
+print(coef(lm.model))
+train.pred <- predict(lm.model, newdata=training)
+test.pred <- predict(lm.model, newdata=test)
+print(paste('training data MSE', mean((training$y-train.pred)^2)))
+print(paste('test data MSE', mean((test$y-test.pred)^2)))
+#print(paste('training data R-Square', sum((train.pred-mean(training$y))^2)/sum((training$y-mean(training$y))^2)))
+#print(paste('test data R-Square', sum((test.pred-mean(test$y))^2)/sum((test$y-mean(test$y))^2)))
+coef_data <- cbind.data.frame(LinReg=coef(lm.model), Lasso=coef(model, s="lambda.min")[,1])
+library(ggplot2)
+ggplot(coef_data[-1,], aes(1:(nrow(coef_data)-1))) + 
+  geom_line(aes(y = LinReg, colour = "LinReg")) + 
+  geom_line(aes(y = Lasso, colour = "Lasso")) +
+  scale_x_discrete(labels= rownames(coef_data)[-1]) +
+  theme(axis.text.x=element_text(angle=90,hjust=1,vjust=0, size=15),
+          axis.text.y=element_text(size=15)) +
+  xlab('Variables') +
+  ylab('Coefficients') +
+  labs(colour='Models')
+  #guide_legend(title='Models')
+```
+

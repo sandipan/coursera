@@ -1,0 +1,88 @@
+
+Association of life expectancy with other explanatory variables for different countries from the GapMinder dataset
+------------------------------------------------------------------------------------------------------------------
+A *correlation analysis* was conducted on the *GapMinder* dataset to understand the association of 14 explanatory variables (including income per person, alcohol consumption, armed forces rate, breast cancer per 100th, co2 emissions, female employment rate, hiv rate, internet use rate, oil per person, polity score, relectric per person, suicide per 100th, employment rate, urbanization rate) with the variable *life expectancy*.
+
+After removing the obeservations with missing values the pearson correlation coefficient is computed. As can be seen from the below results, the variable *internetuserate* has a very strong positive correlation with the variable *life expectancy*. The variable *incomeperperson* also has a strong positive correlation with *life expectancy*. The variable *hivrate* is the variable most negatively associated with the variable *life expectancy*. The variable *armedforcesrate* has the least corrleation with *life expectancy*. Also, the corrsponding *p-values* (with the null hypothesis that the variables are not corrlelated) are reported. All the variables *except suicideper100th* and *co2emissions* have statistically significant correlations at 5% level. 
+
+### Corrleation of the variables with life expectancy
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+setwd('C:/courses/Coursera/Current/Data Analysis Tools/Week3')
+df <- read.csv('gapminder.csv')
+df <- df[complete.cases(df),]
+cor.mat <- cor(df[-1], use='complete.obs')
+#heatmap(cor.mat)
+df1 <- as.data.frame(t(sapply(df[-1], function(x) cor.test(x, df$lifeexpectancy)[c('estimate', 'p.value')])))
+df1[,1] <- do.call(rbind, df1[,1])[,1]
+df1[,2] <- do.call(rbind, df1[,2])[,1]
+names(df1) <- c('correlation', 'p.value')
+df1 <- df1[order(df1$correlation, decreasing = TRUE),]
+knitr::kable(df1, digits = 6, caption = "Variable Correlations")
+```
+
+### Corrleation of the variables with life expectancy
+```{r, echo=FALSE, warning=FALSE, message=FALSE, fig.height=15, fig.width=15}
+library(gplots)
+library(RColorBrewer)
+my_palette <- colorRampPalette(c("red", "yellow", "green"))(n = 299)
+col_breaks = c(seq(-1,0,length=100),  # for red
+  seq(0,0.8,length=100),              # for yellow
+  seq(0.8,1,length=100))              # for green
+#par(mar=c(10,0,0,10))
+heatmap.2(cor.mat,
+  cellnote = round(cor.mat,2),  # same data set for cell labels
+  #main = "Correlation", # heat map title
+  notecol="black",      # change font color of cell labels to black
+  density.info="none",  # turns off density plot inside color legend
+  trace="none",         # turns off trace lines inside the heat map
+  margins =c(10,10),    # widens margins around plot
+  col=my_palette,       # use on color palette defined earlier 
+  #breaks=col_breaks,    # enable color transition at specified limits
+  dendrogram="both",     # "row" for only draw a row dendrogram or "none"
+  key=FALSE,
+  cexRow = 1.5,
+  cexCol = 1.5,
+  Colv="NA")            # turn off column clustering
+```
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+library(ggplot2)
+df1[["sign"]] = ifelse(df1[["correlation"]] >= 0, "positive", "negative")
+ggplot(df1, aes(x = 1:nrow(df1), y = correlation, fill = sign)) + geom_bar(stat='identity') + 
+  scale_fill_manual(values = c("positive" = "green", "negative" = "red"), name = "correlation") +
+  scale_x_discrete(breaks = 1:nrow(df1), labels = rownames(df1)) +
+  xlab('variables') +
+  theme(axis.text.x=element_text(angle=90,hjust=1,vjust=0, size=15), text=element_text(size=15))
+  # + guide_legend(title='correlation')
+ggplot(df1, aes(x = 1:nrow(df1), y = p.value, fill = p.value)) + geom_bar(stat='identity') + 
+  scale_fill_gradient() +
+  scale_x_discrete(breaks = 1:nrow(df1), labels = rownames(df1)) +
+  xlab('variables') +
+  theme(axis.text.x=element_text(angle=90,hjust=1,vjust=0, size=15), text=element_text(size=15))
+```
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE, fig.height=40, fig.width=40}
+library(GGally)
+# plotmatrix(data = df[-1]) + geom_smooth(method="lm")
+# Function to return points and geom_smooth
+# allow for the method to be changed
+my_fn <- function(data, mapping, size=15, method="lm",...){ #"loess"
+      p <- ggplot(data = data, mapping = mapping) + 
+      geom_point() + 
+      geom_smooth(method=method, ...) +
+      theme(axis.text=element_text(angle=90,hjust=1,vjust=0, size=size), text=element_text(size=size))
+      p
+    }
+#ggpairs(df[-1], lower = list(continuous = my_fn), 
+#         upper = list(continuous = wrap("cor", size = 15)))
+ggpairs(df[-1], 
+      lower = list(continuous = my_fn), upper = list(continuous = wrap("cor", size = 15)))  +   
+      #lower = list(continuous = "smooth"))  +   
+      theme(legend.position = "none",
+        panel.grid.major = element_blank(),
+        axis.ticks = element_blank(),
+        axis.text.x = element_text(angle = 90, hjust = 1, size = 15), 
+        axis.text.y = element_text(angle = 90, hjust = 1, size = 15), 
+        axis.title.x = element_text(angle = 180, vjust = 1, color = "black"), text = element_text(size = 15),
+        panel.border = element_rect(fill = NA))
+```
