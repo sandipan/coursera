@@ -1,0 +1,4 @@
+<resources>
+    <style name="ModernTheme" parent="android:Theme.Holo.Light.DarkActionBar">
+    </style>
+</resources>

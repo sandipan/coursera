@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Modern Art UI</string>
+    <string name="action_more_information">More information</string>
+
+    <string name="dialog_text">Inspired by the works of artists such as Ben Nicholson and Piet Mondrian.\n\nClick below to learn more!</string>
+    <string name="dialog_not_now">Not Now</string>
+    <string name="dialog_visit">Visit MoMA</string>
+
+    <string name="open_with">Open with</string>
+
+    <color name="white">#ffffff</color>
+    <color name="light_gray">#D3D3D3</color>
+    <color name="black">#000000</color>
+
+    <color name="crimson">#DC143C</color>
+    <color name="aquamarine">#7FFFD4</color>
+    <color name="lightcoral">#F08080</color>
+    <color name="springgreen">#00FF7F</color>
+    <color name="dull_dark_blue">#447799</color>
+</resources>
