@@ -1,0 +1,203 @@
+Test Exercise 6: Answers to the Questions
+========================================================
+
+* (a) Make time series plots of the *CPI* of the Euro area and the USA, and also of their logarithm \(log(CPI)\) and of
+the two monthly inflation series DP = \(\Delta log(CPI)\). What conclusions do you draw from these plots?
+
+  + As can be seen from the following plots, *LOGPUSA* and *LOGPEUR* seem to be *co-integrated* as well (trends in these two time series seem to be similar). To the contrary, *DPEUR* and *DPUSA* seem to be rather *stationary*.
+  
+```{r echo=FALSE, warning=FALSE, message=FALSE, background=FALSE}
+library(zoo)
+library(scales)
+library(ggplot2)
+setwd('C:/courses/Coursera/Current/Econometrics/Week6')
+df <- read.csv('TestExer 6-CPI-round1.csv')
+df$time <- as.Date(as.yearmon(gsub('M', '-', df$YYYY.MM)))
+```
+
+```{r echo=FALSE, warning=FALSE, fig.width=10, fig.height=6}
+ggplot(df, aes(time)) + 
+geom_point(aes(y=CPI_USA, col='CPI_USA'), size = 2) + geom_line(aes(y=CPI_USA, col='CPI_USA')) + 
+geom_point(aes(y=CPI_EUR, col='CPI_EUR'), size = 2) + geom_line(aes(y=CPI_EUR, col='CPI_EUR')) + 
+scale_x_date(breaks = "6 month", labels = date_format("%Y-%m")) + 
+ylab('') +
+scale_colour_manual(values = c("red","blue"), guide = guide_legend(title = NULL)) +
+theme(axis.text.x=element_text(angle=90,hjust=1,vjust=0, size=15), axis.text.y=element_text(size=15))
+```
+
+```{r echo=FALSE, warning=FALSE, fig.width=10, fig.height=6}
+ggplot(df, aes(time)) + 
+geom_point(aes(y=LOGPUSA, col='LOGPUSA'), size = 2) + geom_line(aes(y=LOGPUSA, col='LOGPUSA')) + 
+geom_point(aes(y=LOGPEUR, col='LOGPEUR'), size = 2) + geom_line(aes(y=LOGPEUR, col='LOGPEUR')) + 
+scale_x_date(breaks = "6 month", labels = date_format("%Y-%m")) + 
+ylab('') +
+scale_colour_manual(values = c("darkgreen","magenta"), guide = guide_legend(title = NULL)) +
+theme(axis.text.x=element_text(angle=90,hjust=1,vjust=0, size=15), axis.text.y=element_text(size=15))
+```
+
+```{r echo=FALSE, warning=FALSE, fig.width=8, fig.height=6}
+ggplot(df, aes(x=time, y=DPUSA)) + geom_point(size = 3, col='brown') + geom_line() + scale_x_date(breaks = "6 month", labels = date_format("%Y-%m")) + theme(axis.text.x=element_text(angle=90,hjust=1,vjust=0, size=15), axis.text.y=element_text(size=15))
+```
+
+```{r echo=FALSE, warning=FALSE, fig.width=8, fig.height=6}
+ggplot(df, aes(x=time, y=DPEUR)) + geom_point(size = 3, col='darkgray') + geom_line() + scale_x_date(breaks = "6 month", labels = date_format("%Y-%m")) + theme(axis.text.x=element_text(angle=90,hjust=1,vjust=0, size=15), axis.text.y=element_text(size=15))
+#multiplot(p1, p2, p3, p4)
+```
+
+* (b) Perform the *Augmented Dickey-Fuller (ADF)* test for the two \(log(CPI)\) series. In the *ADF* test equation, include
+a constant \(\alpha\), a deterministic trend term \(\beta t\), three lags of \(DP = \Delta log(CPI)\) and, of course, the variable of
+interest \(log(CPI_{t-1})\). Report the coefficient of \(log(CPI_{t-1})\)) and its *standard error* and *t-value*, and draw your
+conclusion.
+
+  + *Augmented Dicky-Fuller test* results with deterministic trend using the equation \(\Delta log(CPI_t)=\alpha+\beta t + \rho log(CPI_{t-1}  
+  ) + \gamma_1 \Delta log(CPI_{t-1}) + \gamma_2 \Delta log(CPI_{t-2}) + \gamma_3 \Delta log(CPI_{t-3}) \), (where \(t\) is the *Trend* 
+  variable), we get the following results for \(EUR\) and \(USA\) respectively. 
+  
+  + From the ADF tests, we have the following results: both the series seem to be **non-stationary**, because we could not reject \(H_0\) of 
+  **non-stationarity** (Since we can only reject \(H_0\) if t-value < -3.5).
+  
+   \(
+    \begin{align*}
+    Series && Coeff   && S.E.   && t-value && Reject\;H_0 \\
+    EUR    && -0.1374 && 0.0486 && -2.826 && FALSE \\
+    USA    && -0.07434 && 0.02719 && -2.735 && FALSE \\
+    \end{align*}    
+    \)
+  
+    ```{r echo=FALSE, warning=FALSE, message=FALSE, background=FALSE}
+    library(quantmod)
+    df$LOGPEURt_1 <- Lag(df$LOGPEUR,1)[,1]
+    df$DPEUR_1 <- Lag(df$DPEUR,1)[,1]
+    df$DPEUR_2 <- Lag(df$DPEUR,2)[,1]
+    df$DPEUR_3 <- Lag(df$DPEUR,3)[,1]
+    m <- lm(DPEUR~TREND+LOGPEURt_1+DPEUR_1+DPEUR_2+DPEUR_3, df)
+    summary(m)
+    ```
+    
+    ```{r echo=FALSE, warning=FALSE, message=FALSE, background=FALSE}
+    df$LOGPUSAt_1 <- Lag(df$LOGPUSA,1)[,1]
+    df$DPUSA_1 <- Lag(df$DPUSA,1)[,1]
+    df$DPUSA_2 <- Lag(df$DPUSA,2)[,1]
+    df$DPUSA_3 <- Lag(df$DPUSA,3)[,1]
+    m <- lm(DPUSA~TREND+LOGPUSAt_1+DPUSA_1+DPUSA_2+DPUSA_3, df)
+    summary(m)
+    ```
+
+* (c) As the two series of \(log(CPI)\) are not cointegrated (you need not check this), we continue by modelling the
+monthly inflation series \(DPEUR = \Delta log(CPIEUR)\) for the Euro area. Determine the sample *autocorrelations*
+and the sample *partial autocorrelations* of this series to motivate the use of the following *AR* model: \(DPEUR_t =
+\alpha+\beta_1 DPEUR_{t-6}+\beta_2 DPEUR_{t-12}+\epsilon_t\) . Estimate the parameters of this model (sample Jan 2000 - Dec 2010).
+
+  + **Engle-Granger** test for cointegration:
+
+    
+  + **STEP1**: **OLS** in \(log(LOGPEUR_t) = \alpha + \beta log(LOGPUSA_t)  + \epsilon_t\)
+  
+
+    ```{r echo=FALSE, warning=FALSE, message=FALSE, background=FALSE}
+    m <- lm(LOGPEUR~LOGPUSA, df)
+    summary(m)
+    df$e_t <- resid(m)
+    plot(df$e_t, type='l', main='OLS residuals e_t')
+    ```
+
+  + **STEP2** Cointegrated if **ADF test** on \(\epsilon_t\) rejects **non-stationarity**, where the equation for the ADF test
+    to be used \(\Delta e_t = \alpha + \rho e_{t-1} + \gamma_1 \Delta e_{t-1} + \gamma_2 \Delta e_{t-2}\). Residuals don't seem to have
+    any **deterministic trend**, hence using ADF test with 2 lags, without deterministic trend term, we get the coeff -0.1693457, S.E.0
+    .0553325 and t-value -3.061 > -3.5, the critical value, so we could not reject \(H_0\), hence the two series are **not cointegrated**.
+
+
+  
+    ```{r echo=FALSE, warning=FALSE, message=FALSE, background=FALSE}
+    df$e_t_1 <- Lag(df$e_t,1)[,1]
+    df$e_t_2 <- Lag(df$e_t,2)[,1]
+    df$e_t_3 <- Lag(df$e_t,3)[,1]
+    df$d_e_t <- df$e_t - df$e_t_1
+    df$d_e_t_1 <- df$e_t_1 - df$e_t_2
+    df$d_e_t_2 <- df$e_t_2 - df$e_t_3
+    m <- lm(d_e_t~e_t_1+d_e_t_1+d_e_t_2, df)
+    summary(m)
+    ```
+      
+   + **ACF** and **PACF** plots:As can be seen from the below plots, ACF values does not get insignificant till lag 50, but PACF values get 
+   insignificant after \(p=12\). Only 2 **lag** values for which **PACF** has significant values are 6 and 12. Hence, we can use the *AR* 
+   model \(DPEUR_t = \alpha+\beta_1 DPEUR_{t-6}+\beta_2 DPEUR_{t-12}+\epsilon_t\). The estimates for the parameters of the model are shown 
+   below, we can see both the coefficients at lag 6 and 12 are significant at \(5\%\) level.
+   
+    ```{r echo=FALSE, warning=FALSE, message=FALSE, background=FALSE}
+     acf(df$DPEUR, na.action=na.pass, lag.max = 50)
+    ```
+    ```{r echo=FALSE, warning=FALSE, message=FALSE, background=FALSE}
+     pacf(df$DPEUR, na.action=na.pass, lag.max = 50)
+    ```
+     
+    ```{r echo=FALSE, warning=FALSE, message=FALSE, background=FALSE}
+    df$DPEUR_6 <- Lag(df$DPEUR,6)[,1]
+    df$DPEUR_12 <- Lag(df$DPEUR,12)[,1]
+    m <- lm(DPEUR~DPEUR_6+DPEUR_12, df)
+    summary(m)
+    ```
+    
+* (d) Extend the AR model of part *(c)* by adding lagged values of monthly inflation in the USA at lags *1, 6,*
+and *12*. Check that the *coefficient* at *lag 6* is not *significant*, and estimate the *ADL* model \(DPEUR_t =
+\alpha+\beta_1 DPEUR_{t-6}+\beta_2 DPEUR_{t-12}+\gamma_1 DPUSA_{t-1}+\gamma_2 DPUSA_{t-12}+\epsilon_t\) (sample Jan 2000 - Dec 2010).
+
+  + The **ADL** model parameters are estimated below. As can be seen, the *coefficient* at *lag 6* is not *significant* at \(5\%\) level.
+  
+    ```{r echo=FALSE, warning=FALSE, message=FALSE, background=FALSE}
+    df$DPUSA_1 <- Lag(df$DPUSA,1)[,1]
+    df$DPUSA_6 <- Lag(df$DPUSA,6)[,1]
+    df$DPUSA_12 <- Lag(df$DPUSA,12)[,1]
+    m1 <- lm(DPEUR~DPEUR_6+DPEUR_12+DPUSA_1+DPUSA_6+DPUSA_12, df)
+    summary(m1)
+    ```
+
+* (e) Use the models of parts *(c)* and *(d)* to make two series of 12 monthly inflation forecasts for 2011. At each
+month, you should use the data that are then available, for example, to forecast inflation for September 2011
+you can use the data up to and including August 2011. However, do not re-estimate the model and use the
+coefficients as obtained in parts *(c)* and *(d)*. For each of the two forecast series, compute the values of the root
+mean squared error *(RMSE)*, mean absolute error *(MAE)*, and the sum of the forecast errors *(SUM)*. Finally,
+give your interpretation of the outcomes.
+
+  + The following figures show the two forecast series, along with the forecast errors. As can be seen from the plots and error values,
+    the model (d) with ADL terms performs much better than the model (c) without ADL terms.
+  
+    ```{r echo=FALSE, warning=FALSE, message=FALSE, background=FALSE}
+    df1 <- df[df$time < as.Date('2011-01-01'),]
+    df <- df[df$time >= as.Date('2011-01-01'),]
+    df$f1 <- predict(m, newdata=df)
+    df$f2 <- predict(m1, newdata=df)
+    rmse1 <- sqrt(mean((df$DPEUR - df$f1)^2))
+    rmse2 <- sqrt(mean((df$DPEUR - df$f2)^2))
+    mae1 <- mean(abs(df$DPEUR - df$f1))
+    mae2 <- mean(abs(df$DPEUR - df$f2))
+    sum1 <- sum(df$DPEUR - df$f1)
+    sum2 <- sum(df$DPEUR - df$f2)
+    paste('Model (c) RMSE', rmse1)
+    paste('Model (d) RMSE', rmse2)
+    paste('Model (c) MAE', mae1)
+    paste('Model (d) MAE', mae2)
+    paste('Model (c) SUM', sum1)
+    paste('Model (d) SUM', sum2)
+    df3 <- NULL
+    df3 <- rbind(df3, data.frame(Model='Model (c)', ErrorMeasure='RMSE', Value=rmse1))
+    df3 <- rbind(df3, data.frame(Model='Model (d)', ErrorMeasure='RMSE', Value=rmse2))
+    df3 <- rbind(df3, data.frame(Model='Model (c)', ErrorMeasure='MAE', Value=mae1))
+    df3 <- rbind(df3, data.frame(Model='Model (d)', ErrorMeasure='MAE', Value=mae2))
+    df3 <- rbind(df3, data.frame(Model='Model (c)', ErrorMeasure='SUM', Value=sum1))
+    df3 <- rbind(df3, data.frame(Model='Model (d)', ErrorMeasure='SUM', Value=sum2))
+    #library(lattice)
+    #barchart(Value~ErrorMeasure,data=df3,groups=Model, scales=list(x=list(rot=90,cex=0.8)),  text=list(df3$Model))
+    ggplot(df3, aes(ErrorMeasure, Value, fill = Model)) + 
+    geom_bar(stat="identity", position = "dodge") + 
+    scale_fill_brewer(palette = "Set1")
+    ```
+    ```{r echo=FALSE, warning=FALSE, fig.width=12, fig.height=6}  
+    library(reshape2)
+    df2 <- rbind(melt(df[c('time', 'DPEUR', 'f1', 'f2')], id=1), melt(df1[c('time', 'DPEUR')], id=1))
+    ggplot(data=df2, aes(x=time, y=value, group=variable, color=variable)) + geom_point(aes(size=2)) + geom_line() +
+    scale_x_date(breaks = "1 year", labels = date_format("%Y")) + 
+    ylab('DPEUR') +
+    scale_colour_manual(values = c("dark green", "red", "blue"), guide = guide_legend(title = NULL))
+    ```
+    

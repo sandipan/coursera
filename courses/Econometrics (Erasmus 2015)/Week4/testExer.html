@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=9" >
+
+<title>Test Exercise 4: Answers to the Questions</title>
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 12px;
+   margin: 8px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 { 
+   font-size:2.2em; 
+}
+
+h2 { 
+   font-size:1.8em; 
+}
+
+h3 { 
+   font-size:1.4em; 
+}
+
+h4 { 
+   font-size:1.0em; 
+}
+
+h5 { 
+   font-size:0.9em; 
+}
+
+h6 { 
+   font-size:0.8em; 
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre {	
+   margin-top: 0;
+   max-width: 95%;
+   border: 1px solid #ccc;
+   white-space: pre-wrap;
+}
+
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code.r, code.cpp {
+   background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * { 
+      background: transparent !important; 
+      color: black !important; 
+      filter:none !important; 
+      -ms-filter: none !important; 
+   }
+
+   body { 
+      font-size:12pt; 
+      max-width:100%; 
+   }
+       
+   a, a:visited { 
+      text-decoration: underline; 
+   }
+
+   hr { 
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote { 
+      padding-right: 1em; 
+      page-break-inside: avoid; 
+   }
+
+   tr, img { 
+      page-break-inside: avoid; 
+   }
+
+   img { 
+      max-width: 100% !important; 
+   }
+
+   @page :left { 
+      margin: 15mm 20mm 15mm 10mm; 
+   }
+     
+   @page :right { 
+      margin: 15mm 10mm 15mm 20mm; 
+   }
+
+   p, h2, h3 { 
+      orphans: 3; widows: 3; 
+   }
+
+   h2, h3 { 
+      page-break-after: avoid; 
+   }
+}
+
+</style>
+
+
+
+<!-- MathJax scripts -->
+<script type="text/javascript" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+</head>
+
+<body>
+<h1>Test Exercise 4: Answers to the Questions</h1>
+
+<ul>
+<li><p>(a) Use OLS to estimate the parameters of the model \( logw = \beta_1 + \beta_2educ + \beta_3exper + \beta_4exper^2 + \beta_5smsa + \beta_6south + \epsilon \). Give an interpretation to the estimated \( \beta_2 \) coefficient.</p>
+
+<hr/>
+
+<ul>
+<li>Depenedent Variable: <strong>logw</strong></li>
+<li>Sample size: 3010</li>
+</ul>
+
+<hr/>
+
+<pre><code>## 
+## Call:
+## lm(formula = logw ~ educ + exper + I(exper^2) + smsa + south, 
+##     data = df)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -1.71487 -0.22987  0.02268  0.24898  1.38552 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  4.6110144  0.0678950  67.914  &lt; 2e-16 ***
+## educ         0.0815797  0.0034990  23.315  &lt; 2e-16 ***
+## exper        0.0838357  0.0067735  12.377  &lt; 2e-16 ***
+## I(exper^2)  -0.0022021  0.0003238  -6.800 1.26e-11 ***
+## smsa         0.1508006  0.0158360   9.523  &lt; 2e-16 ***
+## south       -0.1751761  0.0146486 -11.959  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.3813 on 3004 degrees of freedom
+## Multiple R-squared:  0.2632,   Adjusted R-squared:  0.2619 
+## F-statistic: 214.6 on 5 and 3004 DF,  p-value: &lt; 2.2e-16
+</code></pre>
+
+<ul>
+<li>Interpretation to the estimated \( \beta_2 \) coefficient: </li>
+<li>\( 1\%\uparrow \) in \( educ \Rightarrow \approx 0.08\% \uparrow \) in \( logw \).</li>
+</ul></li>
+<li><p>(b) OLS may be inconsistent in this case as educ and exper may be endogenous. Give a reason why this may be the case. Also indicate whether the estimate in part (a) is still useful.</p>
+
+<ul>
+<li>The missing variable <em>skill</em> (<em>expertise</em>) correlates (positively) with both <em>educ</em> and <em>exper</em> (experience) and it also affects the dependent variable <em>logw</em> (log wage). Hence, both of these variables may be <em>endogenous</em>. </li>
+<li>Since the both <em>educ</em> and <em>exper</em> variables may be <em>enodgenous</em>, <em>OLS estimates</em> from part (a) are will be biased and should not be trusted, will not be useful.</li>
+</ul></li>
+<li><p>&copy; Give a motivation why \( age \) and \( age^2 \) can be used as instruments for \( exper \) and \( exper^2 \).</p>
+
+<ul>
+<li>\( age \) is (positively) correlated to the variable <em>exper</em> </li>
+<li>At the same time \( age \) don&#39;t have a (direct) impact on the dependent <em>logw</em> (does not affect wage).</li>
+<li>Hence, \( age \) can be used as an instrument for \( expr \) (and the \( 2^{nd} \) order variable \( age^2 \) can be used as an 
+instrument for the \( 2^{nd} \) order \( expr^2 \)).</li>
+</ul></li>
+<li><p>(d) Run the first-stage regression for educ for the two-stage least squares estimation of the parameters in the
+model above when \( age \), \( age^2 \), nearc, dadeduc, and momeduc are used as additional instruments. What do you
+conclude about the suitability of these instruments for schooling?</p>
+
+<hr/>
+
+<ul>
+<li>Depenedent Variable: <strong>educ</strong></li>
+<li>Sample size: 3010</li>
+</ul>
+
+<hr/>
+
+<pre><code>## 
+## Call:
+## lm(formula = educ ~ age + I(age^2) + nearc + daded + momed, data = df)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -11.4573  -1.4968  -0.2734   1.6843   7.5636 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) -5.923273   4.010502  -1.477 0.139796    
+## age          0.992550   0.281060   3.531 0.000419 ***
+## I(age^2)    -0.017075   0.004878  -3.500 0.000472 ***
+## nearc        0.528751   0.092698   5.704 1.28e-08 ***
+## daded        0.202048   0.015665  12.898  &lt; 2e-16 ***
+## momed        0.248379   0.017036  14.580  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.346 on 3004 degrees of freedom
+## Multiple R-squared:  0.233,    Adjusted R-squared:  0.2317 
+## F-statistic: 182.5 on 5 and 3004 DF,  p-value: &lt; 2.2e-16
+</code></pre>
+
+<p>As can be seen from the <em>OLS</em> results, all the instrument variables \( age \), \( age^2 \), nearc, dadeduc, and momeduc affect the variable <em>educ</em> significantly at \( 5% \) level of significance (with absolute value of the <em>t-statistic</em> &gt; 2 and <em>p-value</em> &lt; 0.05).</p></li>
+<li><p>(e) Estimate the parameters of the model for log wage using two-stage least squares. Compare your result to the
+estimate in part (a).</p>
+
+<ul>
+<li>Using the estimated \( \hat{educ} \) for endogenus <em>educ</em> variable and the instruments <em>age</em> and \( age^2 \) respectively for endogenus <em>expr</em> and \( expr^2 \) variables, we get,</li>
+</ul>
+
+<pre><code>## 
+## Call:
+## lm(formula = logw ~ educ.hat + age + I(age^2) + smsa + south, 
+##     data = df)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -1.67977 -0.23807  0.01684  0.26940  1.46484 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  3.154148   0.670304   4.706 2.65e-06 ***
+## educ.hat     0.054262   0.005871   9.243  &lt; 2e-16 ***
+## age          0.125528   0.047412   2.648  0.00815 ** 
+## I(age^2)    -0.001479   0.000823  -1.797  0.07243 .  
+## smsa         0.164581   0.016353  10.064  &lt; 2e-16 ***
+## south       -0.186208   0.015249 -12.211  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.3925 on 3004 degrees of freedom
+## Multiple R-squared:  0.2191,   Adjusted R-squared:  0.2178 
+## F-statistic: 168.6 on 5 and 3004 DF,  p-value: &lt; 2.2e-16
+</code></pre></li>
+<li><p>(f) Perform the Sargan test for validity of the instruments. What is your conclusion?</p>
+
+<ul>
+<li><strong>RES 2SLS</strong> = \( logw - (5.518060 + 0.053453educ + 0.125528age -0.001479age^2 + 0.158469smsa -0.193678south)  \)</li>
+</ul>
+
+<hr/>
+
+<ul>
+<li>Depenedent Variable: <strong>RES 2SLS</strong></li>
+<li>Sample size: 3010</li>
+</ul>
+
+<hr/>
+
+<pre><code>## 
+## Call:
+## lm(formula = RES.2SLS ~ age + I(age^2) + nearc + daded + momed, 
+##     data = df)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -1.73679 -0.23707  0.02434  0.24635  1.33732 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) -2.3637827  0.6587548  -3.588 0.000338 ***
+## age          0.0008859  0.0461661   0.019 0.984691    
+## I(age^2)    -0.0000180  0.0008013  -0.022 0.982077    
+## nearc        0.0024157  0.0152263   0.159 0.873955    
+## daded       -0.0043710  0.0025730  -1.699 0.089470 .  
+## momed        0.0047897  0.0027982   1.712 0.087055 .  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.3854 on 3004 degrees of freedom
+## Multiple R-squared:  0.001261, Adjusted R-squared:  -0.0004015 
+## F-statistic: 0.7585 on 5 and 3004 DF,  p-value: 0.5797
+</code></pre>
+
+<ul>
+<li><strong>Sargan test statistic</strong> = \( nR^2=3010 * 0.001261 = 3.79561 \)</li>
+<li>\( m=6+2=8 \) and \( k=6 \) and \( \chi^{2}(8-6) \)=5.991465, hence we can&#39;t reject the <em>null hypothesis</em> \( H_0 \) that the instruments are valid.</li>
+<li>Hence the instruments seem to be valid. </li>
+</ul></li>
+</ul>
+
+</body>
+
+</html>
+

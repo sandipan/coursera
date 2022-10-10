@@ -1,0 +1,183 @@
+Case Project - House Prices: Answers to the Questions
+========================================================
+
+**Questions**
+
+* (a) Consider a *linear model* where the sale price of a house is the dependent variable and the explanatory variables
+are the other variables given above. Perform a test for linearity. What do you conclude based on the test result?
+
+  + Let's fit an *OLS* model with the dependent variable *sell*, we  obtain the following result.
+
+  ```{r echo=FALSE, warning=FALSE, message=FALSE}
+    setwd('C:/courses/Coursera/Current/Econometrics/Week7')
+    df <- read.csv('Housing-Prices.csv')
+    obs <- df$obs
+    df <- df[-1]
+    m <- lm(sell~., data=df)
+    summary(m)
+  ```
+
+  + Next let's perform the *RESET* test (by adding fitted values of the dependent) to test the linearity with \(p=1\) and get the following 
+  result. As we can see, we get the *test-statistic=26.986*, with *p-value* \(\approx 0\), so that we **can reject** \(H_0\)of *linearity* 
+  and conlude that the model is **non-linear**.
+
+    ```{r echo=FALSE, warning=FALSE, message=FALSE}
+    library(lmtest)
+    resettest(sell ~ ., power=2, type="fitted", data=df)
+    ```
+
+* (b) Now consider a linear model where the log of the sale price of the house is the dependent variable and the
+  explanatory variables are as before. Perform again the test for linearity. What do you conclude now?
+
+ + Let's again fit an *OLS* model with the dependent variable *log(sell)*, we  obtain the following result.
+
+    ```{r echo=FALSE, warning=FALSE, message=FALSE}
+      df$log.sell <- log(df$sell)
+      df <- df[-1]
+      m <- lm(log.sell~., data=df)
+      summary(m)
+      #plot(predict(m), resid(m))
+      #AIC(m)
+      #BIC(m)
+    ```
+
+  + Next let's perform the *RESET* test (by adding fitted values of the dependent) to test the linearity with \(p=1\) and get the following 
+  result. As we can see, we get the *test-statistic=0.2703*, with *p-value* \(> 0.05\), so we **can not reject** \(H_0\)of linearity and 
+  conlude that the model is **linear**.
+
+    ```{r echo=FALSE, warning=FALSE, message=FALSE}
+    resettest(log.sell ~ ., power=2, type="fitted", data=df)
+    ```
+
+* (c) Continue with the linear model from question (b). We now consider possible transformation of the lot size variable. We can consider 
+      either the variable itself, or a log transformation of this variable. Which of these do you prefer? (Keep all other explanatory 
+      variables included without transformation.)
+
+  + Let's now fit an *OLS* model this time with the explanatory variable *log(lot)* instead of *lot*, we  obtain the following result.
+  
+    ```{r echo=FALSE, warning=FALSE, message=FALSE}
+      df1 <- df
+      df1 <- df1[-1]
+      df1$log.lot <- log(df$lot)
+      #library(ggplot2)
+      #ggplot(df, aes(lot, log.sell)) + geom_point(size=2)
+      #ggplot(df1, aes(log.lot, log.sell)) + geom_point(size=2)
+      m1 <- lm(log.sell~., data=df1)
+      summary(m1)
+      #plot(predict(m1), resid(m1))
+      #paste('R^2=', summary(m1)$r.squared)
+      #AIC(m1)
+      #BIC(m1)
+    ```
+    
+  + **Model Selection** by comparing \(R^2\), *AIC* and *BIC* of the two models: As shown below, the model with \(log(lot)\) as 
+  explanatory variable has higer \(R^2\), lower *AIC* and *BIC* values, indicating better fit, so I shall prefer this model.
+    
+  \(
+      \begin{align*}
+      Measure && Model_{lot} && Model_{log(lot)} \\
+      R^2 &&  0.676591 && 0.6865496 \\
+      AIC &&  -121.7462 && -138.8234 \\
+      BIC &&  -65.81219 && -82.88931
+      \end{align*}
+    \)
+    
+    
+* (d) Consider now a model where the log of the sale price of the house is the dependent variable and the explanatory variables are the log 
+  transformation of lot size, with all other explanatory variables as before. We now consider interaction effects of the log lot size with 
+  the other variables. Construct these interaction variables. How many are individually significant?
+
+  + Let's fit an *OLS* model this time with the explanatory variable *log(lot)* and with *interaction effects* with other regressors, we  
+  obtain the following result. As can be seen only two variables *drv* and *rec* are individually signifcant at \(5\%\) level and 
+  the interaction effects of *log lot size* with these two variables *drv* and *rec* are also significant.
+  
+     ```{r echo=FALSE, warning=FALSE, message=FALSE}
+      m1 <- lm(log.sell~.+log.lot:bdms+log.lot:fb+log.lot:sty+log.lot:drv+log.lot:rec+log.lot:ffin+log.lot:ghw+log.lot:ca+log.lot:gar+
+      log.lot:reg, data=df1)
+      summary(m1)
+      #waldtest(m1, m, test='F')
+      #anova(m1, m, test='F')
+      #qf(0.95,df1=10,df2=546-22)
+     ```
+     
+* (e) Perform an F-test for the joint significance of the interaction effects from question (d).
+
+  + Treating the model without interaction terms as the *restricted model* and the model with the interaction terms as the *unrestricted 
+  model*, The *F statistic* for the joint significance of the interaction effects = \(\frac{(R_1^2 - R_0^2)/g}{(1-R_1^2)/(n-k)}\), here \(g
+  =10,\; k=22,\; n=546, \; R_1^2=0.6951, \; R_0^2=0.6865\). Hence, the *F-Statistic* = 1.477993, the \(5\%\) critical value of \(F(g, n-k)=
+  1.848767\). Since \(1.477993 < 1.848767\), we can't reject \(H_0\). Hence, the the interaction effects are not jointly significant and the 
+  we shall be better off by exluding the interaction effects.
+
+* (f) Now perform model specification on the interaction variables using the general-to-specific approach. (Only eliminate the interaction 
+  effects.)
+
+  + Using *general to specific approach*, we have the following result shown below. Using \(R^2\) we can see all the variables are 
+  significant at \(5\%\) level, so could not reduce the model further. But using *AIC* and *BIC*, the explanatory variables *rec* and *bdms* 
+  got eliminated from the final model.
+  
+      ```{r echo=FALSE, warning=FALSE, message=FALSE}
+      m <- lm(formula = log.sell ~ bdms + fb + sty + drv + rec + ffin + ghw + ca + gar + reg + log.lot, data = df1)
+      summary(m)
+      full <- lm(log.sell~., data=df1)
+      step(full, data=df1, direction="backward")
+      step(full, data=df1, direction="backward", k=log(nrow(df1)))
+     ```
+
+* (g) One may argue that some of the explanatory variables are *endogenous* and that there may be omitted variables. For example, the 
+   *condition* of the house in terms of how it is maintained is not a variable (and difficult to measure) but will affect the house price. 
+   It will also affect, or be reflected in, some of the other variables, such as whether the house has an air conditioning (which is mostly 
+   in newer houses). If the condition of the house is missing, will the effect of air conditioning on the (log of the) sale price be over- 
+   or underestimated? (For this question no computer calculations are required.)
+
+  + *omitted factor: condition of the house*
+  
+  **OverEstimation by OLS**
+  
+    + **Good** condition (maintenance) of the house \(\Rightarrow\) **High** (log of the) *sale Price* and *has* central *air conditioning*
+    (*ca =1*)
+    + **Bad** condition (maintenance) of the house \(\Rightarrow\) **Low** (log of the) *sale Price* and *does not have* *central air 
+    conditioning* (*ca=0*)
+  
+  Hence, air conditioning will be **endogenous** and the effect of air conditioning on the (log of the) sale price will be **over-estimated
+  ** by the *OLS*.
+
+* (h) Finally we analyze the *predictive ability of the model*. Consider again the model where the log of the *sale price* of the house is 
+  the dependent variable and the explanatory variables are the log transformation of lot size, with all other explanatory variables in their   
+  original form (and no interaction effects). Estimate the parameters of the model using the first 400 observations. Make predictions on the 
+  log of the price and calculate the MAE for the other 146 observations. How good is the predictive power of the model (relative to the 
+  variability in the log of the price)?
+  
+  + The results of the predictions of the model on the test data is shown below. The *predictive power of the model* can be expressed as 
+    the *fraction of variability explained by the model* on the *test data set* given by
+  
+  \( = \frac{SumSquareRegression}{SumSquareTotal} =\frac{\sum \limits_i{(\hat{y_i}-\bar{y})^2}}{\sum \limits_i(y_i-\bar{y})^2} \), 
+  where \(y=actual\;log(sell)\) and \(\hat{y}=predicted\;log(sell)\) on the **test data** which is \(0.7976098\).
+   
+      ```{r echo=FALSE, warning=FALSE, message=FALSE}
+      train <- df1[1:400, ]
+      test <- df1[401:546, ]
+      m <- lm(formula = log.sell ~ bdms + fb + sty + drv + rec + ffin + ghw + ca + gar + reg + log.lot, data = train)
+      summary(m)
+      p <- predict(m, newdata=test)
+      plot(test$log.sell, p, pch=19, col='blue', cex=2, xlab='log.sell', ylab='predicted', main='predictions on the log of the price')
+      rmse <- sqrt(mean((test$log.sell - p)^2))
+      mae <- mean(abs(test$log.sell - p))
+      print(paste('RMSE =', rmse))
+      print(paste('MAE =', mae))
+      
+      SS.total      <- sum((test$log.sell - mean(test$log.sell))^2)
+      SS.residual   <- sum((test$log.sell - p)^2)
+      SS.regression <- sum((p - mean(test$log.sell))^2)
+      #SS.total - (SS.regression+SS.residual)
+      
+      # NOT the fraction of variability explained by the model
+      test.rsq <- 1 - SS.residual/SS.total  
+      #test.rsq
+      
+      # fraction of variability explained by the model
+      print(paste('Percent variability explained on the test data =', SS.regression/SS.total))
+      
+      require(miscTools)
+      r2 <- rSquared(test$log.sell, resid = test$log.sell-p)
+      #r2
+      ```

@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=9" >
+
+<title>Case Project - House Prices: Answers to the Questions</title>
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 12px;
+   margin: 8px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 { 
+   font-size:2.2em; 
+}
+
+h2 { 
+   font-size:1.8em; 
+}
+
+h3 { 
+   font-size:1.4em; 
+}
+
+h4 { 
+   font-size:1.0em; 
+}
+
+h5 { 
+   font-size:0.9em; 
+}
+
+h6 { 
+   font-size:0.8em; 
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre {	
+   margin-top: 0;
+   max-width: 95%;
+   border: 1px solid #ccc;
+   white-space: pre-wrap;
+}
+
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code.r, code.cpp {
+   background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * { 
+      background: transparent !important; 
+      color: black !important; 
+      filter:none !important; 
+      -ms-filter: none !important; 
+   }
+
+   body { 
+      font-size:12pt; 
+      max-width:100%; 
+   }
+       
+   a, a:visited { 
+      text-decoration: underline; 
+   }
+
+   hr { 
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote { 
+      padding-right: 1em; 
+      page-break-inside: avoid; 
+   }
+
+   tr, img { 
+      page-break-inside: avoid; 
+   }
+
+   img { 
+      max-width: 100% !important; 
+   }
+
+   @page :left { 
+      margin: 15mm 20mm 15mm 10mm; 
+   }
+     
+   @page :right { 
+      margin: 15mm 10mm 15mm 20mm; 
+   }
+
+   p, h2, h3 { 
+      orphans: 3; widows: 3; 
+   }
+
+   h2, h3 { 
+      page-break-after: avoid; 
+   }
+}
+
+</style>
+
+
+
+<!-- MathJax scripts -->
+<script type="text/javascript" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+</head>
+
+<body>
+<h1>Case Project - House Prices: Answers to the Questions</h1>
+
+<p><strong>Questions</strong></p>
+
+<ul>
+<li><p>(a) Consider a <em>linear model</em> where the sale price of a house is the dependent variable and the explanatory variables
+are the other variables given above. Perform a test for linearity. What do you conclude based on the test result?</p>
+
+<ul>
+<li>Let&#39;s fit an <em>OLS</em> model with the dependent variable <em>sell</em>, we  obtain the following result.</li>
+</ul>
+
+<pre><code>## 
+## Call:
+## lm(formula = sell ~ ., data = df)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -41389  -9307   -591   7353  74875 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) -4038.3504  3409.4713  -1.184 0.236762    
+## lot             3.5463     0.3503  10.124  &lt; 2e-16 ***
+## bdms         1832.0035  1047.0002   1.750 0.080733 .  
+## fb          14335.5585  1489.9209   9.622  &lt; 2e-16 ***
+## sty          6556.9457   925.2899   7.086 4.37e-12 ***
+## drv          6687.7789  2045.2458   3.270 0.001145 ** 
+## rec          4511.2838  1899.9577   2.374 0.017929 *  
+## ffin         5452.3855  1588.0239   3.433 0.000642 ***
+## ghw         12831.4063  3217.5971   3.988 7.60e-05 ***
+## ca          12632.8904  1555.0211   8.124 3.15e-15 ***
+## gar          4244.8290   840.5442   5.050 6.07e-07 ***
+## reg          9369.5132  1669.0907   5.614 3.19e-08 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 15420 on 534 degrees of freedom
+## Multiple R-squared:  0.6731,   Adjusted R-squared:  0.6664 
+## F-statistic: 99.97 on 11 and 534 DF,  p-value: &lt; 2.2e-16
+</code></pre>
+
+<ul>
+<li>Next let&#39;s perform the <em>RESET</em> test (by adding fitted values of the dependent) to test the linearity with \( p=1 \) and get the following 
+result. As we can see, we get the <em>test-statistic=26.986</em>, with <em>p-value</em> \( \approx 0 \), so that we <strong>can reject</strong> \( H_0 \)of <em>linearity</em> 
+and conlude that the model is <strong>non-linear</strong>.</li>
+</ul>
+
+<pre><code>## 
+##  RESET test
+## 
+## data:  sell ~ .
+## RESET = 26.986, df1 = 1, df2 = 533, p-value = 2.922e-07
+</code></pre></li>
+<li><p>(b) Now consider a linear model where the log of the sale price of the house is the dependent variable and the
+explanatory variables are as before. Perform again the test for linearity. What do you conclude now?</p>
+
+<ul>
+<li>Let&#39;s again fit an <em>OLS</em> model with the dependent variable <em>log(sell)</em>, we  obtain the following result.</li>
+</ul>
+
+<pre><code>## 
+## Call:
+## lm(formula = log.sell ~ ., data = df)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.67865 -0.12211  0.01666  0.12868  0.67737 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 1.003e+01  4.724e-02 212.210  &lt; 2e-16 ***
+## lot         5.057e-05  4.854e-06  10.418  &lt; 2e-16 ***
+## bdms        3.402e-02  1.451e-02   2.345  0.01939 *  
+## fb          1.678e-01  2.065e-02   8.126 3.10e-15 ***
+## sty         9.227e-02  1.282e-02   7.197 2.10e-12 ***
+## drv         1.307e-01  2.834e-02   4.610 5.04e-06 ***
+## rec         7.352e-02  2.633e-02   2.792  0.00542 ** 
+## ffin        9.940e-02  2.200e-02   4.517 7.72e-06 ***
+## ghw         1.784e-01  4.458e-02   4.000 7.22e-05 ***
+## ca          1.780e-01  2.155e-02   8.262 1.14e-15 ***
+## gar         5.076e-02  1.165e-02   4.358 1.58e-05 ***
+## reg         1.271e-01  2.313e-02   5.496 6.02e-08 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.2137 on 534 degrees of freedom
+## Multiple R-squared:  0.6766, Adjusted R-squared:  0.6699 
+## F-statistic: 101.6 on 11 and 534 DF,  p-value: &lt; 2.2e-16
+</code></pre>
+
+<ul>
+<li>Next let&#39;s perform the <em>RESET</em> test (by adding fitted values of the dependent) to test the linearity with \( p=1 \) and get the following 
+result. As we can see, we get the <em>test-statistic=0.2703</em>, with <em>p-value</em> \( > 0.05 \), so we <strong>can not reject</strong> \( H_0 \)of linearity and 
+conlude that the model is <strong>linear</strong>.</li>
+</ul>
+
+<pre><code>## 
+##  RESET test
+## 
+## data:  log.sell ~ .
+## RESET = 0.2703, df1 = 1, df2 = 533, p-value = 0.6033
+</code></pre></li>
+<li><p>&copy; Continue with the linear model from question (b). We now consider possible transformation of the lot size variable. We can consider 
+  either the variable itself, or a log transformation of this variable. Which of these do you prefer? (Keep all other explanatory 
+  variables included without transformation.)</p>
+
+<ul>
+<li>Let&#39;s now fit an <em>OLS</em> model this time with the explanatory variable <em>log(lot)</em> instead of <em>lot</em>, we  obtain the following result.</li>
+</ul>
+
+<pre><code>## 
+## Call:
+## lm(formula = log.sell ~ ., data = df1)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.68355 -0.12247  0.00802  0.12780  0.67564 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  7.74509    0.21634  35.801  &lt; 2e-16 ***
+## bdms         0.03440    0.01427   2.410 0.016294 *  
+## fb           0.16576    0.02033   8.154 2.52e-15 ***
+## sty          0.09169    0.01261   7.268 1.30e-12 ***
+## drv          0.11020    0.02823   3.904 0.000107 ***
+## rec          0.05797    0.02605   2.225 0.026482 *  
+## ffin         0.10449    0.02169   4.817 1.90e-06 ***
+## ghw          0.17902    0.04389   4.079 5.22e-05 ***
+## ca           0.16642    0.02134   7.799 3.29e-14 ***
+## gar          0.04795    0.01148   4.178 3.43e-05 ***
+## reg          0.13185    0.02267   5.816 1.04e-08 ***
+## log.lot      0.30313    0.02669  11.356  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.2104 on 534 degrees of freedom
+## Multiple R-squared:  0.6865, Adjusted R-squared:  0.6801 
+## F-statistic: 106.3 on 11 and 534 DF,  p-value: &lt; 2.2e-16
+</code></pre>
+
+<ul>
+<li><strong>Model Selection</strong> by comparing \( R^2 \), <em>AIC</em> and <em>BIC</em> of the two models: As shown below, the model with \( log(lot) \) as 
+explanatory variable has higer \( R^2 \), lower <em>AIC</em> and <em>BIC</em> values, indicating better fit, so I shall prefer this model.</li>
+</ul>
+
+<p>\( 
+      \begin{align*}
+      Measure && Model_{lot} && Model_{log(lot)} \\
+      R^2 &&  0.676591 && 0.6865496 \\
+      AIC &&  -121.7462 && -138.8234 \\
+      BIC &&  -65.81219 && -82.88931
+      \end{align*}
+     \)</p></li>
+<li><p>(d) Consider now a model where the log of the sale price of the house is the dependent variable and the explanatory variables are the log 
+transformation of lot size, with all other explanatory variables as before. We now consider interaction effects of the log lot size with 
+the other variables. Construct these interaction variables. How many are individually significant?</p>
+
+<ul>
+<li><p>Let&#39;s fit an <em>OLS</em> model this time with the explanatory variable <em>log(lot)</em> and with <em>interaction effects</em> with other regressors, we<br/>
+obtain the following result. As can be seen only two variables <em>drv</em> and <em>rec</em> are individually signifcant at \( 5\% \) level and 
+the interaction effects of <em>log lot size</em> with these two variables <em>drv</em> and <em>rec</em> are also significant.</p>
+
+<pre><code>## 
+## Call:
+## lm(formula = log.sell ~ . + log.lot:bdms + log.lot:fb + log.lot:sty + 
+##     log.lot:drv + log.lot:rec + log.lot:ffin + log.lot:ghw + 
+##     log.lot:ca + log.lot:gar + log.lot:reg, data = df1)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.68306 -0.11612  0.00591  0.12486  0.65998 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   8.966499   1.070667   8.375 5.09e-16 ***
+## bdms          0.019075   0.326700   0.058   0.9535    
+## fb           -0.368234   0.429048  -0.858   0.3911    
+## sty           0.488885   0.309700   1.579   0.1150    
+## drv          -1.463371   0.717225  -2.040   0.0418 *  
+## rec           1.673992   0.655919   2.552   0.0110 *  
+## ffin         -0.031844   0.445543  -0.071   0.9430    
+## ghw          -0.505889   0.902733  -0.560   0.5754    
+## ca           -0.340276   0.496041  -0.686   0.4930    
+## gar           0.401941   0.258646   1.554   0.1208    
+## reg           0.118484   0.479856   0.247   0.8051    
+## log.lot       0.152685   0.128294   1.190   0.2345    
+## bdms:log.lot  0.002070   0.038654   0.054   0.9573    
+## fb:log.lot    0.062037   0.050145   1.237   0.2166    
+## sty:log.lot  -0.046361   0.035942  -1.290   0.1977    
+## drv:log.lot   0.191542   0.087361   2.193   0.0288 *  
+## rec:log.lot  -0.188462   0.076373  -2.468   0.0139 *  
+## ffin:log.lot  0.015913   0.052851   0.301   0.7635    
+## ghw:log.lot   0.081135   0.106929   0.759   0.4483    
+## ca:log.lot    0.059549   0.058024   1.026   0.3052    
+## gar:log.lot  -0.041359   0.030142  -1.372   0.1706    
+## reg:log.lot   0.001515   0.055990   0.027   0.9784    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.2095 on 524 degrees of freedom
+## Multiple R-squared:  0.6951,    Adjusted R-squared:  0.6829 
+## F-statistic: 56.89 on 21 and 524 DF,  p-value: &lt; 2.2e-16
+</code></pre></li>
+</ul></li>
+<li><p>(e) Perform an F-test for the joint significance of the interaction effects from question (d).</p>
+
+<ul>
+<li>Treating the model without interaction terms as the <em>restricted model</em> and the model with the interaction terms as the <em>unrestricted 
+model</em>, The <em>F statistic</em> for the joint significance of the interaction effects = \( \frac{(R_1^2 - R_0^2)/g}{(1-R_1^2)/(n-k)} \), here \( g
+  =10,\; k=22,\; n=546, \; R_1^2=0.6951, \; R_0^2=0.6865 \). Hence, the <em>F-Statistic</em> = 1.477993, the \( 5\% \) critical value of \( F(g, n-k)=
+  1.848767 \). Since \( 1.477993 < 1.848767 \), we can&#39;t reject \( H_0 \). Hence, the the interaction effects are not jointly significant and the 
+we shall be better off by exluding the interaction effects.</li>
+</ul></li>
+<li><p>(f) Now perform model specification on the interaction variables using the general-to-specific approach. (Only eliminate the interaction 
+effects.)</p>
+
+<ul>
+<li><p>Using <em>general to specific approach</em>, we have the following result shown below. Using \( R^2 \) we can see all the variables are 
+significant at \( 5\% \) level, so could not reduce the model further. But using <em>AIC</em> and <em>BIC</em>, the explanatory variables <em>rec</em> and <em>bdms</em> 
+got eliminated from the final model.</p>
+
+<pre><code>## 
+## Call:
+## lm(formula = log.sell ~ bdms + fb + sty + drv + rec + ffin + 
+##     ghw + ca + gar + reg + log.lot, data = df1)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.68355 -0.12247  0.00802  0.12780  0.67564 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  7.74509    0.21634  35.801  &lt; 2e-16 ***
+## bdms         0.03440    0.01427   2.410 0.016294 *  
+## fb           0.16576    0.02033   8.154 2.52e-15 ***
+## sty          0.09169    0.01261   7.268 1.30e-12 ***
+## drv          0.11020    0.02823   3.904 0.000107 ***
+## rec          0.05797    0.02605   2.225 0.026482 *  
+## ffin         0.10449    0.02169   4.817 1.90e-06 ***
+## ghw          0.17902    0.04389   4.079 5.22e-05 ***
+## ca           0.16642    0.02134   7.799 3.29e-14 ***
+## gar          0.04795    0.01148   4.178 3.43e-05 ***
+## reg          0.13185    0.02267   5.816 1.04e-08 ***
+## log.lot      0.30313    0.02669  11.356  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.2104 on 534 degrees of freedom
+## Multiple R-squared:  0.6865,   Adjusted R-squared:  0.6801 
+## F-statistic: 106.3 on 11 and 534 DF,  p-value: &lt; 2.2e-16
+</code></pre>
+
+<pre><code>## Start:  AIC=-1690.3
+## log.sell ~ bdms + fb + sty + drv + rec + ffin + ghw + ca + gar + 
+##     reg + log.lot
+## 
+##           Df Sum of Sq    RSS     AIC
+## &lt;none&gt;                 23.638 -1690.3
+## - rec      1    0.2192 23.858 -1687.3
+## - bdms     1    0.2571 23.895 -1686.4
+## - drv      1    0.6748 24.313 -1676.9
+## - ghw      1    0.7364 24.375 -1675.5
+## - gar      1    0.7729 24.411 -1674.7
+## - ffin     1    1.0271 24.665 -1669.1
+## - reg      1    1.4975 25.136 -1658.8
+## - sty      1    2.3385 25.977 -1640.8
+## - ca       1    2.6926 26.331 -1633.4
+## - fb       1    2.9434 26.582 -1628.2
+## - log.lot  1    5.7085 29.347 -1574.2
+</code></pre>
+
+<pre><code>## 
+## Call:
+## lm(formula = log.sell ~ bdms + fb + sty + drv + rec + ffin + 
+##     ghw + ca + gar + reg + log.lot, data = df1)
+## 
+## Coefficients:
+## (Intercept)         bdms           fb          sty          drv  
+##     7.74509      0.03440      0.16576      0.09169      0.11020  
+##         rec         ffin          ghw           ca          gar  
+##     0.05797      0.10449      0.17902      0.16642      0.04795  
+##         reg      log.lot  
+##     0.13185      0.30313
+</code></pre>
+
+<pre><code>## Start:  AIC=-1638.67
+## log.sell ~ bdms + fb + sty + drv + rec + ffin + ghw + ca + gar + 
+##     reg + log.lot
+## 
+##           Df Sum of Sq    RSS     AIC
+## - rec      1    0.2192 23.858 -1639.9
+## - bdms     1    0.2571 23.895 -1639.1
+## &lt;none&gt;                 23.638 -1638.7
+## - drv      1    0.6748 24.313 -1629.6
+## - ghw      1    0.7364 24.375 -1628.2
+## - gar      1    0.7729 24.411 -1627.4
+## - ffin     1    1.0271 24.665 -1621.8
+## - reg      1    1.4975 25.136 -1611.4
+## - sty      1    2.3385 25.977 -1593.5
+## - ca       1    2.6926 26.331 -1586.1
+## - fb       1    2.9434 26.582 -1580.9
+## - log.lot  1    5.7085 29.347 -1526.9
+## 
+## Step:  AIC=-1639.94
+## log.sell ~ bdms + fb + sty + drv + ffin + ghw + ca + gar + reg + 
+##     log.lot
+## 
+##           Df Sum of Sq    RSS     AIC
+## - bdms     1    0.2460 24.104 -1640.6
+## &lt;none&gt;                 23.858 -1639.9
+## - drv      1    0.6873 24.545 -1630.7
+## - gar      1    0.7294 24.587 -1629.8
+## - ghw      1    0.7376 24.595 -1629.6
+## - reg      1    1.5446 25.402 -1612.0
+## - ffin     1    1.5878 25.445 -1611.1
+## - sty      1    2.4365 26.294 -1593.1
+## - ca       1    2.7991 26.657 -1585.7
+## - fb       1    3.0171 26.875 -1581.2
+## - log.lot  1    6.1213 29.979 -1521.5
+## 
+## Step:  AIC=-1640.64
+## log.sell ~ fb + sty + drv + ffin + ghw + ca + gar + reg + log.lot
+## 
+##           Df Sum of Sq    RSS     AIC
+## &lt;none&gt;                 24.104 -1640.6
+## - drv      1    0.6003 24.704 -1633.5
+## - ghw      1    0.7559 24.859 -1630.1
+## - gar      1    0.8023 24.906 -1629.1
+## - reg      1    1.5752 25.679 -1612.4
+## - ffin     1    1.8086 25.912 -1607.4
+## - ca       1    2.7778 26.881 -1587.4
+## - sty      1    3.4365 27.540 -1574.2
+## - fb       1    3.6023 27.706 -1570.9
+## - log.lot  1    6.3271 30.430 -1519.7
+</code></pre>
+
+<pre><code>## 
+## Call:
+## lm(formula = log.sell ~ fb + sty + drv + ffin + ghw + ca + gar + 
+##     reg + log.lot, data = df1)
+## 
+## Coefficients:
+## (Intercept)           fb          sty          drv         ffin  
+##     7.71016      0.17849      0.10385      0.10317      0.12838  
+##         ghw           ca          gar          reg      log.lot  
+##     0.18134      0.16870      0.04863      0.13509      0.31547
+</code></pre></li>
+</ul></li>
+<li><p>(g) One may argue that some of the explanatory variables are <em>endogenous</em> and that there may be omitted variables. For example, the 
+<em>condition</em> of the house in terms of how it is maintained is not a variable (and difficult to measure) but will affect the house price. 
+It will also affect, or be reflected in, some of the other variables, such as whether the house has an air conditioning (which is mostly 
+in newer houses). If the condition of the house is missing, will the effect of air conditioning on the (log of the) sale price be over- 
+or underestimated? (For this question no computer calculations are required.)</p>
+
+<ul>
+<li><em>omitted factor: condition of the house</em></li>
+</ul>
+
+<p><strong>OverEstimation by OLS</strong></p>
+
+<ul>
+<li><strong>Good</strong> condition (maintenance) of the house (\Rightarrow) <strong>High</strong> (log of the) <em>sale Price</em> and <em>has</em> central <em>air conditioning</em>
+(<em>ca =1</em>)</li>
+<li><strong>Bad</strong> condition (maintenance) of the house (\Rightarrow) <strong>Low</strong> (log of the) <em>sale Price</em> and <em>does not have</em> <em>central air 
+conditioning</em> (<em>ca=0</em>)</li>
+</ul>
+
+<p>Hence, air conditioning will be <strong>endogenous</strong> and the effect of air conditioning on the (log of the) sale price will be *<em>over-estimated
+*</em> by the <em>OLS</em>.</p></li>
+<li><p>(h) Finally we analyze the <em>predictive ability of the model</em>. Consider again the model where the log of the <em>sale price</em> of the house is 
+the dependent variable and the explanatory variables are the log transformation of lot size, with all other explanatory variables in their<br/>
+original form (and no interaction effects). Estimate the parameters of the model using the first 400 observations. Make predictions on the 
+log of the price and calculate the MAE for the other 146 observations. How good is the predictive power of the model (relative to the 
+variability in the log of the price)?</p>
+
+<ul>
+<li>The results of the predictions of the model on the test data is shown below. The <em>predictive power of the model</em> can be expressed as 
+the <em>fraction of variability explained by the model</em> on the <em>test data set</em> given by</li>
+</ul>
+
+<p>\(  = \frac{SumSquareRegression}{SumSquareTotal} =\frac{\sum \limits_i{(\hat{y_i}-\bar{y})^2}}{\sum \limits_i(y_i-\bar{y})^2}  \), 
+where \( y=actual\;log(sell) \) and \( \hat{y}=predicted\;log(sell) \) on the <strong>test data</strong> which is \( 0.7976098 \).</p>
+
+<pre><code>  ## 
+  ## Call:
+  ## lm(formula = log.sell ~ bdms + fb + sty + drv + rec + ffin + 
+  ##     ghw + ca + gar + reg + log.lot, data = train)
+  ## 
+  ## Residuals:
+  ##      Min       1Q   Median       3Q      Max 
+  ## -0.66582 -0.13906  0.00796  0.14694  0.67596 
+  ## 
+  ## Coefficients:
+  ##             Estimate Std. Error t value Pr(&gt;|t|)    
+  ## (Intercept)  7.67309    0.29240  26.241  &lt; 2e-16 ***
+  ## bdms         0.03787    0.01744   2.172 0.030469 *  
+  ## fb           0.15238    0.02469   6.170 1.71e-09 ***
+  ## sty          0.08824    0.01819   4.850 1.79e-06 ***
+  ## drv          0.08641    0.03141   2.751 0.006216 ** 
+  ## rec          0.05465    0.03392   1.611 0.107975    
+  ## ffin         0.11471    0.02673   4.291 2.25e-05 ***
+  ## ghw          0.19870    0.05301   3.748 0.000205 ***
+  ## ca           0.17763    0.02724   6.521 2.17e-10 ***
+  ## gar          0.05301    0.01480   3.583 0.000383 ***
+  ## reg          0.15116    0.04215   3.586 0.000378 ***
+  ## log.lot      0.31378    0.03615   8.680  &lt; 2e-16 ***
+  ## ---
+  ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+  ## 
+  ## Residual standard error: 0.2238 on 388 degrees of freedom
+  ## Multiple R-squared:  0.6705,   Adjusted R-squared:  0.6611 
+  ## F-statistic: 71.77 on 11 and 388 DF,  p-value: &lt; 2.2e-16
+</code></pre>
+
+<p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-8"/> </p>
+
+<pre><code>  ## [1] &quot;RMSE = 0.172533306512951&quot;
+</code></pre>
+
+<pre><code>  ## [1] &quot;MAE = 0.127841568745135&quot;
+</code></pre>
+
+<pre><code>  ## [1] &quot;Percent variability explained on the test data = 0.797609756597715&quot;
+</code></pre></li>
+</ul>
+
+</body>
+
+</html>
+

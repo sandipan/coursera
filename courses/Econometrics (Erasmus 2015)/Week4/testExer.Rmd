@@ -1,0 +1,95 @@
+Test Exercise 4: Answers to the Questions
+========================================================
+
+* (a) Use OLS to estimate the parameters of the model \(logw = \beta_1 + \beta_2educ + \beta_3exper + \beta_4exper^2 + \beta_5smsa + \beta_6south + \epsilon\). Give an interpretation to the estimated \(\beta_2\) coefficient.
+
+  -----------------------------
+  + Depenedent Variable: **logw**
+
+  + Sample size: 3010
+
+  -----------------------------
+
+  ```{r echo=FALSE, warning=FALSE}
+  setwd('C:/courses/Coursera/Current/Econometrics/Week4')
+  df <- read.csv('TestExer4_Wage-round1.csv')
+  m <- summary(lm(logw ~ educ + exper + I(exper^2) + smsa + south, data=df))
+  m
+  #m$coef
+  #m$r.squared
+  ```
+
+  + Interpretation to the estimated \(\beta_2\) coefficient: 
+
+  + \(1\%\uparrow\) in \(educ \Rightarrow \approx 0.08\% \uparrow\) in \(logw\).
+
+
+* (b) OLS may be inconsistent in this case as educ and exper may be endogenous. Give a reason why this may be the case. Also indicate whether the estimate in part (a) is still useful.
+
+  + The missing variable *skill* (*expertise*) correlates (positively) with both *educ* and *exper* (experience) and it also affects the dependent variable *logw* (log wage). Hence, both of these variables may be *endogenous*. 
+  
+  + Since the both *educ* and *exper* variables may be *enodgenous*, *OLS estimates* from part (a) are will be biased and should not be trusted, will not be useful.
+
+* (c) Give a motivation why \(age\) and \(age^2\) can be used as instruments for \(exper\) and \(exper^2\).
+
+  + \(age\) is (positively) correlated to the variable *exper* 
+  + At the same time \(age\) don't have a (direct) impact on the dependent *logw* (does not affect wage).
+  + Hence, \(age\) can be used as an instrument for \(expr\) (and the \(2^{nd}\) order variable \(age^2\) can be used as an 
+instrument for the \(2^{nd}\) order \(expr^2\)).
+
+* (d) Run the first-stage regression for educ for the two-stage least squares estimation of the parameters in the
+model above when \(age\), \(age^2\), nearc, dadeduc, and momeduc are used as additional instruments. What do you
+conclude about the suitability of these instruments for schooling?
+
+  -----------------------------
+  + Depenedent Variable: **educ**
+
+  + Sample size: 3010
+
+  -----------------------------
+
+  ```{r echo=FALSE, warning=FALSE}
+    m <- lm(educ ~ age + I(age^2) + nearc + daded + momed, data=df)
+    summary(m)
+    educ.hat <- predict(m)
+    #m$coef
+    #m$r.squared
+  ```
+  As can be seen from the *OLS* results, all the instrument variables \(age\), \(age^2\), nearc, dadeduc, and momeduc affect the variable *educ* significantly at \(5%\) level of significance (with absolute value of the *t-statistic* > 2 and *p-value* < 0.05).
+
+* (e) Estimate the parameters of the model for log wage using two-stage least squares. Compare your result to the
+estimate in part (a).
+
+  + Using the estimated \(\hat{educ}\) for endogenus *educ* variable and the instruments *age* and \(age^2\) respectively for endogenus *expr* and \(expr^2\) variables, we get,
+  
+  ```{r echo=FALSE, warning=FALSE}
+    m <- summary(lm(logw ~ educ.hat + age + I(age^2) + smsa + south, data=df))
+    m
+    #m$coef
+    #m$r.squared
+  ```
+
+* (f) Perform the Sargan test for validity of the instruments. What is your conclusion?
+
+  + **RES 2SLS** = \(logw - (5.518060 + 0.053453educ + 0.125528age -0.001479age^2 + 0.158469smsa -0.193678south) \)
+  
+  -----------------------------------
+  + Depenedent Variable: **RES 2SLS**
+
+  + Sample size: 3010
+
+  -----------------------------------
+
+  ```{r echo=FALSE, warning=FALSE}
+    df$RES.2SLS <- df$logw - (5.518060 + 0.053453*df$educ + 0.125528*df$age - 0.001479*df$age^2 + 0.158469*df$smsa -0.193678*df$south)
+    m <- lm(RES.2SLS ~ age + I(age^2) + nearc + daded + momed, data=df)
+    summary(m)
+    #m$coef
+    #m$r.squared
+    #qchisq(0.95,df=2)
+  ```
+  
+  + **Sargan test statistic** = \(nR^2=3010 * 0.001261 = 3.79561\)
+  + \(m=6+2=8\) and \(k=6\) and \(\chi^{2}(8-6)\)=5.991465, hence we can't reject the *null hypothesis* \(H_0\) that the instruments are valid.
+  + Hence the instruments seem to be valid. 
+  
