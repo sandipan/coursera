@@ -1,0 +1,32 @@
+Puzzle - Coins
+
+A man comes back from a business trip with 100 coins to share with his two children. He places the coins on a table with 60 of the coins heads up, and the rest tails up. Then he turns out the light so that it is completely dark. He tells his son that he can do anything he likes with the coins on the table (flip them, rotate them, move them, etc.), but then he must split them into two groups. Then he tells his daughter that she may decide which of the two groups is hers, and which is her brother's. They will then turn the light back on, and each child may only keep the coins in his or her group that are heads up. (Dad gets to keep all the tails up coins.)
+
+When the light is off, the children cannot see the orientation of the coins, and it is impossible to distinguish the orientation by feel alone. The little boy is determined not to let his sister "win" by ending up with more coins than him, so he wants to split up the coins into groups that will *guarantee* that, no matter which group his sister picks, they will both end up with the same number of coins. What should the little boy do?
+
+
+Puzzle - Logicians
+
+You and two friends are having an argument about which of you is the smartest, so you ask a Grand Master Logician (Mike) to set up a completely fair test to reveal the smartest amongst you. Mike shows all three of you 5 hats - two red and three black. Then he turns off the lights in the room, puts a single hat on each person's head (except his own), and hides the remaining two hats. When Mike turns the lights back on, each of you is able to see the hats on the other two people's heads, but not the hat on your own head. The winner is the person who first guesses the correct color of his own hat. Each person can guess only once. What is your strategy for winning the contest?
+
+Puzzle - Nations
+
+The world has two types of nations: strong and weak. If a strong nation invades a weak nation, it will annex the weak nation (and thus become bigger) but it will itself become weak for some period of time. Strong nations never try to invade other strong nations. A weak nation can only be invaded by one strong nation -- if more than one strong nation chooses to invade the weak nation, the strong nations flip a coin to determine who gets to invade. Each nation wants to be as big as possible, but they do NOT want to be invaded; they would rather stay the same size than be annexed themselves. Assume that the leaders of all the nations are completely rational. There are five strong nations and one weak nation. Will the weak nation get invaded? Explain why or why not.
+
+Puzzle - Cards
+
+Two logicians, Mike and Eric, have a magic trick. Mike starts with a standard 52-card deck of cards. He hands the deck to a random skeptical audience member. (Let's call him Charles.) Mike asks Charles to inspect the deck, shuffle it however he'd like, and then choose any five cards. Mike takes those five cards, chooses one of them, and hands it back to Charles. This is the "mystery card."
+
+Mike then takes the remaining four cards and lays them out on the table in a special order. After looking just at the ranks and suits and order of the four cards on the table, Eric is able to announce the number and suit of Charles's hidden "mystery card". What algorithm are Mike and Eric using to "encode" the mystery card in the order of the other four cards? Note that the solution uses only the ranks and suits and order of the cards, not their orientation or anything like that; and it works no matter how devious Charles is about choosing his five cards.
+
+Puzzle - Prisoners
+
+One hundred prisoners are lined up, one behind the other, all facing forward. On each prisoner's head is a hat, either red or black. Each prisoner can see the hats of all the people in front of him, but he cannot see his own hat and he cannot see the hats of the people behind him. Starting with the prisoner in the back of the line (the one that can see all 99 other prisoners), the prison warden asks the prisoner what color hat he is wearing. Each prisoner can hear the guesses of all of the prisoners behind him. If a prisoner correctly guesses his hat color, he is set free. If he guesses wrong, he is executed.
+
+The prisoners are allowed to agree in advance on an algorithm to use, and you can assume that they all agree to follow the agreed-upon algorithm. The prisoners are NOT allowed to provide each other with any additional clues once the hats are placed on their heads. (For example, tapping shoulders or modulating their voices are not allowed.) The only information each prisoner has is the guesses for the prisoners behind them, and the hats on the prisoners in front of them. Design an algorithm for the prisoners to follow that saves the most prisoners from execution. What is the maximum number of prisoners you can guarantee to save? What is your algorithm?
+
+Puzzle - Safecracking
+
+There is a combination safe with four switches on the front, each with three positions (low, medium, and high). If the switches are set into an opening combination, then when you try to open the safe, it will open; otherwise, no dice. In general, there are 3^4 = 81 possible combinations. However, this is a cheap safe; and only two of the switches actually matter; if you set those two switches right, the safe will open. Unfortunately, you do not know which are the important switches or which positions work. What is the minimum number of combinations you must try that will *guarantee* to open the safe? What is your plan? 
+
+http://www.logic-puzzles.org
