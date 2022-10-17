@@ -1,0 +1,6 @@
+scatter SBP QUET
+scatter SBP SMK
+scatter QUET AGE
+scatter SBP AGE
+regress SBP SMK
+mean SBP
